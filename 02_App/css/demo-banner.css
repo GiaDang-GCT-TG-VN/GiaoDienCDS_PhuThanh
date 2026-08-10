@@ -47,16 +47,4 @@ body {
   padding-top: 52px;
 }
 
-/* Pulsing animation to draw attention */
-@keyframes pulse-border {
-  0%, 100% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-  50% {
-    box-shadow: 0 2px 16px rgba(220, 38, 38, 0.6);
-  }
-}
-
-#demo-banner {
-  animation: pulse-border 3s ease-in-out infinite;
-}
+/* Animation removed - kiosk runs all day, blinking causes eye strain */
