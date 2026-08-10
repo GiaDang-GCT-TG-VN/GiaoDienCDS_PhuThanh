@@ -1,6 +1,6 @@
 # SCHEMA — Cấu trúc dữ liệu tthc.json
 
-> **Phiên bản:** 1.4
+> **Phiên bản:** 1.5
 > **Ngày:** 10/08/2026
 > **Trạng thái:** Chờ duyệt
 
@@ -27,7 +27,7 @@ Schema được thiết kế theo **mô hình hai tầng** để:
 
 ```json
 {
-  "phien_ban": "1.4",
+  "phien_ban": "1.5",
   "ngay_cap_nhat_toan_bo": "2026-08-10",
   "thu_tuc": [
     { ... }
@@ -360,21 +360,40 @@ Schema được thiết kế theo **mô hình hai tầng** để:
 | `le_phi.mien_phi` | boolean \| null | ❌ | `true` nếu miễn phí, `false` nếu có phí, `null` nếu không xác định |
 | `le_phi.so_tien` | number \| null | ❌ | Số tiền cố định (nếu có) |
 | `le_phi.don_vi` | string \| null | ❌ | "đồng", "đồng/bản", v.v. |
+| `le_phi.gia_tham_khao` | number \| null | ❌ | Con số tạm hiểu, **CHƯA xác minh với xã** |
+| `le_phi.nguon_tham_khao` | string \| null | ❌ | Nguồn lấy giá tham khảo (URL, tên văn bản) |
+| `le_phi.can_xac_minh` | boolean | ❌ | Mặc định `false`. `true` = giá tham khảo cần xã xác nhận |
+
+#### 4.6.1. Quy tắc giá tham khảo (QUAN TRỌNG)
+
+> 🚫 **TUYỆT ĐỐI KHÔNG render `gia_tham_khao` cho người dân.**
+>
+> Trường này chỉ dùng nội bộ để chuẩn bị dữ liệu, chờ xã xác minh rồi mới chuyển sang `so_tien` + `mo_ta`.
+
+| Quy tắc | Mô tả |
+|---|---|
+| Giao diện CHỈ hiển thị `le_phi.mo_ta` | Không bao giờ hiển thị `gia_tham_khao` |
+| Khi `can_xac_minh = true` | `mo_ta` phải là `"Theo quy định"` hoặc nguyên văn từ nguồn, **KHÔNG được là con số** |
+| Validate | `gia_tham_khao` có giá trị mà `can_xac_minh = false` → **LỖI** |
 
 **Ví dụ các dạng lệ phí:**
 
 ```json
 // Miễn phí
-{ "mo_ta": "Miễn lệ phí", "mien_phi": true, "so_tien": null, "don_vi": null }
+{ "mo_ta": "Miễn lệ phí", "mien_phi": true, "so_tien": null, "don_vi": null,
+  "gia_tham_khao": null, "nguon_tham_khao": null, "can_xac_minh": false }
 
-// Có số tiền cố định
-{ "mo_ta": "5.000 đồng/bản", "mien_phi": false, "so_tien": 5000, "don_vi": "đồng/bản" }
+// Có số tiền cố định (đã xác minh)
+{ "mo_ta": "5.000 đồng/bản", "mien_phi": false, "so_tien": 5000, "don_vi": "đồng/bản",
+  "gia_tham_khao": null, "nguon_tham_khao": null, "can_xac_minh": false }
 
-// Nguồn không nêu số cụ thể
-{ "mo_ta": "Theo quy định", "mien_phi": null, "so_tien": null, "don_vi": null }
+// Nguồn không nêu số cụ thể, có giá tham khảo CHƯA xác minh
+{ "mo_ta": "Theo quy định", "mien_phi": null, "so_tien": null, "don_vi": null,
+  "gia_tham_khao": 25000, "nguon_tham_khao": "dichvucong.gov.vn - xã khác", "can_xac_minh": true }
 
 // Theo phần trăm
-{ "mo_ta": "0,5% giá trị tài sản", "mien_phi": false, "so_tien": null, "don_vi": null }
+{ "mo_ta": "0,5% giá trị tài sản", "mien_phi": false, "so_tien": null, "don_vi": null,
+  "gia_tham_khao": null, "nguon_tham_khao": null, "can_xac_minh": false }
 ```
 
 ### 4.7. Thời hạn giải quyết
@@ -539,6 +558,8 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | `truong_hop[].ten_truong_hop` | LỖI | Không được rỗng |
 | `truong_hop[].thanh_phan_ho_so` | LỖI | Phải là array, tối thiểu 1 phần tử |
 | `truong_hop[].le_phi.mo_ta` | LỖI | Không được rỗng |
+| `truong_hop[].le_phi.gia_tham_khao` | LỖI | Nếu có giá trị mà `can_xac_minh = false` → **LỖI** (phải đặt `can_xac_minh = true`) |
+| `truong_hop[].le_phi.can_xac_minh` | LỖI | Nếu `can_xac_minh = true` mà `mo_ta` chứa số tiền cụ thể → **LỖI** |
 | `truong_hop[].thoi_han.mo_ta` | LỖI | Không được rỗng |
 | `noi_nop` | LỖI | Không được rỗng |
 | `can_cu_phap_ly` | LỖI | Phải là array, tối thiểu 1 phần tử |
@@ -573,16 +594,15 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 
 ---
 
-## 8. THAY ĐỔI SO VỚI v1.3
+## 8. THAY ĐỔI SO VỚI v1.4
 
-| Điểm | v1.3 | v1.4 |
+| Điểm | v1.4 | v1.5 |
 |---|---|---|
-| Trường `trang_thai` | — | **MỚI**: `"hieu_luc"` \| `"het_hieu_luc"` \| `"thay_the"` |
-| Trường `ly_do_thay_doi` | — | **MỚI**: văn bản bãi bỏ/thay thế |
-| Trường `ma_thay_the` | — | **MỚI**: mã thủ tục thay thế |
-| Quy tắc hiển thị | — | Chỉ hiển thị `trang_thai = "hieu_luc"` |
-| Kiểm tra mã trùng | — | Hai bản ghi cùng `ma` (khác null) → LỖI |
-| `nguon` với `danh_muc` | Chung chung | Phải ghi **số hiệu** quyết định |
+| `le_phi.gia_tham_khao` | — | **MỚI**: số tiền tạm hiểu, chưa xác minh |
+| `le_phi.nguon_tham_khao` | — | **MỚI**: nguồn lấy giá tham khảo |
+| `le_phi.can_xac_minh` | — | **MỚI**: cờ đánh dấu cần xác minh |
+| Quy tắc hiển thị | — | **TUYỆT ĐỐI KHÔNG** render `gia_tham_khao` cho người dân |
+| Validate | — | `gia_tham_khao` có giá trị mà `can_xac_minh = false` → LỖI |
 
 ---
 
@@ -595,6 +615,7 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | v1.2 | 10/08/2026 | Mô hình hai tầng (`danh_muc`/`day_du`), thêm `nganh`, 294 thủ tục |
 | v1.3 | 10/08/2026 | Sửa tỉnh Đồng Tháp, `ma`/`link_dvc` cho phép null, `thuong_gap`, `tu_khoa`, chu kỳ cảnh báo riêng |
 | v1.4 | 10/08/2026 | Thêm `trang_thai`, `ly_do_thay_doi`, `ma_thay_the`, kiểm tra mã trùng, `nguon` phải có số hiệu |
+| v1.5 | 10/08/2026 | Thêm `gia_tham_khao`, `nguon_tham_khao`, `can_xac_minh` cho lệ phí; cấm render giá tham khảo |
 
 ---
 
