@@ -1,7 +1,7 @@
 # SCHEMA — Cấu trúc dữ liệu tthc.json
 
-> **Phiên bản:** 1.5
-> **Ngày:** 10/08/2026
+> **Phiên bản:** 1.7
+> **Ngày:** 11/08/2026
 > **Trạng thái:** Chờ duyệt
 
 ---
@@ -71,10 +71,45 @@ Schema được thiết kế theo **mô hình hai tầng** để:
 | Trường | Kiểu | Bắt buộc | Mô tả |
 |---|---|---|---|
 | `nganh[].ma` | string | ✅ | Slug ngành (12 ngành) |
-| `nganh[].ten` | string | ✅ | Tên hiển thị |
+| `nganh[].ten` | string | ✅ | Tên chính thức theo văn bản |
+| `nganh[].ten_than_thien` | string | ❌ | Tên thân thiện cho người dân nông thôn (do xã soạn). Ví dụ: "Hộ tịch & Giấy tờ" thay cho "Tư pháp" |
 | `nganh[].linh_vuc` | array | ✅ | Danh sách lĩnh vực con (tổng 62) |
 | `nganh[].linh_vuc[].ma` | string | ✅ | Slug lĩnh vực |
 | `nganh[].linh_vuc[].ten` | string | ✅ | Tên hiển thị |
+
+### 1.3. File cấu hình liên kết: cau-hinh-lien-ket.json
+
+> ⚠️ **Nguyên tắc:** KHÔNG nhúng URL vào từng thủ tục. Chỉ lưu `ma` trong tthc.json.
+> Giao diện ghép `{ma}` vào mẫu URL lúc render và lúc sinh QR.
+
+```json
+{
+  "mau_link_dvc": "https://vpcp.dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-nganh-doc.html?ma_thu_tuc={ma}",
+  "da_xac_minh_ky_thuat": true,
+  "ngay_kiem_thu": "2026-08-11",
+  "ma_da_thu": ["1.010041", "2.001263", "1.012783", "1.011441"],
+  "da_xac_nhan_boi_xa": false,
+  "nguoi_xac_nhan": null,
+  "ngay_xac_nhan": null,
+  "ghi_chu": "Mẫu đã kiểm chứng kỹ thuật. Chờ cán bộ xã xác nhận nội dung."
+}
+```
+
+| Trường | Kiểu | Bắt buộc | Mô tả |
+|---|---|---|---|
+| `mau_link_dvc` | string | ✅ | Mẫu URL với placeholder `{ma}` |
+| `da_xac_minh_ky_thuat` | boolean | ✅ | Đã kiểm tra URL hoạt động chưa |
+| `ngay_kiem_thu` | string (YYYY-MM-DD) | ✅ | Ngày kiểm thử kỹ thuật |
+| `ma_da_thu` | array of string | ✅ | Danh sách mã đã thử nghiệm |
+| `da_xac_nhan_boi_xa` | boolean | ✅ | Cán bộ xã đã xác nhận chưa |
+| `nguoi_xac_nhan` | string \| null | ❌ | Tên cán bộ xác nhận |
+| `ngay_xac_nhan` | string \| null | ❌ | Ngày xác nhận (YYYY-MM-DD) |
+| `ghi_chu` | string \| null | ❌ | Ghi chú bổ sung |
+
+**Cách giao diện sử dụng:**
+```javascript
+const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
+```
 
 ---
 
@@ -97,7 +132,6 @@ Schema được thiết kế theo **mô hình hai tầng** để:
 | `nganh` | ✅ | ✅ | |
 | `linh_vuc` | ✅ | ✅ | |
 | `trang_thai` | ✅ | ✅ | Mặc định `"hieu_luc"` |
-| `link_dvc` | ✅ (cho phép null) | ✅ (cho phép null) | Cảnh báo nếu null |
 | `nguon` | ✅ | ✅ | |
 | `ngay_cap_nhat` | ✅ | ✅ | Cảnh báo: 365 ngày (danh_muc), 90 ngày (day_du) |
 | `truong_hop` | ❌ (null) | ✅ | |
@@ -145,8 +179,6 @@ Schema được thiết kế theo **mô hình hai tầng** để:
   "can_cu_phap_ly": null,
   "can_cu_le_phi": null,
   "bieu_mau": null,
-
-  "link_dvc": "https://dichvucong.gov.vn/p/home/dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1.001108",
 
   "ghi_chu_can_bo": null,
 
@@ -257,8 +289,6 @@ Schema được thiết kế theo **mô hình hai tầng** để:
       "ngay_tai": "2026-08-10"
     }
   ],
-
-  "link_dvc": "https://dichvucong.gov.vn/p/home/dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1.001108",
 
   "ghi_chu_can_bo": null,
 
@@ -444,7 +474,8 @@ Schema được thiết kế theo **mô hình hai tầng** để:
 |---|---|---|---|
 | `noi_nop` | string \| null | ✅ | Nơi nộp hồ sơ. `null` nếu `danh_muc` |
 | `co_quan_thuc_hien` | string \| null | ❌ | Cơ quan thực hiện |
-| `link_dvc` | string \| null | ✅ tồn tại | URL Cổng dịch vụ công. `null` được phép nhưng sẽ cảnh báo |
+
+> ⚠️ **Trường `link_dvc` đã bỏ.** Thay bằng file cấu hình `cau-hinh-lien-ket.json` với mẫu URL dùng chung. Xem mục 1.3.
 
 ### 4.12. Tách bạch dữ liệu gốc và dữ liệu do xã tạo (E1)
 
@@ -543,7 +574,6 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | `nganh` | LỖI | Phải khớp với `nganh-linh-vuc.json` |
 | `linh_vuc` | LỖI | Phải khớp với ngành tương ứng |
 | `trang_thai` | LỖI | Phải là `"hieu_luc"` \| `"het_hieu_luc"` \| `"thay_the"` |
-| `link_dvc` | CẢNH BÁO | Nếu `null` → cảnh báo. Nếu có giá trị → phải bắt đầu bằng `https://` |
 | `nguon` | LỖI | Không được rỗng |
 | `nguon` (danh_muc) | CẢNH BÁO | Với `danh_muc`: nên chứa số hiệu quyết định (regex kiểm tra dạng `số .../QĐ-`) |
 | `ngay_cap_nhat` | LỖI / CẢNH BÁO | Định dạng YYYY-MM-DD. Cảnh báo hết hạn theo mức độ (xem 6.4) |
@@ -588,21 +618,28 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | G2 | Nguồn danh mục chỉ có: tên, mã, lĩnh vực | Theo thông tin anh cung cấp | — |
 | G3 | `le_phi.mo_ta = "Theo quy định"` là hợp lệ | Nguồn không phải lúc nào cũng nêu số cụ thể | — |
 | G4 | Phân loại 2 cấp: ngành → lĩnh vực | Theo cấu trúc danh mục TTHC chuẩn | — |
-| G5 | Thủ tục `danh_muc` vẫn hiển thị được với link_dvc | Người dân bấm link để xem chi tiết trên Cổng DVC | — |
+| G5 | Thủ tục `danh_muc` vẫn hiển thị được với link DVC | Giao diện ghép `ma` vào mẫu URL từ `cau-hinh-lien-ket.json` | — |
 | G6 | Xã Phú Thành thuộc tỉnh Đồng Tháp | Theo thông tin anh cung cấp | — |
 | G7 | Khoảng 30-40 thủ tục sẽ được nhập đầy đủ | Ước tính từ thủ tục thường gặp | Có thể nhiều hoặc ít hơn |
 
 ---
 
-## 8. THAY ĐỔI SO VỚI v1.4
+## 8. THAY ĐỔI SO VỚI PHIÊN BẢN TRƯỚC
 
-| Điểm | v1.4 | v1.5 |
+### v1.7 so với v1.6
+
+| Điểm | v1.6 | v1.7 |
 |---|---|---|
-| `le_phi.gia_tham_khao` | — | **MỚI**: số tiền tạm hiểu, chưa xác minh |
-| `le_phi.nguon_tham_khao` | — | **MỚI**: nguồn lấy giá tham khảo |
-| `le_phi.can_xac_minh` | — | **MỚI**: cờ đánh dấu cần xác minh |
-| Quy tắc hiển thị | — | **TUYỆT ĐỐI KHÔNG** render `gia_tham_khao` cho người dân |
-| Validate | — | `gia_tham_khao` có giá trị mà `can_xac_minh = false` → LỖI |
+| `nganh[].ten_than_thien` | — | **MỚI**: Tên thân thiện cho ngành, dùng ngôn ngữ gần gũi với người dân nông thôn miền Nam |
+| Ví dụ | "Tư pháp" | "Hộ tịch & Giấy tờ" |
+
+### v1.6 so với v1.5
+
+| Điểm | v1.5 | v1.6 |
+|---|---|---|
+| `link_dvc` | Trường trong mỗi thủ tục | **XÓA BỎ** |
+| `cau-hinh-lien-ket.json` | — | **MỚI**: file cấu hình mẫu URL dùng chung |
+| Nguyên tắc | — | KHÔNG nhúng URL vào từng thủ tục, ghép `{ma}` vào mẫu lúc render |
 
 ---
 
@@ -616,6 +653,8 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | v1.3 | 10/08/2026 | Sửa tỉnh Đồng Tháp, `ma`/`link_dvc` cho phép null, `thuong_gap`, `tu_khoa`, chu kỳ cảnh báo riêng |
 | v1.4 | 10/08/2026 | Thêm `trang_thai`, `ly_do_thay_doi`, `ma_thay_the`, kiểm tra mã trùng, `nguon` phải có số hiệu |
 | v1.5 | 10/08/2026 | Thêm `gia_tham_khao`, `nguon_tham_khao`, `can_xac_minh` cho lệ phí; cấm render giá tham khảo |
+| v1.6 | 11/08/2026 | Xóa `link_dvc`, thêm `cau-hinh-lien-ket.json` với mẫu URL dùng chung |
+| v1.7 | 11/08/2026 | Thêm `ten_than_thien` cho ngành - tên gần gũi với người dân nông thôn |
 
 ---
 

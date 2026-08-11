@@ -1,0 +1,15 @@
+{
+  "ten_xa": "",
+  "ten_day_du": "UBND xã Phú Thành",
+  "huyen": "Tam Nông",
+  "tinh": "Đồng Tháp",
+  "dia_chi": "",
+  "dien_thoai": "",
+  "email": "",
+  "gio_lam_viec": {
+    "sang": { "bat_dau": "07:00", "ket_thuc": "11:30" },
+    "chieu": { "bat_dau": "13:30", "ket_thuc": "17:00" }
+  },
+  "ngay_lam_viec": ["Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu"],
+  "ghi_chu": "Thông tin cần anh điền sau"
+}

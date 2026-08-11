@@ -1,0 +1,66 @@
+{
+  "phien_ban": "1.6",
+  "ngay_cap_nhat_toan_bo": "2026-08-11",
+  "thu_tuc": [
+    {
+      "muc_do_chi_tiet": "danh_muc",
+      "ma": "1.013313",
+      "ten": "Xác nhận nơi thường xuyên đậu, đỗ; sử dụng phương tiện vào mục đích để ở",
+      "nganh": "cu-tru",
+      "linh_vuc": "dang-ky-quan-ly-cu-tru",
+      "mo_ta": null,
+
+      "trang_thai": "hieu_luc",
+      "ly_do_thay_doi": null,
+      "ma_thay_the": null,
+
+      "thuong_gap": false,
+      "tu_khoa": [],
+
+      "truong_hop": null,
+      "noi_nop": null,
+      "co_quan_thuc_hien": null,
+      "can_cu_phap_ly": null,
+      "can_cu_le_phi": null,
+      "bieu_mau": null,
+
+      "ghi_chu_can_bo": null,
+
+      "nguon": "Quyết định số 253/QĐ-UBND-HC ngày 18/3/2025 của Chủ tịch UBND tỉnh Đồng Tháp",
+      "nguon_url": null,
+      "ngay_trich_xuat": "2026-08-11",
+      "ngay_cap_nhat": "2026-08-11",
+      "nguoi_cap_nhat": null
+    },
+    {
+      "muc_do_chi_tiet": "danh_muc",
+      "ma": "1.013314",
+      "ten": "Xác nhận về điều kiện diện tích bình quân nhà ở để đăng ký thường trú vào chỗ ở do thuê, mượn, ở nhờ; nhà ở, đất ở không có tranh chấp quyền sở hữu nhà ở, quyền sử dụng đất ở, không thuộc địa điểm không được đăng ký thường trú mới.",
+      "nganh": "cu-tru",
+      "linh_vuc": "dang-ky-quan-ly-cu-tru",
+      "mo_ta": null,
+
+      "trang_thai": "hieu_luc",
+      "ly_do_thay_doi": null,
+      "ma_thay_the": null,
+
+      "thuong_gap": false,
+      "tu_khoa": [],
+
+      "truong_hop": null,
+      "noi_nop": null,
+      "co_quan_thuc_hien": null,
+      "can_cu_phap_ly": null,
+      "can_cu_le_phi": null,
+      "bieu_mau": null,
+
+      "ghi_chu_can_bo": null,
+
+      "nguon": "Quyết định số 253/QĐ-UBND-HC ngày 18/3/2025 của Chủ tịch UBND tỉnh Đồng Tháp",
+      "nguon_url": null,
+      "ngay_trich_xuat": "2026-08-11",
+      "ngay_cap_nhat": "2026-08-11",
+      "nguoi_cap_nhat": null
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "phien_ban": "1.0",
+  "nganh": [
+    {
+      "ma": "cu-tru",
+      "ten": "Cư trú",
+      "linh_vuc": [
+        { "ma": "dang-ky-quan-ly-cu-tru", "ten": "Đăng ký, quản lý cư trú" }
+      ]
+    }
+  ]
+}

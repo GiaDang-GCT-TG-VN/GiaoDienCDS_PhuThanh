@@ -1,0 +1,68 @@
+/**
+ * Design Tokens - GiaoDienCDS_PhuThanh
+ * Thiết bị đích: Màn cảm ứng dọc 21-27 inch
+ * Người dùng: Đứng cách 60-100cm, phần lớn trên 50 tuổi
+ * Phong cách: Ấm áp, chính danh, thân thiện nông thôn miền Nam
+ */
+
+:root {
+  /* Bảng màu tông ấm */
+  --do-co: #B91C1C;      /* Đỏ cờ - dải đầu và nhấn chính */
+  --vang-son: #D97706;   /* Vàng đồng - viền và điểm nhấn */
+  --muc: #1E3A5F;        /* Xanh mực - chữ tiêu đề */
+  --kem: #FDF8F0;        /* Nền trang */
+  --giay: #FFFFFF;       /* Nền thẻ */
+  --chu: #1C1917;        /* Chữ chính - tương phản 15:1 trên --kem */
+  --chu-phu: #57534E;    /* Chữ phụ - tương phản 7.5:1 trên --kem */
+  --vien: #D6D3D1;       /* Đường phân cách */
+
+  /* Thang chữ - KHÔNG có chữ nhỏ hơn 18px */
+  --font-44: 44px;
+  --font-30: 30px;
+  --font-26: 26px;
+  --font-22: 22px;
+  --font-20: 20px;
+  --font-18: 18px;
+
+  /* Vùng chạm tối thiểu */
+  --touch-min: 60px;
+
+  /* Chiều cao phần tử */
+  --height-search: 88px;
+  --height-chuc-nang: 140px;
+  --height-thuong-gap: 200px;
+  --height-nganh: 120px;
+  --height-logo: 88px;
+}
+
+/* Chế độ tương phản cao */
+[data-contrast="high"] {
+  --do-co: #000000;
+  --vang-son: #000000;
+  --muc: #000000;
+  --kem: #FFFFFF;
+  --giay: #FFFFFF;
+  --chu: #000000;
+  --chu-phu: #000000;
+  --vien: #000000;
+}
+
+/* Tăng cỡ chữ mức 1 */
+[data-fontsize="1"] {
+  --font-44: 50px;
+  --font-30: 36px;
+  --font-26: 32px;
+  --font-22: 28px;
+  --font-20: 26px;
+  --font-18: 24px;
+}
+
+/* Tăng cỡ chữ mức 2 */
+[data-fontsize="2"] {
+  --font-44: 56px;
+  --font-30: 42px;
+  --font-26: 38px;
+  --font-22: 34px;
+  --font-20: 32px;
+  --font-18: 30px;
+}
