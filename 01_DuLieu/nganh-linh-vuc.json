@@ -1,12 +1,91 @@
 {
-  "phien_ban": "1.0",
+  "phien_ban": "1.1",
   "nganh": [
+    {
+      "ma": "tu-phap",
+      "ten": "Tư pháp",
+      "goi_y_noi_dung": "Hộ tịch, chứng thực, nuôi con nuôi",
+      "icon": "tu-phap",
+      "linh_vuc": []
+    },
+    {
+      "ma": "nong-nghiep-moi-truong",
+      "ten": "Nông nghiệp và Môi trường",
+      "goi_y_noi_dung": "Đất đai, cây trồng, nước sạch",
+      "icon": "nong-nghiep",
+      "linh_vuc": []
+    },
+    {
+      "ma": "xay-dung",
+      "ten": "Xây dựng",
+      "goi_y_noi_dung": "Giấy phép xây nhà, sửa nhà",
+      "icon": "xay-dung",
+      "linh_vuc": []
+    },
+    {
+      "ma": "tai-chinh",
+      "ten": "Tài chính",
+      "goi_y_noi_dung": "Thuế, lệ phí, hỗ trợ",
+      "icon": "tai-chinh",
+      "linh_vuc": []
+    },
+    {
+      "ma": "noi-vu",
+      "ten": "Nội vụ",
+      "goi_y_noi_dung": "Tổ chức, cán bộ, thi đua khen thưởng",
+      "icon": "noi-vu",
+      "linh_vuc": []
+    },
+    {
+      "ma": "y-te",
+      "ten": "Y tế",
+      "goi_y_noi_dung": "Khám chữa bệnh, an toàn thực phẩm",
+      "icon": "y-te",
+      "linh_vuc": []
+    },
+    {
+      "ma": "van-hoa-tt-dl",
+      "ten": "Văn hóa, Thể thao và Du lịch",
+      "goi_y_noi_dung": "Lễ hội, quảng cáo, thể thao",
+      "icon": "van-hoa",
+      "linh_vuc": []
+    },
+    {
+      "ma": "cong-thuong",
+      "ten": "Công Thương",
+      "goi_y_noi_dung": "Kinh doanh, buôn bán, điện",
+      "icon": "cong-thuong",
+      "linh_vuc": []
+    },
+    {
+      "ma": "quoc-phong",
+      "ten": "Quốc phòng",
+      "goi_y_noi_dung": "Nghĩa vụ quân sự, dân quân",
+      "icon": "quoc-phong",
+      "linh_vuc": []
+    },
+    {
+      "ma": "thanh-tra",
+      "ten": "Thanh tra",
+      "goi_y_noi_dung": "Khiếu nại, tố cáo, tiếp công dân",
+      "icon": "thanh-tra",
+      "linh_vuc": []
+    },
     {
       "ma": "cu-tru",
       "ten": "Cư trú",
+      "goi_y_noi_dung": "Thường trú, tạm trú, tạm vắng",
+      "icon": "cu-tru",
       "linh_vuc": [
         { "ma": "dang-ky-quan-ly-cu-tru", "ten": "Đăng ký, quản lý cư trú" }
       ]
+    },
+    {
+      "ma": "lien-thong-dien-tu",
+      "ten": "Liên thông điện tử",
+      "goi_y_noi_dung": "Đăng ký trực tuyến, một cửa",
+      "icon": "lien-thong",
+      "linh_vuc": []
     }
   ]
 }

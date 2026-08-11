@@ -2,332 +2,334 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=1920, initial-scale=1.0">
   <title>Tra cứu thủ tục hành chính - UBND xã Phú Thành</title>
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/main.css">
+  <script src="js/data.js"></script>
+  <script defer src="vendor/alpine.min.js"></script>
 </head>
-<body>
-  <!-- Dải cảnh báo bản dùng thử -->
-  <div class="demo-banner">
-    BẢN DÙNG THỬ — dữ liệu đang hoàn thiện, chưa dùng để tra cứu chính thức
-  </div>
+<body x-data="app()" x-init="init()">
 
-  <!-- Dải đầu - Header với logo và nhận diện -->
-  <header class="header" style="position: relative;">
-    <div class="header-identity">
-      <div class="header-logo">
-        <div class="header-logo-placeholder">Logo<br>xã</div>
-        <!-- Thay bằng: <img src="assets/logo-xa.png" alt="Logo UBND xã Phú Thành"> -->
-      </div>
-      <div class="header-text">
-        <div class="header-title">Tra cứu thủ tục hành chính</div>
-        <div class="header-subtitle">UBND xã Phú Thành · Huyện Tam Nông · Tỉnh Đồng Tháp</div>
-      </div>
-    </div>
-    <div class="header-controls">
-      <button class="btn-control" id="btn-fontsize" onclick="toggleFontSize()">A+</button>
-      <button class="btn-control" id="btn-contrast" onclick="toggleContrast()">Tương phản cao</button>
-    </div>
-  </header>
+  <!-- MÀN 1: Trang chính -->
+  <div x-show="currentScreen === 'home'" x-cloak>
 
-  <!-- 4 Ô chức năng -->
-  <section class="chuc-nang-section">
-    <div class="chuc-nang-card" onclick="scrollToNganh()">
-      <div class="chuc-nang-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </div>
-      <div class="chuc-nang-name">Tra cứu thủ tục</div>
+    <!-- Dải cảnh báo bản dùng thử -->
+    <div class="demo-banner">
+      BẢN DÙNG THỬ — dữ liệu đang hoàn thiện, chưa dùng để tra cứu chính thức
     </div>
-    <div class="chuc-nang-card disabled" onclick="alert('Chức năng đang được phát triển')">
-      <div class="chuc-nang-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <path d="M12 18v-6"/>
-          <path d="M9 15l3 3 3-3"/>
-        </svg>
-      </div>
-      <div class="chuc-nang-name">Nộp trực tuyến</div>
-    </div>
-    <div class="chuc-nang-card disabled" onclick="alert('Chức năng đang được phát triển')">
-      <div class="chuc-nang-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-        </svg>
-      </div>
-      <div class="chuc-nang-name">Đánh giá dịch vụ</div>
-    </div>
-    <div class="chuc-nang-card disabled" onclick="alert('Chức năng đang được phát triển')">
-      <div class="chuc-nang-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 6 12 12 16 14"/>
-        </svg>
-      </div>
-      <div class="chuc-nang-name">Giờ làm việc</div>
-    </div>
-  </section>
 
-  <!-- MÀN 1: Trang chủ -->
-  <div id="screen-home" class="screen active">
-    <div class="main-container">
-
-      <!-- Ô tìm kiếm -->
-      <section class="search-section">
-        <input type="text" class="search-box" placeholder="Bạn cần làm giấy tờ gì?" disabled>
-      </section>
-
-      <!-- Thống kê -->
-      <p class="stats"><strong>12</strong> ngành · <strong>294</strong> thủ tục</p>
-
-      <!-- Khối thường gặp - ẩn nếu chưa có dữ liệu -->
-      <section id="thuong-gap-section" class="thuong-gap-section" style="display: none;">
-        <h2 class="section-title">NGƯỜI DÂN THƯỜNG HỎI</h2>
-        <div id="thuong-gap-grid" class="thuong-gap-grid">
-          <!-- Rendered by JS -->
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-logo">
+          <div class="header-logo-placeholder">Huy hiệu<br>xã</div>
         </div>
-      </section>
+        <div class="header-text">
+          <div class="header-title">TRUNG TÂM PHỤC VỤ HÀNH CHÍNH CÔNG</div>
+          <div class="header-subtitle" x-text="thongTinXa.ten_day_du + ' · tỉnh ' + thongTinXa.tinh"></div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-photo">
+          <div class="header-photo-placeholder">Ảnh trụ sở xã<br>chờ xã cung cấp</div>
+        </div>
+        <div class="header-controls">
+          <button class="btn-control" :class="{ active: fontSizeLevel > 0 }" @click="toggleFontSize()">A+</button>
+          <button class="btn-control" :class="{ active: highContrast }" @click="toggleContrast()">Tương phản<br>cao</button>
+          <button class="btn-control disabled">Nền<br>tối</button>
+        </div>
+      </div>
+    </header>
 
-      <!-- Đường phân cách -->
-      <div class="divider">
-        <div class="divider-line"></div>
-        <span class="divider-text">hoặc chọn theo ngành</span>
-        <div class="divider-line"></div>
+    <!-- Dải hoa sen -->
+    <div class="lotus-divider">
+      <svg width="100%" height="12" preserveAspectRatio="none">
+        <defs>
+          <pattern id="sen-main" width="56" height="12" patternUnits="userSpaceOnUse">
+            <path d="M28 11c-7 0-12-3.5-12-8 6 0 11 3.5 12 8z" fill="none" stroke="var(--vang-son)" stroke-width="1.4"/>
+            <path d="M28 11c7 0 12-3.5 12-8-6 0-11 3.5-12 8z" fill="none" stroke="var(--vang-son)" stroke-width="1.4"/>
+            <path d="M28 11c-3-3.5-3-6.5 0-9 3 2.5 3 5.5 0 9z" fill="none" stroke="var(--vang-son)" stroke-width="1.4"/>
+            <path d="M0 11h16M40 11h16" stroke="var(--vang-son)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="12" fill="url(#sen-main)"/>
+      </svg>
+    </div>
+
+    <!-- Main content area - two columns -->
+    <div class="main-content">
+
+      <!-- Left column -->
+      <div class="left-column">
+
+        <!-- Search box -->
+        <div class="search-section">
+          <div class="search-box">
+            <svg class="search-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--muc)" stroke-width="2.6" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="M16.5 16.5 21 21"/>
+            </svg>
+            <span class="search-placeholder">Bạn cần làm giấy tờ gì?</span>
+          </div>
+        </div>
+
+        <!-- Người dân thường hỏi - only show if has data -->
+        <template x-if="thuongGap.length > 0">
+          <div class="thuong-gap-section">
+            <h2 class="section-title">
+              <svg class="section-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--vang-son)" stroke-width="2">
+                <path d="M12 21c-6 0-9.5-4-9.5-9.5 5 .5 9 4.5 9.5 9.5z"/>
+                <path d="M12 21c6 0 9.5-4 9.5-9.5-5 .5-9 4.5-9.5 9.5z"/>
+                <path d="M12 21c-3.5-4.5-3.5-9.5 0-14 3.5 4.5 3.5 9.5 0 14z"/>
+              </svg>
+              NGƯỜI DÂN THƯỜNG HỎI
+            </h2>
+            <div class="thuong-gap-grid">
+              <template x-for="tt in thuongGap" :key="tt.ma">
+                <div class="thuong-gap-card" @click="showThuTuc(tt)">
+                  <div class="thuong-gap-icon">
+                    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--vang-dam)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 3h9l5 5v13H5z"/>
+                      <path d="M14 3v5h5"/>
+                      <path d="M9 13h6"/>
+                      <path d="M12 10v6"/>
+                    </svg>
+                  </div>
+                  <div class="thuong-gap-name" x-text="tt.ten"></div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
+
       </div>
 
-      <!-- 12 ngành -->
-      <section id="nganh-section" class="nganh-section">
-        <div id="nganh-grid" class="nganh-grid">
-          <!-- Rendered by JS -->
+      <!-- Divider -->
+      <div class="column-divider"></div>
+
+      <!-- Right column - 12 ngành -->
+      <div class="right-column">
+        <h2 class="section-title">
+          <svg class="section-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--vang-son)" stroke-width="2">
+            <path d="M12 21c-6 0-9.5-4-9.5-9.5 5 .5 9 4.5 9.5 9.5z"/>
+            <path d="M12 21c6 0 9.5-4 9.5-9.5-5 .5-9 4.5-9.5 9.5z"/>
+            <path d="M12 21c-3.5-4.5-3.5-9.5 0-14 3.5 4.5 3.5 9.5 0 14z"/>
+          </svg>
+          HOẶC CHỌN THEO NGÀNH
+        </h2>
+        <div class="nganh-grid">
+          <template x-for="nganh in danhSachNganh" :key="nganh.ma">
+            <div class="nganh-card" :class="{ disabled: !nganhCoThuTuc(nganh.ma) }" @click="handleNganhClick(nganh)">
+              <div class="nganh-icon" x-html="svgIcons[nganh.icon] || defaultIcon"></div>
+              <div class="nganh-info">
+                <div class="nganh-name" x-text="nganh.ten"></div>
+                <div class="nganh-desc" x-text="nganh.goi_y_noi_dung"></div>
+                <div class="nganh-count" x-text="demThuTuc(nganh.ma) + ' thủ tục'"></div>
+              </div>
+            </div>
+          </template>
         </div>
-      </section>
+      </div>
 
     </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <div class="footer-item" x-show="thongTinXa.gio_lam_viec">
+          <span class="footer-label">Giờ làm việc</span>
+          <span x-text="formatGioLamViec()"></span>
+        </div>
+        <div class="footer-item" x-show="thongTinXa.dia_chi">
+          <span class="footer-label">Địa chỉ</span>
+          <span x-text="thongTinXa.dia_chi"></span>
+        </div>
+        <div class="footer-item" x-show="thongTinXa.dien_thoai">
+          <span class="footer-label">Điện thoại</span>
+          <span x-text="thongTinXa.dien_thoai"></span>
+        </div>
+      </div>
+      <!-- Decorative lotus -->
+      <svg class="footer-lotus" width="240" height="240" viewBox="0 0 200 200" fill="none" stroke="var(--vang-son)" stroke-width="3">
+        <path d="M100 170c-30-10-46-34-46-64 24 4 42 26 46 64z"/>
+        <path d="M100 170c30-10 46-34 46-64-24 4-42 26-46 64z"/>
+        <path d="M100 170c-16-22-16-58 0-84 16 26 16 62 0 84z"/>
+        <path d="M100 170c-40 0-64-16-76-38 26-6 56 8 76 38z"/>
+        <path d="M100 170c40 0 64-16 76-38-26-6-56 8-76 38z"/>
+      </svg>
+    </footer>
+
   </div>
 
   <!-- MÀN 2: Chi tiết ngành -->
-  <div id="screen-nganh" class="screen">
-    <div class="main-container">
-
-      <a class="back-btn" onclick="showHome()">← Quay lại danh sách ngành</a>
-
-      <div class="nganh-detail-header">
-        <h1 id="nganh-title" class="nganh-detail-title">Ngành: Cư trú</h1>
-        <p id="nganh-info" class="nganh-detail-info">Lĩnh vực: Đăng ký, quản lý cư trú · 2 thủ tục</p>
-      </div>
-
-      <div id="thu-tuc-list" class="thu-tuc-list">
-        <!-- Rendered by JS -->
-      </div>
-
-      <footer class="source-footer">
-        <p>Nguồn: Quyết định số 253/QĐ-UBND-HC ngày 18/3/2025 của Chủ tịch UBND tỉnh Đồng Tháp</p>
-        <p>Cập nhật: 2026-08-11</p>
-      </footer>
-
+  <div x-show="currentScreen === 'nganh'" x-cloak>
+    <div class="screen-header">
+      <button class="back-btn" @click="showHome()">← Quay lại</button>
+      <h1 class="screen-title" x-text="selectedNganh?.ten"></h1>
+      <p class="screen-subtitle" x-text="selectedNganh?.goi_y_noi_dung + ' · ' + demThuTuc(selectedNganh?.ma) + ' thủ tục'"></p>
     </div>
 
-    <!-- Nút cố định đáy - CHỈ hiện ở màn chi tiết -->
+    <div class="thu-tuc-list">
+      <template x-for="(tt, index) in getThuTucByNganh(selectedNganh?.ma)" :key="tt.ma">
+        <div class="thu-tuc-card">
+          <p class="thu-tuc-code">
+            <span x-text="index + 1"></span>. Mã: <strong x-text="tt.ma || 'Chưa có'"></strong>
+          </p>
+          <p class="thu-tuc-name" x-text="tt.ten"></p>
+          <a x-show="tt.ma" :href="getDvcLink(tt.ma)" target="_blank" rel="noopener" class="thu-tuc-link">
+            Xem trên Cổng DVC Quốc gia
+          </a>
+        </div>
+      </template>
+    </div>
+
+    <footer class="source-footer">
+      <p>Nguồn: Quyết định số 253/QĐ-UBND-HC ngày 18/3/2025 của Chủ tịch UBND tỉnh Đồng Tháp</p>
+      <p>Cập nhật: <span x-text="ngayCapNhat"></span></p>
+    </footer>
+
     <div class="fixed-bottom">
-      <button class="btn-home" onclick="showHome()">Về trang chính</button>
+      <button class="btn-home" @click="showHome()">Về trang chính</button>
     </div>
   </div>
 
   <script>
-    // Dữ liệu 12 ngành (sắp theo số thủ tục giảm dần)
-    const NGANH = [
-      { id: 'nong-nghiep-moi-truong', ten: 'Nông nghiệp và Môi trường', tenThanThien: 'Đất đai & Nông nghiệp', icon: 'nong-nghiep', soTT: 65, sanSang: false },
-      { id: 'tu-phap', ten: 'Tư pháp', tenThanThien: 'Hộ tịch & Giấy tờ', icon: 'tu-phap', soTT: 62, sanSang: false },
-      { id: 'xay-dung', ten: 'Xây dựng', tenThanThien: 'Xây nhà & Sửa nhà', icon: 'xay-dung', soTT: 45, sanSang: false },
-      { id: 'tai-chinh', ten: 'Tài chính', tenThanThien: 'Thuế & Lệ phí', icon: 'tai-chinh', soTT: 37, sanSang: false },
-      { id: 'noi-vu', ten: 'Nội vụ', tenThanThien: 'Tổ chức & Nhân sự', icon: 'noi-vu', soTT: 30, sanSang: false },
-      { id: 'y-te', ten: 'Y tế', tenThanThien: 'Sức khỏe & Y tế', icon: 'y-te', soTT: 17, sanSang: false },
-      { id: 'van-hoa-tt-dl', ten: 'Văn hóa, Thể thao và Du lịch', tenThanThien: 'Văn hóa & Thể thao', icon: 'van-hoa', soTT: 14, sanSang: false },
-      { id: 'cong-thuong', ten: 'Công Thương', tenThanThien: 'Kinh doanh & Buôn bán', icon: 'cong-thuong', soTT: 12, sanSang: false },
-      { id: 'quoc-phong', ten: 'Quốc phòng', tenThanThien: 'Nghĩa vụ quân sự', icon: 'quoc-phong', soTT: 4, sanSang: false },
-      { id: 'thanh-tra', ten: 'Thanh tra', tenThanThien: 'Khiếu nại & Tố cáo', icon: 'thanh-tra', soTT: 4, sanSang: false },
-      { id: 'cu-tru', ten: 'Cư trú', tenThanThien: 'Đăng ký cư trú', icon: 'cu-tru', soTT: 2, sanSang: true },
-      { id: 'lien-thong-dien-tu', ten: 'Liên thông điện tử', tenThanThien: 'Đăng ký trực tuyến', icon: 'lien-thong', soTT: 2, sanSang: false }
-    ];
+    function app() {
+      return {
+        // State
+        currentScreen: 'home',
+        fontSizeLevel: 0,
+        highContrast: false,
+        selectedNganh: null,
 
-    // Dữ liệu thủ tục Cư trú
-    const THU_TUC_CU_TRU = [
-      {
-        ma: '1.013313',
-        ten: 'Xác nhận nơi thường xuyên đậu, đỗ; sử dụng phương tiện vào mục đích để ở'
-      },
-      {
-        ma: '1.013314',
-        ten: 'Xác nhận về điều kiện diện tích bình quân nhà ở để đăng ký thường trú vào chỗ ở do thuê, mượn, ở nhờ; nhà ở, đất ở không có tranh chấp quyền sở hữu nhà ở, quyền sử dụng đất ở, không thuộc địa điểm không được đăng ký thường trú mới.'
-      }
-    ];
+        // Data
+        thuTuc: [],
+        danhSachNganh: [],
+        thongTinXa: {},
+        cauHinhLienKet: {},
+        ngayCapNhat: '',
+        svgIcons: {},
 
-    // URL template
-    const DVC_URL_TEMPLATE = 'https://vpcp.dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-nganh-doc.html?ma_thu_tuc={ma}';
+        defaultIcon: '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--vang-dam)" stroke-width="2.4"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>',
 
-    // Cache SVG icons
-    const svgCache = {};
+        // Computed
+        get thuongGap() {
+          return this.thuTuc.filter(t => t.thuong_gap === true && t.trang_thai === 'hieu_luc');
+        },
 
-    // Load SVG icon
-    async function loadSvgIcon(iconName) {
-      if (svgCache[iconName]) {
-        return svgCache[iconName];
-      }
-      try {
-        const response = await fetch(`assets/icons/${iconName}.svg`);
-        if (response.ok) {
-          const svg = await response.text();
-          svgCache[iconName] = svg;
-          return svg;
+        // Methods
+        init() {
+          this.restoreSettings();
+          this.loadData();
+        },
+
+        loadData() {
+          // Load from embedded data (generated by build-data.js)
+          const tthcData = window.DATA_TTHC || { thu_tuc: [] };
+          const nganhData = window.DATA_NGANH || { nganh: [] };
+
+          this.thuTuc = tthcData.thu_tuc || [];
+          this.ngayCapNhat = tthcData.ngay_cap_nhat_toan_bo || '';
+          this.danhSachNganh = nganhData.nganh || [];
+          this.thongTinXa = window.DATA_XA || {};
+          this.cauHinhLienKet = window.DATA_LIEN_KET || {};
+          this.svgIcons = window.DATA_ICONS || {};
+
+          // Sort nganh by procedure count descending
+          this.danhSachNganh.sort((a, b) => this.demThuTuc(b.ma) - this.demThuTuc(a.ma));
+        },
+
+        demThuTuc(maNganh) {
+          if (!maNganh) return 0;
+          return this.thuTuc.filter(t => t.nganh === maNganh && t.trang_thai === 'hieu_luc').length;
+        },
+
+        nganhCoThuTuc(maNganh) {
+          return this.demThuTuc(maNganh) > 0;
+        },
+
+        getThuTucByNganh(maNganh) {
+          if (!maNganh) return [];
+          return this.thuTuc.filter(t => t.nganh === maNganh && t.trang_thai === 'hieu_luc');
+        },
+
+        getDvcLink(ma) {
+          if (!ma || !this.cauHinhLienKet.mau_link_dvc) return '#';
+          return this.cauHinhLienKet.mau_link_dvc.replace('{ma}', ma);
+        },
+
+        formatGioLamViec() {
+          const g = this.thongTinXa.gio_lam_viec;
+          if (!g) return '';
+          const ngay = this.thongTinXa.ngay_lam_viec;
+          const ngayStr = ngay ? ngay[0] + ' đến ' + ngay[ngay.length - 1] : '';
+          return `Sáng ${g.sang.bat_dau} - ${g.sang.ket_thuc} · Chiều ${g.chieu.bat_dau} - ${g.chieu.ket_thuc} · ${ngayStr}`;
+        },
+
+        handleNganhClick(nganh) {
+          if (this.nganhCoThuTuc(nganh.ma)) {
+            this.selectedNganh = nganh;
+            this.currentScreen = 'nganh';
+            window.scrollTo(0, 0);
+          } else {
+            alert('Ngành này đang được cập nhật dữ liệu');
+          }
+        },
+
+        showThuTuc(tt) {
+          // For now, find the nganh and go to that screen
+          const nganh = this.danhSachNganh.find(n => n.ma === tt.nganh);
+          if (nganh) {
+            this.handleNganhClick(nganh);
+          }
+        },
+
+        showHome() {
+          this.currentScreen = 'home';
+          this.selectedNganh = null;
+          window.scrollTo(0, 0);
+        },
+
+        toggleFontSize() {
+          this.fontSizeLevel = (this.fontSizeLevel + 1) % 3;
+          if (this.fontSizeLevel === 0) {
+            document.documentElement.removeAttribute('data-fontsize');
+          } else {
+            document.documentElement.setAttribute('data-fontsize', this.fontSizeLevel);
+          }
+          sessionStorage.setItem('fontSizeLevel', this.fontSizeLevel);
+        },
+
+        toggleContrast() {
+          this.highContrast = !this.highContrast;
+          if (this.highContrast) {
+            document.documentElement.setAttribute('data-contrast', 'high');
+          } else {
+            document.documentElement.removeAttribute('data-contrast');
+          }
+          sessionStorage.setItem('highContrast', this.highContrast);
+        },
+
+        restoreSettings() {
+          const savedFontSize = sessionStorage.getItem('fontSizeLevel');
+          const savedContrast = sessionStorage.getItem('highContrast');
+
+          if (savedFontSize) {
+            this.fontSizeLevel = parseInt(savedFontSize);
+            if (this.fontSizeLevel > 0) {
+              document.documentElement.setAttribute('data-fontsize', this.fontSizeLevel);
+            }
+          }
+
+          if (savedContrast === 'true') {
+            this.highContrast = true;
+            document.documentElement.setAttribute('data-contrast', 'high');
+          }
         }
-      } catch (e) {
-        console.warn(`Could not load icon: ${iconName}`);
-      }
-      // Fallback: simple placeholder
-      return `<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`;
+      };
     }
-
-    // Trạng thái
-    let fontSizeLevel = 0; // 0, 1, 2
-    let highContrast = false;
-
-    // Render lưới ngành
-    async function renderNganhGrid() {
-      const grid = document.getElementById('nganh-grid');
-
-      // Load all icons first
-      const iconPromises = NGANH.map(n => loadSvgIcon(n.icon));
-      const icons = await Promise.all(iconPromises);
-
-      grid.innerHTML = NGANH.map((nganh, index) => {
-        const badgeHtml = nganh.sanSang
-          ? '<span class="nganh-badge">Sẵn sàng</span>'
-          : '';
-        const disabledClass = nganh.sanSang ? '' : 'disabled';
-
-        return `
-          <div class="nganh-card ${disabledClass}" onclick="handleNganhClick('${nganh.id}', ${nganh.sanSang})">
-            <div class="nganh-icon">${icons[index]}</div>
-            <div class="nganh-info">
-              <div class="nganh-name-friendly">${nganh.tenThanThien}</div>
-              <div class="nganh-name">${nganh.ten}</div>
-              <div class="nganh-count">${nganh.soTT} thủ tục</div>
-            </div>
-            ${badgeHtml}
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Scroll đến phần ngành
-    function scrollToNganh() {
-      const section = document.getElementById('nganh-section');
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    // Xử lý click ngành
-    function handleNganhClick(nganhId, sanSang) {
-      if (sanSang) {
-        showNganh(nganhId);
-      } else {
-        alert('Ngành này đang được cập nhật dữ liệu');
-      }
-    }
-
-    // Hiện màn chi tiết ngành
-    function showNganh(nganhId) {
-      document.getElementById('screen-home').classList.remove('active');
-      document.getElementById('screen-nganh').classList.add('active');
-      window.scrollTo(0, 0);
-
-      if (nganhId === 'cu-tru') {
-        const nganh = NGANH.find(n => n.id === 'cu-tru');
-        document.getElementById('nganh-title').textContent = nganh.tenThanThien;
-        document.getElementById('nganh-info').textContent = `${nganh.ten} · ${nganh.soTT} thủ tục`;
-        renderThuTucList();
-      }
-    }
-
-    // Quay lại trang chủ
-    function showHome() {
-      document.getElementById('screen-nganh').classList.remove('active');
-      document.getElementById('screen-home').classList.add('active');
-      window.scrollTo(0, 0);
-    }
-
-    // Render danh sách thủ tục
-    function renderThuTucList() {
-      const list = document.getElementById('thu-tuc-list');
-      list.innerHTML = THU_TUC_CU_TRU.map((tt, index) => {
-        const dvcLink = DVC_URL_TEMPLATE.replace('{ma}', tt.ma);
-        return `
-          <div class="thu-tuc-card">
-            <p class="thu-tuc-code">${index + 1}. Mã: <strong>${tt.ma}</strong></p>
-            <p class="thu-tuc-name">${tt.ten}</p>
-            <a href="${dvcLink}" target="_blank" rel="noopener" class="thu-tuc-link">
-              Xem trên Cổng DVC Quốc gia
-            </a>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Toggle cỡ chữ
-    function toggleFontSize() {
-      fontSizeLevel = (fontSizeLevel + 1) % 3;
-      if (fontSizeLevel === 0) {
-        document.documentElement.removeAttribute('data-fontsize');
-        document.getElementById('btn-fontsize').classList.remove('active');
-      } else {
-        document.documentElement.setAttribute('data-fontsize', fontSizeLevel);
-        document.getElementById('btn-fontsize').classList.add('active');
-      }
-      sessionStorage.setItem('fontSizeLevel', fontSizeLevel);
-    }
-
-    // Toggle tương phản cao
-    function toggleContrast() {
-      highContrast = !highContrast;
-      if (highContrast) {
-        document.documentElement.setAttribute('data-contrast', 'high');
-        document.getElementById('btn-contrast').classList.add('active');
-      } else {
-        document.documentElement.removeAttribute('data-contrast');
-        document.getElementById('btn-contrast').classList.remove('active');
-      }
-      sessionStorage.setItem('highContrast', highContrast);
-    }
-
-    // Khôi phục cài đặt từ session
-    function restoreSettings() {
-      const savedFontSize = sessionStorage.getItem('fontSizeLevel');
-      const savedContrast = sessionStorage.getItem('highContrast');
-
-      if (savedFontSize) {
-        fontSizeLevel = parseInt(savedFontSize);
-        if (fontSizeLevel > 0) {
-          document.documentElement.setAttribute('data-fontsize', fontSizeLevel);
-          document.getElementById('btn-fontsize').classList.add('active');
-        }
-      }
-
-      if (savedContrast === 'true') {
-        highContrast = true;
-        document.documentElement.setAttribute('data-contrast', 'high');
-        document.getElementById('btn-contrast').classList.add('active');
-      }
-    }
-
-    // Khởi tạo
-    document.addEventListener('DOMContentLoaded', () => {
-      renderNganhGrid();
-      restoreSettings();
-    });
   </script>
+
 </body>
 </html>

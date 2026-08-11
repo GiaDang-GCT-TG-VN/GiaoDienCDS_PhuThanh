@@ -1,10 +1,9 @@
 /**
  * Main Styles - GiaoDienCDS_PhuThanh
- * Thiết kế cho màn cảm ứng dọc, người dùng trên 50 tuổi
+ * Layout: 1920x1080 ngang, hai cột
+ * Thiết kế cho màn cảm ứng, người dùng trên 50 tuổi
  * Phong cách: Ấm áp, thân thiện nông thôn miền Nam
  */
-
-@import url('tokens.css');
 
 /* Reset */
 *, *::before, *::after {
@@ -13,10 +12,10 @@
   padding: 0;
 }
 
-/* Font - dùng system font hỗ trợ tiếng Việt tốt */
+/* Font - system font for Vietnamese support */
 html {
-  font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: var(--font-22);
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-size: var(--font-20);
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
 }
@@ -24,102 +23,137 @@ html {
 body {
   background: var(--kem);
   color: var(--chu);
-  min-height: 100vh;
-  overflow-x: hidden;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Dải cảnh báo demo */
-.demo-banner {
-  background: var(--vang-son);
-  color: var(--giay);
-  text-align: center;
-  padding: 16px 20px;
-  font-size: var(--font-18);
-  font-weight: 600;
+/* Hide Alpine.js elements until ready */
+[x-cloak] {
+  display: none !important;
 }
 
 /* ========================================
-   HEADER - Dải đầu với logo và nhận diện
+   DEMO BANNER
    ======================================== */
-.header {
-  background: var(--do-co);
+.demo-banner {
+  height: 56px;
+  flex: none;
+  background: var(--do-dam);
   color: var(--giay);
-  padding: 20px 24px;
-}
-
-.header-identity {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 16px;
-}
-
-.header-logo {
-  width: var(--height-logo);
-  height: var(--height-logo);
-  background: var(--giay);
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  font-size: var(--font-20);
+  font-weight: 700;
 }
 
-.header-logo img {
-  max-width: 80%;
-  max-height: 80%;
-  object-fit: contain;
+/* ========================================
+   HEADER
+   ======================================== */
+.header {
+  height: 150px;
+  flex: none;
+  background: var(--giay);
+  border-bottom: 3px solid var(--vang-son);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.header-logo {
+  width: 88px;
+  height: 88px;
+  flex: none;
+  border: 2px solid var(--chu-phu);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-logo-placeholder {
   font-size: var(--font-18);
   color: var(--chu-phu);
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 .header-text {
   flex: 1;
+  min-width: 0;
 }
 
 .header-title {
-  font-size: var(--font-30);
+  font-size: 36px;
   font-weight: 700;
-  margin-bottom: 4px;
+  color: var(--muc);
+  line-height: 1.2;
 }
 
 .header-subtitle {
-  font-size: var(--font-20);
-  opacity: 0.95;
+  font-size: var(--font-22);
+  color: var(--chu);
+  margin-top: 8px;
 }
 
-/* Nút điều khiển góc phải */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-photo {
+  width: 330px;
+  height: 110px;
+  flex: none;
+  border: 2px dashed var(--chu-phu);
+  background: var(--kem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-photo-placeholder {
+  font-size: var(--font-18);
+  color: var(--chu-phu);
+  text-align: center;
+  line-height: 1.3;
+  padding: 0 12px;
+}
+
 .header-controls {
   display: flex;
-  gap: 12px;
-  position: absolute;
-  top: 20px;
-  right: 24px;
+  gap: 14px;
 }
 
 .btn-control {
-  min-width: var(--touch-min);
-  min-height: var(--touch-min);
-  padding: 12px 20px;
+  min-width: 80px;
+  height: 80px;
+  padding: 0 16px;
+  border: 2px solid var(--muc);
   background: var(--giay);
-  color: var(--do-co);
-  border: none;
-  font-size: var(--font-18);
+  color: var(--muc);
+  font-size: 19px;
   font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
 }
 
 .btn-control:active {
-  opacity: 0.8;
+  background: var(--kem);
 }
 
 .btn-control.active {
@@ -127,128 +161,131 @@ body {
   color: var(--giay);
 }
 
-/* ========================================
-   4 Ô CHỨC NĂNG
-   ======================================== */
-.chuc-nang-section {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  padding: 20px 24px;
-  background: var(--do-co);
-}
-
-.chuc-nang-card {
-  height: var(--height-chuc-nang);
-  background: var(--giay);
-  border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--chu);
-  transition: transform 0.1s;
-}
-
-.chuc-nang-card:active {
-  transform: scale(0.98);
-  background: var(--kem);
-}
-
-.chuc-nang-card.disabled {
-  opacity: 0.6;
+.btn-control.disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-.chuc-nang-icon {
-  width: 56px;
-  height: 56px;
-  color: var(--do-co);
-}
-
-.chuc-nang-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.chuc-nang-name {
-  font-size: var(--font-20);
-  font-weight: 600;
-  text-align: center;
-  color: var(--muc);
-}
-
 /* ========================================
-   CONTAINER CHÍNH
+   LOTUS DIVIDER
    ======================================== */
-.main-container {
-  padding: 24px;
-  max-width: 900px;
-  margin: 0 auto;
+.lotus-divider {
+  height: 12px;
+  flex: none;
+  background: var(--giay);
+  border-bottom: 2px solid var(--vien-sen);
 }
 
 /* ========================================
-   Ô TÌM KIẾM
+   MAIN CONTENT - TWO COLUMNS
+   ======================================== */
+.main-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 32px;
+  padding: 20px 40px;
+}
+
+.left-column {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.column-divider {
+  width: 2px;
+  flex: none;
+  background: var(--vien-the);
+}
+
+.right-column {
+  flex: 1.35;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ========================================
+   SEARCH BOX
    ======================================== */
 .search-section {
-  margin-bottom: 32px;
+  flex: none;
 }
 
 .search-box {
-  height: var(--height-search);
-  width: 100%;
-  padding: 0 24px;
-  font-size: var(--font-26);
-  border: 3px solid var(--vien);
-  border-radius: 12px;
+  height: 96px;
   background: var(--giay);
-  color: var(--chu);
-  outline: none;
+  border: 3px solid var(--muc);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 26px;
+  cursor: pointer;
 }
 
-.search-box:focus {
-  border-color: var(--do-co);
+.search-icon {
+  flex: none;
 }
 
-.search-box::placeholder {
+.search-placeholder {
+  font-size: var(--font-26);
   color: var(--chu-phu);
 }
 
 /* ========================================
-   KHỐI THƯỜNG GẶP
+   SECTION TITLE
    ======================================== */
-.thuong-gap-section {
-  margin-bottom: 32px;
-}
-
 .section-title {
-  font-size: var(--font-26);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--font-22);
   font-weight: 700;
   color: var(--muc);
-  margin-bottom: 20px;
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--vang-son);
+}
+
+.section-icon {
+  flex: none;
+}
+
+/* ========================================
+   THUONG GAP SECTION
+   ======================================== */
+.thuong-gap-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .thuong-gap-grid {
+  flex: 1;
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
   gap: 16px;
 }
 
 .thuong-gap-card {
-  height: var(--height-thuong-gap);
   background: var(--giay);
-  border: 2px solid var(--vien);
-  border-radius: 12px;
-  padding: 20px;
+  border: 2px solid var(--vien-the);
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: 16px;
+  padding: 0 18px;
+  text-align: center;
   cursor: pointer;
-  min-height: var(--touch-min);
 }
 
 .thuong-gap-card:active {
@@ -256,65 +293,37 @@ body {
   background: var(--kem);
 }
 
+.thuong-gap-icon {
+  flex: none;
+}
+
 .thuong-gap-name {
-  font-size: var(--font-22);
+  font-size: 24px;
   font-weight: 600;
   color: var(--chu);
-  line-height: 1.4;
-}
-
-.thuong-gap-code {
-  font-size: var(--font-18);
-  color: var(--chu-phu);
-  margin-top: 12px;
+  line-height: 1.3;
 }
 
 /* ========================================
-   ĐƯỜNG PHÂN CÁCH
+   NGANH GRID
    ======================================== */
-.divider {
-  display: flex;
-  align-items: center;
-  margin: 32px 0;
-}
-
-.divider-line {
-  flex: 1;
-  height: 2px;
-  background: var(--vien);
-}
-
-.divider-text {
-  padding: 0 20px;
-  font-size: var(--font-18);
-  color: var(--chu-phu);
-  white-space: nowrap;
-}
-
-/* ========================================
-   LƯỚI 12 NGÀNH
-   ======================================== */
-.nganh-section {
-  margin-bottom: 100px; /* Chừa chỗ cho nút cố định */
-}
-
 .nganh-grid {
+  flex: 1;
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 10px;
 }
 
 .nganh-card {
-  height: var(--height-nganh);
   background: var(--giay);
-  border: 2px solid var(--vien);
-  border-radius: 12px;
-  padding: 16px 20px;
+  border: 2px solid var(--vien-the);
   display: flex;
   align-items: center;
   gap: 16px;
+  padding: 0 16px;
   cursor: pointer;
-  min-height: var(--touch-min);
 }
 
 .nganh-card:active {
@@ -324,106 +333,95 @@ body {
 
 .nganh-card.disabled {
   opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .nganh-icon {
-  width: 56px;
-  height: 56px;
-  flex-shrink: 0;
-  color: var(--vang-son);
+  width: 48px;
+  height: 48px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vang-dam);
 }
 
 .nganh-icon svg {
-  width: 100%;
-  height: 100%;
+  width: 48px;
+  height: 48px;
 }
 
 .nganh-info {
   flex: 1;
+  min-width: 0;
 }
 
 .nganh-name {
-  font-size: var(--font-22);
-  font-weight: 600;
+  font-size: var(--font-20);
+  font-weight: 700;
   color: var(--chu);
-  margin-bottom: 4px;
+  line-height: 1.15;
 }
 
-.nganh-name-friendly {
+.nganh-desc {
   font-size: var(--font-18);
   color: var(--chu-phu);
-  margin-bottom: 4px;
+  margin-top: 2px;
+  line-height: 1.2;
 }
 
 .nganh-count {
   font-size: var(--font-18);
-  color: var(--chu-phu);
-}
-
-.nganh-badge {
-  background: var(--vang-son);
-  color: var(--giay);
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: var(--font-18);
-  font-weight: 600;
+  color: var(--muc);
+  margin-top: 2px;
+  line-height: 1.2;
 }
 
 /* ========================================
-   THỐNG KÊ
+   MAIN FOOTER
    ======================================== */
-.stats {
-  text-align: center;
-  font-size: var(--font-18);
-  color: var(--chu-phu);
-  margin-bottom: 24px;
-}
-
-.stats strong {
-  color: var(--do-co);
-}
-
-/* ========================================
-   NÚT CỐ ĐỊNH ĐÁY
-   ======================================== */
-.fixed-bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.main-footer {
+  height: 104px;
+  flex: none;
+  position: relative;
+  overflow: hidden;
+  border-top: 3px solid var(--vang-son);
   background: var(--giay);
-  border-top: 2px solid var(--vien);
-  padding: 16px 24px;
+  padding: 0 40px;
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
-.btn-home {
-  min-width: 200px;
-  min-height: var(--touch-min);
-  padding: 16px 32px;
-  background: var(--do-co);
-  color: var(--giay);
-  border: none;
-  border-radius: 8px;
-  font-size: var(--font-22);
-  font-weight: 600;
-  cursor: pointer;
+.footer-content {
+  display: flex;
+  gap: 56px;
 }
 
-.btn-home:active {
-  opacity: 0.8;
+.footer-item {
+  font-size: var(--font-20);
+  color: var(--chu);
+}
+
+.footer-label {
+  color: var(--chu-phu);
+  margin-right: 8px;
+}
+
+.footer-lotus {
+  position: absolute;
+  right: -20px;
+  bottom: -40px;
+  opacity: 0.05;
+  pointer-events: none;
 }
 
 /* ========================================
-   MÀN HÌNH CHI TIẾT NGÀNH
+   SCREEN 2 - NGANH DETAIL
    ======================================== */
-.screen {
-  display: none;
-}
-
-.screen.active {
-  display: block;
+.screen-header {
+  background: var(--giay);
+  padding: 24px 40px;
+  border-bottom: 3px solid var(--vang-son);
 }
 
 .back-btn {
@@ -434,39 +432,36 @@ body {
   font-size: var(--font-22);
   color: var(--do-co);
   cursor: pointer;
-  margin-bottom: 20px;
+  background: none;
+  border: none;
   text-decoration: underline;
+  margin-bottom: 16px;
 }
 
-.nganh-detail-header {
-  margin-bottom: 24px;
-}
-
-.nganh-detail-title {
+.screen-title {
   font-size: var(--font-30);
   font-weight: 700;
   color: var(--muc);
 }
 
-.nganh-detail-info {
+.screen-subtitle {
   font-size: var(--font-18);
   color: var(--chu-phu);
   margin-top: 8px;
 }
 
-/* ========================================
-   DANH SÁCH THỦ TỤC
-   ======================================== */
 .thu-tuc-list {
+  padding: 24px 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 100px;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
 }
 
 .thu-tuc-card {
   background: var(--giay);
-  border: 2px solid var(--vien);
+  border: 2px solid var(--vien-the);
   border-radius: 12px;
   padding: 24px;
 }
@@ -505,13 +500,9 @@ body {
   opacity: 0.8;
 }
 
-/* ========================================
-   FOOTER NGUỒN
-   ======================================== */
 .source-footer {
-  padding: 24px 0;
+  padding: 24px 40px;
   border-top: 2px solid var(--vien);
-  margin-top: 32px;
 }
 
 .source-footer p {
@@ -520,26 +511,59 @@ body {
   margin-bottom: 8px;
 }
 
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--giay);
+  border-top: 2px solid var(--vien);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-home {
+  min-width: 200px;
+  min-height: var(--touch-min);
+  padding: 16px 32px;
+  background: var(--do-co);
+  color: var(--giay);
+  border: none;
+  border-radius: 8px;
+  font-size: var(--font-22);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-home:active {
+  opacity: 0.8;
+}
+
 /* ========================================
-   CHẾ ĐỘ TƯƠNG PHẢN CAO
+   HIGH CONTRAST MODE
    ======================================== */
-[data-contrast="high"] .nganh-card,
-[data-contrast="high"] .thuong-gap-card,
-[data-contrast="high"] .thu-tuc-card,
-[data-contrast="high"] .search-box,
-[data-contrast="high"] .chuc-nang-card {
-  border-width: 3px;
-}
-
 [data-contrast="high"] .header {
-  background: #000000;
-}
-
-[data-contrast="high"] .chuc-nang-section {
-  background: #000000;
+  background: var(--giay);
+  border-color: var(--chu);
 }
 
 [data-contrast="high"] .demo-banner {
-  background: #000000;
-  border-bottom: 3px solid #FFFFFF;
+  background: var(--chu);
+  border-bottom: 3px solid var(--giay);
+}
+
+[data-contrast="high"] .nganh-card,
+[data-contrast="high"] .thuong-gap-card,
+[data-contrast="high"] .thu-tuc-card,
+[data-contrast="high"] .search-box {
+  border-width: 3px;
+}
+
+[data-contrast="high"] .main-footer {
+  border-color: var(--chu);
+}
+
+[data-contrast="high"] .lotus-divider {
+  border-color: var(--chu);
 }

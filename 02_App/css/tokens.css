@@ -8,13 +8,17 @@
 :root {
   /* Bảng màu tông ấm */
   --do-co: #B91C1C;      /* Đỏ cờ - dải đầu và nhấn chính */
+  --do-dam: #991B1B;     /* Đỏ đậm - banner dải đầu */
   --vang-son: #D97706;   /* Vàng đồng - viền và điểm nhấn */
+  --vang-dam: #B45309;   /* Vàng đậm - nét icon */
   --muc: #1E3A5F;        /* Xanh mực - chữ tiêu đề */
   --kem: #FDF8F0;        /* Nền trang */
   --giay: #FFFFFF;       /* Nền thẻ */
   --chu: #1C1917;        /* Chữ chính - tương phản 15:1 trên --kem */
   --chu-phu: #57534E;    /* Chữ phụ - tương phản 7.5:1 trên --kem */
   --vien: #D6D3D1;       /* Đường phân cách */
+  --vien-the: #D9CDB4;   /* Viền thẻ ngành */
+  --vien-sen: #E7DCC8;   /* Dải hoa sen */
 
   /* Thang chữ - KHÔNG có chữ nhỏ hơn 18px */
   --font-44: 44px;
@@ -38,13 +42,17 @@
 /* Chế độ tương phản cao */
 [data-contrast="high"] {
   --do-co: #000000;
+  --do-dam: #000000;
   --vang-son: #000000;
+  --vang-dam: #000000;
   --muc: #000000;
   --kem: #FFFFFF;
   --giay: #FFFFFF;
   --chu: #000000;
   --chu-phu: #000000;
   --vien: #000000;
+  --vien-the: #000000;
+  --vien-sen: #000000;
 }
 
 /* Tăng cỡ chữ mức 1 */

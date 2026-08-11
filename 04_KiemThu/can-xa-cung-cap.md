@@ -22,7 +22,7 @@
 |---|----------|-------|---------|
 | 2.1 | Tên đầy đủ của xã | "UBND xã Phú Thành" | Xác nhận chính tả |
 | 2.2 | Địa chỉ đầy đủ | "Huyện Tam Nông, tỉnh Đồng Tháp" | |
-| 2.3 | Số điện thoại liên hệ | (0277) xxx xxxx | Nếu muốn hiển thị |
+| 2.3 | Số điện thoại liên hệ | (Bản thiết kế mẫu: 0277 3827 456) | **Cần xác nhận số thật** |
 | 2.4 | Giờ làm việc chính thức | "7h30 - 11h30, 13h30 - 17h00" | Để hiện trên giao diện |
 | 2.5 | Ngày nghỉ trong tuần | "Thứ 7 và Chủ nhật" | |
 

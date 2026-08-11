@@ -4,7 +4,7 @@
 - Không backend, không API, không database
 - Không LLM, không chatbot
 - Không CDN — app phải chạy được khi rút mạng
-- Stack: HTML + Tailwind + Alpine.js, vanilla JS, không build tool
+- Stack: HTML + CSS thuần + Alpine.js, vanilla JS, không build tool
 - Mã nguồn và comment: tiếng Anh. Tài liệu, README, giao diện: tiếng Việt.
 
 ## DỪNG VÀ HỎI — bắt buộc
@@ -29,6 +29,14 @@ Khi gặp bất kỳ tình huống nào dưới đây, DỪNG LẠI, báo cho t�
 - Đổi schema đã chốt
 - Bỏ qua trường bắt buộc ngay_cap_nhat hoặc nguon
 - Chuyển sang bước tiếp theo khi bước hiện tại chưa được tôi xác nhận
+
+## Quy trình cập nhật dữ liệu
+
+Sau mỗi lần sửa file JSON trong `01_DuLieu/`:
+1. Chạy `node 01_DuLieu/validate.js` — kiểm tra dữ liệu theo SCHEMA.md
+2. Chạy `node 01_DuLieu/build-data.js` — tạo `02_App/js/data.js`
+
+File `data.js` chứa dữ liệu nhúng sẵn (biến toàn cục `DATA_TTHC`, `DATA_NGANH`, `DATA_XA`, `DATA_LIEN_KET`, `DATA_ICONS`). Nhờ đó app hoạt động với giao thức `file://` mà không cần web server.
 
 ## Kết thúc mỗi bước
 Không tự chuyển sang việc tiếp theo. Dừng lại và báo cáo theo mẫu:
