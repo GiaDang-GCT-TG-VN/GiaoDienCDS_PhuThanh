@@ -21,8 +21,13 @@ Khi gặp bất kỳ tình huống nào dưới đây, DỪNG LẠI, báo cho t�
 7. Yêu cầu của tôi mâu thuẫn với tài liệu trong 00_TaiLieu/
 8. Phát hiện lỗi hoặc rủi ro nằm ngoài phạm vi việc đang làm
 9. Kết quả khác với những gì tôi mô tả trong prompt
+10. Bất kỳ thao tác nào có thể làm mất dữ liệu không khôi phục được
 
 ## KHÔNG BAO GIỜ tự làm những việc sau
+- Chạy bất kỳ lệnh nào viết lại hoặc xóa lịch sử git:
+  filter-branch, filter-repo, rebase, reset --hard,
+  reflog expire, gc --prune, xóa hoặc pop stash.
+  Phải báo cáo phương án và chờ tôi xác nhận CHO TỪNG LẦN.
 - Tạo dữ liệu thủ tục hành chính giả, mẫu, hoặc placeholder
 - Tự điền lệ phí, thời hạn, thành phần hồ sơ không có trong nguồn
 - Thêm CDN, API ngoài, hoặc dịch vụ trực tuyến
@@ -39,7 +44,8 @@ Sau mỗi lần sửa file JSON trong `01_DuLieu/`:
 File `data.js` chứa dữ liệu nhúng sẵn (biến toàn cục `DATA_TTHC`, `DATA_NGANH`, `DATA_XA`, `DATA_LIEN_KET`, `DATA_ICONS`). Nhờ đó app hoạt động với giao thức `file://` mà không cần web server.
 
 ## Kết thúc mỗi bước
-Không tự chuyển sang việc tiếp theo. Dừng lại và báo cáo theo mẫu:
+Không tự chuyển sang việc tiếp theo. Commit ngay sau khi hoàn thành,
+trước khi báo cáo. Dừng lại và báo cáo theo mẫu:
 
 - Đã làm: (liệt kê file đã tạo hoặc sửa)
 - Chưa làm được: (nếu có)
