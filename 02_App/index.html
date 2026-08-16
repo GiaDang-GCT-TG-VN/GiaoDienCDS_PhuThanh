@@ -422,24 +422,37 @@
             </template>
             <!-- Hình thức nộp -->
             <template x-if="getCurrentTruongHop()?.hinh_thuc_nop?.length > 0">
-              <table class="huongdan-hinhthucnop-table">
-                <thead>
-                  <tr>
-                    <th>Hình thức</th>
-                    <th>Thời hạn</th>
-                    <th>Lệ phí</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <template x-for="(ht, idx) in getCurrentTruongHop().hinh_thuc_nop" :key="idx">
+              <div class="huongdan-hinhthucnop">
+                <table class="huongdan-hinhthucnop-table">
+                  <thead>
                     <tr>
-                      <td x-text="ht.ten"></td>
-                      <td x-text="ht.thoi_han || '—'"></td>
-                      <td x-text="ht.le_phi || '—'"></td>
+                      <th>Hình thức</th>
+                      <th>Thời hạn</th>
+                      <template x-if="!isLePhiSame(getCurrentTruongHop()?.hinh_thuc_nop)">
+                        <th>Lệ phí</th>
+                      </template>
                     </tr>
-                  </template>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <template x-for="(ht, idx) in getCurrentTruongHop().hinh_thuc_nop" :key="idx">
+                      <tr>
+                        <td x-text="ht.ten"></td>
+                        <td x-text="ht.thoi_han || '—'"></td>
+                        <template x-if="!isLePhiSame(getCurrentTruongHop()?.hinh_thuc_nop)">
+                          <td x-text="ht.le_phi || '—'"></td>
+                        </template>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+                <!-- Lệ phí chung -->
+                <template x-if="isLePhiSame(getCurrentTruongHop()?.hinh_thuc_nop) && getCurrentTruongHop()?.hinh_thuc_nop[0]?.le_phi">
+                  <div class="thutuc-lephi-chung">
+                    <div class="thutuc-lephi-chung-label">Lệ phí (áp dụng cho mọi hình thức):</div>
+                    <div class="thutuc-lephi-chung-value" x-text="getCurrentTruongHop().hinh_thuc_nop[0].le_phi"></div>
+                  </div>
+                </template>
+              </div>
             </template>
           </div>
         </div>
@@ -450,16 +463,19 @@
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--vang-son)" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
             <span>BAO LÂU CÓ KẾT QUẢ</span>
           </div>
-          <div class="huongdan-box-content">
+          <div class="huongdan-box-content" x-data="{ showChiTiet: false }">
             <template x-if="getCurrentTruongHop()?.thoi_han?.mo_ta">
               <div>
                 <p class="huongdan-text" x-text="getCurrentTruongHop().thoi_han.mo_ta"></p>
                 <template x-if="getCurrentTruongHop()?.thoi_han?.chi_tiet?.length > 0">
-                  <ul class="huongdan-thoihan-chitiet">
-                    <template x-for="(phase, idx) in getCurrentTruongHop().thoi_han.chi_tiet" :key="idx">
-                      <li x-text="phase"></li>
-                    </template>
-                  </ul>
+                  <div>
+                    <button class="popup-thoihan-toggle" @click="showChiTiet = !showChiTiet" x-text="showChiTiet ? 'Thu gọn' : 'Xem chi tiết thời hạn'"></button>
+                    <ul class="huongdan-thoihan-chitiet" x-show="showChiTiet" x-transition>
+                      <template x-for="(phase, idx) in getCurrentTruongHop().thoi_han.chi_tiet" :key="idx">
+                        <li x-text="phase"></li>
+                      </template>
+                    </ul>
+                  </div>
                 </template>
               </div>
             </template>
@@ -595,14 +611,17 @@
               </tr>
               <tr x-show="getFirstTruongHop()?.thoi_han">
                 <th>Thời hạn</th>
-                <td>
+                <td x-data="{ showChiTiet: false }">
                   <span x-text="getFirstTruongHop()?.thoi_han?.mo_ta"></span>
                   <template x-if="getFirstTruongHop()?.thoi_han?.chi_tiet?.length > 0">
-                    <ul class="popup-thoihan-chitiet">
-                      <template x-for="(phase, idx) in getFirstTruongHop().thoi_han.chi_tiet" :key="idx">
-                        <li x-text="phase"></li>
-                      </template>
-                    </ul>
+                    <div>
+                      <button class="popup-thoihan-toggle" @click="showChiTiet = !showChiTiet" x-text="showChiTiet ? 'Thu gọn' : 'Xem chi tiết thời hạn'"></button>
+                      <ul class="popup-thoihan-chitiet" x-show="showChiTiet" x-transition>
+                        <template x-for="(phase, idx) in getFirstTruongHop().thoi_han.chi_tiet" :key="idx">
+                          <li x-text="phase"></li>
+                        </template>
+                      </ul>
+                    </div>
                   </template>
                 </td>
               </tr>
@@ -626,7 +645,9 @@
                   <tr>
                     <th>Hình thức</th>
                     <th>Thời hạn</th>
-                    <th>Lệ phí</th>
+                    <template x-if="!isLePhiSame(getFirstTruongHop()?.hinh_thuc_nop)">
+                      <th>Lệ phí</th>
+                    </template>
                   </tr>
                 </thead>
                 <tbody>
@@ -634,11 +655,20 @@
                     <tr>
                       <td x-text="ht.ten"></td>
                       <td x-text="ht.thoi_han || '—'"></td>
-                      <td x-text="ht.le_phi || '—'"></td>
+                      <template x-if="!isLePhiSame(getFirstTruongHop()?.hinh_thuc_nop)">
+                        <td x-text="ht.le_phi || '—'"></td>
+                      </template>
                     </tr>
                   </template>
                 </tbody>
               </table>
+              <!-- Lệ phí chung nếu giống nhau -->
+              <template x-if="isLePhiSame(getFirstTruongHop()?.hinh_thuc_nop) && getFirstTruongHop()?.hinh_thuc_nop[0]?.le_phi">
+                <div class="thutuc-lephi-chung">
+                  <div class="thutuc-lephi-chung-label">Lệ phí (áp dụng cho mọi hình thức):</div>
+                  <div class="thutuc-lephi-chung-value" x-text="getFirstTruongHop().hinh_thuc_nop[0].le_phi"></div>
+                </div>
+              </template>
             </div>
           </template>
 
@@ -1015,6 +1045,12 @@
             return null;
           }
           return this.selectedThuTuc.truong_hop[0];
+        },
+
+        isLePhiSame(hinhThucNop) {
+          if (!hinhThucNop || hinhThucNop.length <= 1) return true;
+          const first = hinhThucNop[0]?.le_phi || '';
+          return hinhThucNop.every(ht => (ht.le_phi || '') === first);
         },
 
         isStale(dateStr) {
