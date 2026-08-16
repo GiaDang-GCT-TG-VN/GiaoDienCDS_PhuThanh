@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * validate.js - Validate tthc.json against SCHEMA.md v2.2
+ * validate.js - Validate data files against SCHEMA.md v2.3
  * Run with: node validate.js
  * Exit code: 0 if no errors, 1 if errors found
  */
@@ -71,7 +71,7 @@ function hasDecisionNumber(nguon) {
   return /số\s+\d+\/QĐ-/i.test(nguon);
 }
 
-// v2.2: Known fields for procedure level (SCHEMA.md)
+// v2.3: Known fields for procedure level (SCHEMA.md)
 const KNOWN_PROCEDURE_FIELDS = new Set([
   'muc_do_chi_tiet', 'ma', 'ten', 'nganh', 'linh_vuc', 'mo_ta',
   'trang_thai', 'ly_do_thay_doi', 'ma_thay_the',
@@ -87,18 +87,66 @@ const KNOWN_PROCEDURE_FIELDS = new Set([
 function checkUndefinedFields(ma, obj) {
   for (const key of Object.keys(obj)) {
     if (!KNOWN_PROCEDURE_FIELDS.has(key)) {
-      logWarning(ma, key, `Field not defined in SCHEMA.md v2.2 - may be outdated or typo`);
+      logWarning(ma, key, `Field not defined in SCHEMA.md v2.3 - may be outdated or typo`);
     }
+  }
+}
+
+// v2.3: Validate thong-tin-xa.json
+function validateThongTinXa(xa) {
+  const FILE = 'thong-tin-xa.json';
+
+  // Required string fields
+  const requiredStrings = ['ten_xa', 'ten_day_du', 'huyen', 'tinh', 'dia_chi'];
+  for (const field of requiredStrings) {
+    if (!xa[field] || typeof xa[field] !== 'string' || xa[field].trim() === '') {
+      logError(FILE, field, 'Required field is empty or missing');
+    }
+  }
+
+  // Optional string fields (warn if empty, expected from commune)
+  const pendingFields = ['dien_thoai', 'email', 'so_quay', 'nguoi_phu_trach_noi_dung'];
+  for (const field of pendingFields) {
+    if (!xa[field] || (typeof xa[field] === 'string' && xa[field].trim() === '')) {
+      logWarning(FILE, field, 'Chờ xã cung cấp');
+    }
+  }
+
+  // gio_lam_viec structure
+  if (!xa.gio_lam_viec || typeof xa.gio_lam_viec !== 'object') {
+    logError(FILE, 'gio_lam_viec', 'Required field is missing or invalid');
+  } else {
+    const glv = xa.gio_lam_viec;
+    const timeFields = [
+      ['sang', 'bat_dau'], ['sang', 'ket_thuc'],
+      ['chieu', 'bat_dau'], ['chieu', 'ket_thuc']
+    ];
+    for (const [buoi, field] of timeFields) {
+      if (!glv[buoi] || !glv[buoi][field] || !/^\d{2}:\d{2}$/.test(glv[buoi][field])) {
+        logError(FILE, `gio_lam_viec.${buoi}.${field}`, 'Required HH:MM format');
+      }
+    }
+  }
+
+  // ngay_lam_viec array
+  if (!xa.ngay_lam_viec || !Array.isArray(xa.ngay_lam_viec) || xa.ngay_lam_viec.length === 0) {
+    logError(FILE, 'ngay_lam_viec', 'Required array with at least 1 element');
   }
 }
 
 // Main validation
 function validate() {
-  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v2.2${RESET}\n`);
+  console.log(`${BOLD}Validating data files against SCHEMA.md v2.3${RESET}\n`);
 
   // Load data files
   const tthc = loadJson('tthc.json');
   const nganhLinhVuc = loadJson('nganh-linh-vuc.json');
+  const thongTinXa = loadJson('thong-tin-xa.json');
+
+  // Validate thong-tin-xa.json first
+  console.log('Checking thong-tin-xa.json...');
+  validateThongTinXa(thongTinXa);
+  console.log('');
 
   // Build lookup maps
   const validNganh = new Set(nganhLinhVuc.nganh.map(n => n.ma));

@@ -1,15 +1,17 @@
 {
-  "ten_xa": "",
+  "ten_xa": "Phú Thành",
   "ten_day_du": "UBND xã Phú Thành",
   "huyen": "Tam Nông",
   "tinh": "Đồng Tháp",
   "dia_chi": "Bộ phận Một cửa, UBND xã Phú Thành, tỉnh Đồng Tháp",
   "dien_thoai": "",
   "email": "",
+  "so_quay": null,
+  "nguoi_phu_trach_noi_dung": null,
   "gio_lam_viec": {
     "sang": { "bat_dau": "07:00", "ket_thuc": "11:30" },
     "chieu": { "bat_dau": "13:30", "ket_thuc": "17:00" }
   },
   "ngay_lam_viec": ["Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu"],
-  "ghi_chu": "Thông tin cần anh điền sau"
+  "ghi_chu": ""
 }

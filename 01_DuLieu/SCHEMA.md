@@ -1,6 +1,6 @@
 # SCHEMA — Cấu trúc dữ liệu tthc.json
 
-> **Phiên bản:** 2.2
+> **Phiên bản:** 2.3
 > **Ngày:** 16/08/2026
 > **Trạng thái:** Chờ duyệt
 
@@ -111,6 +111,49 @@ Schema được thiết kế theo **mô hình hai tầng** để:
 ```javascript
 const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 ```
+
+### 1.4. File thông tin xã: thong-tin-xa.json
+
+Chứa thông tin cơ bản về UBND xã, phục vụ hiển thị header, popup "Nộp ở đâu", và màn Hướng dẫn từng bước.
+
+```json
+{
+  "ten_xa": "Phú Thành",
+  "ten_day_du": "UBND xã Phú Thành",
+  "huyen": "Tam Nông",
+  "tinh": "Đồng Tháp",
+  "dia_chi": "Bộ phận Một cửa, UBND xã Phú Thành, tỉnh Đồng Tháp",
+  "dien_thoai": "",
+  "email": "",
+  "so_quay": null,
+  "nguoi_phu_trach_noi_dung": null,
+  "gio_lam_viec": {
+    "sang": { "bat_dau": "07:00", "ket_thuc": "11:30" },
+    "chieu": { "bat_dau": "13:30", "ket_thuc": "17:00" }
+  },
+  "ngay_lam_viec": ["Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu"],
+  "ghi_chu": ""
+}
+```
+
+| Trường | Kiểu | Bắt buộc | Mô tả |
+|---|---|---|---|
+| `ten_xa` | string | ✅ | Tên xã (không có "xã" phía trước) |
+| `ten_day_du` | string | ✅ | Tên đầy đủ: "UBND xã ..." |
+| `huyen` | string | ✅ | Tên huyện (không có "huyện" phía trước) |
+| `tinh` | string | ✅ | Tên tỉnh (không có "tỉnh" phía trước) |
+| `dia_chi` | string | ✅ | Địa chỉ đầy đủ bộ phận một cửa |
+| `dien_thoai` | string | ❌ | Số điện thoại liên hệ. **Chờ xã cung cấp** |
+| `email` | string | ❌ | Email liên hệ. **Chờ xã cung cấp** |
+| `so_quay` | string \| null | ❌ | Số quầy tiếp nhận, dùng trong popup "Nộp ở đâu" và màn Hướng dẫn từng bước. **Chờ xã cung cấp** |
+| `nguoi_phu_trach_noi_dung` | string \| null | ❌ | Cán bộ chịu trách nhiệm rà soát nội dung thủ tục (theo yêu cầu E2 trong bảng policy). **Chờ xã cung cấp** |
+| `gio_lam_viec` | object | ✅ | Giờ làm việc sáng/chiều |
+| `gio_lam_viec.sang.bat_dau` | string (HH:MM) | ✅ | Giờ bắt đầu buổi sáng |
+| `gio_lam_viec.sang.ket_thuc` | string (HH:MM) | ✅ | Giờ kết thúc buổi sáng |
+| `gio_lam_viec.chieu.bat_dau` | string (HH:MM) | ✅ | Giờ bắt đầu buổi chiều |
+| `gio_lam_viec.chieu.ket_thuc` | string (HH:MM) | ✅ | Giờ kết thúc buổi chiều |
+| `ngay_lam_viec` | array of string | ✅ | Danh sách ngày làm việc trong tuần |
+| `ghi_chu` | string | ❌ | Ghi chú bổ sung |
 
 ---
 
@@ -817,6 +860,7 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | v2.0 | 16/08/2026 | Thêm `thoi_han.chi_tiet`, `hinh_thuc_nop`, `yeu_cau_dieu_kien`, `ket_qua_thuc_hien`, `doi_tuong_thuc_hien`; ghi rõ `le_phi.mo_ta` có thể dài |
 | v2.1 | 16/08/2026 | Thêm `loai_thu_tuc`, `co_quan_phoi_hop`, `dia_chi_tiep_nhan`; ghi chú trường chưa thêm |
 | v2.2 | 16/08/2026 | Sửa vị trí trường: `goi_y_noi_dung`, `icon` về cấp ngành; `ten_than_thien` về cấp thủ tục |
+| v2.3 | 17/08/2026 | Tài liệu hóa `thong-tin-xa.json`; thêm `so_quay`, `nguoi_phu_trach_noi_dung` |
 
 ---
 
