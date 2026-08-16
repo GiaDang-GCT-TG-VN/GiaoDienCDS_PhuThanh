@@ -1,5 +1,5 @@
 <!--
-  FILE MẪU — CHÉP NỘI DUNG THỦ TỤC TỪ NGUỒN (v2.0)
+  FILE MẪU — CHÉP NỘI DUNG THỦ TỤC TỪ NGUỒN (v2.1)
 
   QUY TẮC:
   - Chép NGUYÊN VĂN từ nguồn, không diễn giải, không tóm tắt
@@ -28,6 +28,18 @@
 
 **Cơ quan thực hiện:**
 <!-- Ví dụ: Ủy ban Nhân dân xã, phường, thị trấn -->
+
+
+**Cơ quan phối hợp:**
+<!-- Nếu nguồn không nêu → ghi "nguồn không nêu" -->
+
+
+**Loại thủ tục:**
+<!-- Ví dụ: TTHC không được luật giao cho địa phương quy định hoặc quy định chi tiết -->
+
+
+**Địa chỉ tiếp nhận hồ sơ:**
+<!-- Nếu nguồn không nêu → ghi "nguồn không nêu" -->
 
 
 **Kết quả thực hiện:**

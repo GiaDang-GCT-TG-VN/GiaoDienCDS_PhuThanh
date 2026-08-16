@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * validate.js - Validate tthc.json against SCHEMA.md v2.0
+ * validate.js - Validate tthc.json against SCHEMA.md v2.1
  * Run with: node validate.js
  * Exit code: 0 if no errors, 1 if errors found
  */
@@ -73,7 +73,7 @@ function hasDecisionNumber(nguon) {
 
 // Main validation
 function validate() {
-  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v2.0${RESET}\n`);
+  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v2.1${RESET}\n`);
 
   // Load data files
   const tthc = loadJson('tthc.json');
@@ -283,6 +283,21 @@ function validate() {
       // v2.0: doi_tuong_thuc_hien (optional, string)
       if (tt.doi_tuong_thuc_hien !== undefined && typeof tt.doi_tuong_thuc_hien !== 'string') {
         logError(ma, 'doi_tuong_thuc_hien', `Must be string, got: ${typeof tt.doi_tuong_thuc_hien}`);
+      }
+
+      // v2.1: loai_thu_tuc (optional, string)
+      if (tt.loai_thu_tuc !== undefined && tt.loai_thu_tuc !== null && typeof tt.loai_thu_tuc !== 'string') {
+        logError(ma, 'loai_thu_tuc', `Must be string, got: ${typeof tt.loai_thu_tuc}`);
+      }
+
+      // v2.1: co_quan_phoi_hop (optional, string)
+      if (tt.co_quan_phoi_hop !== undefined && tt.co_quan_phoi_hop !== null && typeof tt.co_quan_phoi_hop !== 'string') {
+        logError(ma, 'co_quan_phoi_hop', `Must be string, got: ${typeof tt.co_quan_phoi_hop}`);
+      }
+
+      // v2.1: dia_chi_tiep_nhan (optional, string)
+      if (tt.dia_chi_tiep_nhan !== undefined && tt.dia_chi_tiep_nhan !== null && typeof tt.dia_chi_tiep_nhan !== 'string') {
+        logError(ma, 'dia_chi_tiep_nhan', `Must be string, got: ${typeof tt.dia_chi_tiep_nhan}`);
       }
     }
 

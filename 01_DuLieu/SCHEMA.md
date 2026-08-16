@@ -1,6 +1,6 @@
 # SCHEMA — Cấu trúc dữ liệu tthc.json
 
-> **Phiên bản:** 2.0
+> **Phiên bản:** 2.1
 > **Ngày:** 16/08/2026
 > **Trạng thái:** Chờ duyệt
 
@@ -577,9 +577,14 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 |---|---|---|---|
 | `noi_nop` | string \| null | ✅ | Nơi nộp hồ sơ. `null` nếu `danh_muc` |
 | `co_quan_thuc_hien` | string \| null | ❌ | Cơ quan thực hiện |
+| `co_quan_phoi_hop` | string \| null | ❌ | Cơ quan phối hợp (nếu có) |
+| `loai_thu_tuc` | string \| null | ❌ | Loại thủ tục (ví dụ: "TTHC không được luật giao cho địa phương quy định...") |
+| `dia_chi_tiep_nhan` | string \| null | ❌ | Địa chỉ tiếp nhận hồ sơ cụ thể (nếu nguồn nêu) |
 | `doi_tuong_thuc_hien` | string \| null | ❌ | Đối tượng thực hiện (ví dụ: "Công dân Việt Nam") |
 | `ket_qua_thuc_hien` | string \| null | ❌ | Kết quả thực hiện (ví dụ: "Giấy chứng nhận nuôi con nuôi trong nước") |
 | `yeu_cau_dieu_kien` | array of string \| null | ❌ | Yêu cầu, điều kiện thực hiện. Mỗi phần tử là một điều kiện, chép nguyên văn |
+
+> ⚠️ **Trường CHƯA thêm:** "Cơ quan có thẩm quyền" (trùng `co_quan_thuc_hien`), "Cơ quan được ủy quyền", "Từ khóa", "Mô tả" — bốn mục này rỗng trong file .doc mẫu đầu tiên. Chờ gặp file có nội dung thật rồi mới thêm trường.
 
 **Ví dụ yêu cầu điều kiện:**
 
@@ -744,6 +749,16 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 
 ## 8. THAY ĐỔI SO VỚI PHIÊN BẢN TRƯỚC
 
+### v2.1 so với v2.0
+
+| Điểm | v2.0 | v2.1 |
+|---|---|---|
+| `loai_thu_tuc` | — | **MỚI**: Loại thủ tục (chuỗi từ nguồn) |
+| `co_quan_phoi_hop` | — | **MỚI**: Cơ quan phối hợp |
+| `dia_chi_tiep_nhan` | — | **MỚI**: Địa chỉ tiếp nhận hồ sơ cụ thể |
+
+> ⚠️ **Lý do cập nhật:** Bóc file .doc đầu tiên (2.001263) phát hiện 3 trường có nội dung mà schema v2.0 chưa chứa được.
+
 ### v2.0 so với v1.9
 
 | Điểm | v1.9 | v2.0 |
@@ -798,6 +813,7 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | v1.7 | 11/08/2026 | Thêm `ten_than_thien` cho ngành - tên gần gũi với người dân nông thôn |
 | v1.9 | 11/08/2026 | Thêm `trinh_tu_thuc_hien`, `cach_thuc_thuc_hien` vào trường hợp; cảnh báo validate nếu thiếu |
 | v2.0 | 16/08/2026 | Thêm `thoi_han.chi_tiet`, `hinh_thuc_nop`, `yeu_cau_dieu_kien`, `ket_qua_thuc_hien`, `doi_tuong_thuc_hien`; ghi rõ `le_phi.mo_ta` có thể dài |
+| v2.1 | 16/08/2026 | Thêm `loai_thu_tuc`, `co_quan_phoi_hop`, `dia_chi_tiep_nhan`; ghi chú trường chưa thêm |
 
 ---
 
