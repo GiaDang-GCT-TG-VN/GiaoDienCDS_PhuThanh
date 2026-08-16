@@ -1,6 +1,6 @@
 # SCHEMA — Cấu trúc dữ liệu tthc.json
 
-> **Phiên bản:** 2.1
+> **Phiên bản:** 2.2
 > **Ngày:** 16/08/2026
 > **Trạng thái:** Chờ duyệt
 
@@ -72,7 +72,8 @@ Schema được thiết kế theo **mô hình hai tầng** để:
 |---|---|---|---|
 | `nganh[].ma` | string | ✅ | Slug ngành (12 ngành) |
 | `nganh[].ten` | string | ✅ | Tên chính thức theo văn bản |
-| `nganh[].ten_than_thien` | string | ❌ | Tên thân thiện cho người dân nông thôn (do xã soạn). Ví dụ: "Hộ tịch & Giấy tờ" thay cho "Tư pháp" |
+| `nganh[].goi_y_noi_dung` | string | ❌ | Gợi ý nội dung ngành cho người dân. Ví dụ: "Hộ tịch, chứng thực, nuôi con nuôi" |
+| `nganh[].icon` | string | ❌ | Slug icon tương ứng với ngành |
 | `nganh[].linh_vuc` | array | ✅ | Danh sách lĩnh vực con (tổng 62) |
 | `nganh[].linh_vuc[].ma` | string | ✅ | Slug lĩnh vực |
 | `nganh[].linh_vuc[].ten` | string | ✅ | Tên hiển thị |
@@ -363,6 +364,7 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 | Trường | Kiểu | Bắt buộc | Quy tắc |
 |---|---|---|---|
 | `thuong_gap` | boolean | ❌ | Mặc định `false`. `true` = hiển thị ở trang chủ. **Tách biệt** với `muc_do_chi_tiet`: thủ tục có thể thường gặp nhưng chưa có đủ dữ liệu |
+| `ten_than_thien` | string \| null | ❌ | Tên thân thiện, ngắn gọn cho thủ tục. Ví dụ: "Làm giấy khai sinh" thay vì "Đăng ký khai sinh". **Dữ liệu do xã tạo** |
 | `tu_khoa` | array of string | ❌ | Từ khóa tìm kiếm do cán bộ xã soạn. Ví dụ: `["làm giấy khai sinh"]`. Mảng rỗng `[]` nếu chưa có. **Đây là dữ liệu do xã tạo, KHÔNG phải trích từ nguồn** (xem mục 4.10) |
 
 ### 4.4. Trường hợp áp dụng
@@ -810,10 +812,11 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | v1.4 | 10/08/2026 | Thêm `trang_thai`, `ly_do_thay_doi`, `ma_thay_the`, kiểm tra mã trùng, `nguon` phải có số hiệu |
 | v1.5 | 10/08/2026 | Thêm `gia_tham_khao`, `nguon_tham_khao`, `can_xac_minh` cho lệ phí; cấm render giá tham khảo |
 | v1.6 | 11/08/2026 | Xóa `link_dvc`, thêm `cau-hinh-lien-ket.json` với mẫu URL dùng chung |
-| v1.7 | 11/08/2026 | Thêm `ten_than_thien` cho ngành - tên gần gũi với người dân nông thôn |
+| v1.7 | 11/08/2026 | Thêm `goi_y_noi_dung` cho ngành, `ten_than_thien` cho thủ tục |
 | v1.9 | 11/08/2026 | Thêm `trinh_tu_thuc_hien`, `cach_thuc_thuc_hien` vào trường hợp; cảnh báo validate nếu thiếu |
 | v2.0 | 16/08/2026 | Thêm `thoi_han.chi_tiet`, `hinh_thuc_nop`, `yeu_cau_dieu_kien`, `ket_qua_thuc_hien`, `doi_tuong_thuc_hien`; ghi rõ `le_phi.mo_ta` có thể dài |
 | v2.1 | 16/08/2026 | Thêm `loai_thu_tuc`, `co_quan_phoi_hop`, `dia_chi_tiep_nhan`; ghi chú trường chưa thêm |
+| v2.2 | 16/08/2026 | Sửa vị trí trường: `goi_y_noi_dung`, `icon` về cấp ngành; `ten_than_thien` về cấp thủ tục |
 
 ---
 

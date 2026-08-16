@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * validate.js - Validate tthc.json against SCHEMA.md v2.1
+ * validate.js - Validate tthc.json against SCHEMA.md v2.2
  * Run with: node validate.js
  * Exit code: 0 if no errors, 1 if errors found
  */
@@ -71,9 +71,30 @@ function hasDecisionNumber(nguon) {
   return /số\s+\d+\/QĐ-/i.test(nguon);
 }
 
+// v2.2: Known fields for procedure level (SCHEMA.md)
+const KNOWN_PROCEDURE_FIELDS = new Set([
+  'muc_do_chi_tiet', 'ma', 'ten', 'nganh', 'linh_vuc', 'mo_ta',
+  'trang_thai', 'ly_do_thay_doi', 'ma_thay_the',
+  'thuong_gap', 'ten_than_thien', 'tu_khoa',
+  'truong_hop', 'noi_nop', 'co_quan_thuc_hien',
+  'can_cu_phap_ly', 'can_cu_le_phi', 'bieu_mau', 'ghi_chu_can_bo',
+  'nguon', 'nguon_url', 'ngay_trich_xuat', 'ngay_cap_nhat', 'nguoi_cap_nhat',
+  'yeu_cau_dieu_kien', 'ket_qua_thuc_hien', 'doi_tuong_thuc_hien',
+  'loai_thu_tuc', 'co_quan_phoi_hop', 'dia_chi_tiep_nhan'
+]);
+
+// Check for undefined fields (not in SCHEMA)
+function checkUndefinedFields(ma, obj) {
+  for (const key of Object.keys(obj)) {
+    if (!KNOWN_PROCEDURE_FIELDS.has(key)) {
+      logWarning(ma, key, `Field not defined in SCHEMA.md v2.2 - may be outdated or typo`);
+    }
+  }
+}
+
 // Main validation
 function validate() {
-  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v2.1${RESET}\n`);
+  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v2.2${RESET}\n`);
 
   // Load data files
   const tthc = loadJson('tthc.json');
@@ -112,6 +133,9 @@ function validate() {
     const tt = thuTucList[i];
     const ma = tt.ma;
     const idx = `[${i}]`;
+
+    // v2.2: Check for undefined fields
+    checkUndefinedFields(ma, tt);
 
     // Check muc_do_chi_tiet
     if (!tt.muc_do_chi_tiet || !['danh_muc', 'day_du'].includes(tt.muc_do_chi_tiet)) {
