@@ -1,6 +1,6 @@
 # SCHEMA — Cấu trúc dữ liệu tthc.json
 
-> **Phiên bản:** 1.7
+> **Phiên bản:** 1.9
 > **Ngày:** 11/08/2026
 > **Trạng thái:** Chờ duyệt
 
@@ -235,7 +235,16 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
         "mo_ta": "Trong ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ",
         "so_ngay": null,
         "don_vi": "ngày làm việc"
-      }
+      },
+      "trinh_tu_thuc_hien": [
+        "Bước 1: Người có yêu cầu đăng ký khai sinh nộp hồ sơ tại Bộ phận Tiếp nhận và Trả kết quả UBND cấp xã.",
+        "Bước 2: Công chức Tư pháp - Hộ tịch kiểm tra hồ sơ:\n- Nếu hồ sơ đầy đủ, hợp lệ: tiếp nhận và ghi vào Sổ hộ tịch.\n- Nếu hồ sơ chưa đầy đủ: hướng dẫn bổ sung.\n- Nếu hồ sơ không đủ điều kiện: từ chối bằng văn bản.",
+        "Bước 3: Trả kết quả cho người yêu cầu."
+      ],
+      "cach_thuc_thuc_hien": [
+        "Nộp trực tiếp tại Bộ phận Tiếp nhận và Trả kết quả UBND cấp xã.",
+        "Nộp trực tuyến trên Cổng dịch vụ công quốc gia."
+      ]
     },
     {
       "ten_truong_hop": "Đăng ký khai sinh quá thời hạn",
@@ -368,6 +377,46 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 | `truong_hop[].thanh_phan_ho_so` | array | ✅ | Danh sách giấy tờ |
 | `truong_hop[].le_phi` | object | ✅ | Thông tin lệ phí |
 | `truong_hop[].thoi_han` | object | ✅ | Thời hạn giải quyết |
+| `truong_hop[].trinh_tu_thuc_hien` | array \| null | ❌ | Các bước thực hiện (xem 4.4.1) |
+| `truong_hop[].cach_thuc_thuc_hien` | array \| null | ❌ | Cách thức nộp hồ sơ (xem 4.4.2) |
+
+#### 4.4.1. Trình tự thực hiện
+
+> ⚠️ **Nguyên tắc:** Chép NGUYÊN VĂN từng bước từ nguồn. KHÔNG tự tách cấu trúc lồng.
+>
+> Nội dung các bước không theo khuôn thống nhất giữa các thủ tục, ép vào cấu trúc lồng sẽ mất thông tin.
+
+| Trường | Kiểu | Bắt buộc | Quy tắc |
+|---|---|---|---|
+| `trinh_tu_thuc_hien` | array of string \| null | ❌ | Mảng các bước thực hiện, mỗi phần tử là một bước chép nguyên văn. `null` nếu nguồn không nêu hoặc `danh_muc` |
+
+**Ví dụ:**
+
+```json
+"trinh_tu_thuc_hien": [
+  "Bước 1: Người yêu cầu chứng thực nộp bản sao và xuất trình bản chính để đối chiếu.",
+  "Bước 2: Người thực hiện chứng thực kiểm tra bản chính:\n- Trường hợp bản chính hợp lệ: thực hiện chứng thực và trả kết quả ngay trong ngày.\n- Trường hợp bản chính có dấu hiệu giả mạo: từ chối chứng thực.\n- Trường hợp không đủ điều kiện: hướng dẫn người yêu cầu.",
+  "Bước 3: Người yêu cầu chứng thực nộp lệ phí và nhận bản sao đã chứng thực."
+]
+```
+
+> ⚠️ **Lưu ý:** Nếu một bước có nhiều trường hợp con (ví dụ: "hồ sơ đầy đủ / thiếu / không đủ điều kiện"), giữ nguyên trong cùng một phần tử, dùng ký tự xuống dòng `\n` và gạch đầu dòng `-` nếu cần.
+
+#### 4.4.2. Cách thức thực hiện
+
+| Trường | Kiểu | Bắt buộc | Quy tắc |
+|---|---|---|---|
+| `cach_thuc_thuc_hien` | array of string \| null | ❌ | Danh sách cách thức nộp hồ sơ, mỗi phần tử chép nguyên văn. `null` nếu nguồn không nêu hoặc `danh_muc` |
+
+**Ví dụ:**
+
+```json
+"cach_thuc_thuc_hien": [
+  "Nộp trực tiếp tại Bộ phận Tiếp nhận và Trả kết quả UBND cấp xã.",
+  "Nộp qua dịch vụ bưu chính công ích.",
+  "Nộp trực tuyến trên Cổng dịch vụ công quốc gia hoặc Cổng dịch vụ công tỉnh."
+]
+```
 
 ### 4.5. Thành phần hồ sơ
 
@@ -591,6 +640,8 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | `truong_hop[].le_phi.gia_tham_khao` | LỖI | Nếu có giá trị mà `can_xac_minh = false` → **LỖI** (phải đặt `can_xac_minh = true`) |
 | `truong_hop[].le_phi.can_xac_minh` | LỖI | Nếu `can_xac_minh = true` mà `mo_ta` chứa số tiền cụ thể → **LỖI** |
 | `truong_hop[].thoi_han.mo_ta` | LỖI | Không được rỗng |
+| `truong_hop[].trinh_tu_thuc_hien` | CẢNH BÁO | Nếu `null` → cảnh báo "Thiếu trình tự thực hiện" |
+| `truong_hop[].cach_thuc_thuc_hien` | — | Tùy chọn, không cảnh báo nếu thiếu |
 | `noi_nop` | LỖI | Không được rỗng |
 | `can_cu_phap_ly` | LỖI | Phải là array, tối thiểu 1 phần tử |
 | `bieu_mau[].duong_dan` | CẢNH BÁO | Kiểm tra file tồn tại trong `01_DuLieu/bieu-mau/` |
@@ -626,6 +677,16 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 
 ## 8. THAY ĐỔI SO VỚI PHIÊN BẢN TRƯỚC
 
+### v1.9 so với v1.7
+
+| Điểm | v1.7 | v1.9 |
+|---|---|---|
+| `truong_hop[].trinh_tu_thuc_hien` | — | **MỚI**: Mảng chuỗi chép nguyên văn các bước thực hiện |
+| `truong_hop[].cach_thuc_thuc_hien` | — | **MỚI**: Mảng chuỗi các cách thức nộp hồ sơ |
+| Validate | — | Cảnh báo nếu `day_du` thiếu `trinh_tu_thuc_hien` |
+
+> ⚠️ **Lưu ý thiết kế:** Nội dung các bước không theo khuôn thống nhất giữa các thủ tục (ví dụ: một bước có thể chứa 3 trường hợp con với các mẫu phiếu khác nhau). Schema lưu nguyên văn dạng chuỗi, KHÔNG ép vào cấu trúc lồng để tránh mất thông tin.
+
 ### v1.7 so với v1.6
 
 | Điểm | v1.6 | v1.7 |
@@ -655,6 +716,7 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | v1.5 | 10/08/2026 | Thêm `gia_tham_khao`, `nguon_tham_khao`, `can_xac_minh` cho lệ phí; cấm render giá tham khảo |
 | v1.6 | 11/08/2026 | Xóa `link_dvc`, thêm `cau-hinh-lien-ket.json` với mẫu URL dùng chung |
 | v1.7 | 11/08/2026 | Thêm `ten_than_thien` cho ngành - tên gần gũi với người dân nông thôn |
+| v1.9 | 11/08/2026 | Thêm `trinh_tu_thuc_hien`, `cach_thuc_thuc_hien` vào trường hợp; cảnh báo validate nếu thiếu |
 
 ---
 

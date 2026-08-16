@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * validate.js - Validate tthc.json against SCHEMA.md v1.7
+ * validate.js - Validate tthc.json against SCHEMA.md v1.9
  * Run with: node validate.js
  * Exit code: 0 if no errors, 1 if errors found
  */
@@ -73,7 +73,7 @@ function hasDecisionNumber(nguon) {
 
 // Main validation
 function validate() {
-  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v1.7${RESET}\n`);
+  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v1.9${RESET}\n`);
 
   // Load data files
   const tthc = loadJson('tthc.json');
@@ -215,6 +215,10 @@ function validate() {
           }
           if (!th.thoi_han || !th.thoi_han.mo_ta) {
             logError(ma, `truong_hop[${j}].thoi_han.mo_ta`, 'Required field is empty');
+          }
+          // Check trinh_tu_thuc_hien - WARNING if missing for day_du
+          if (!th.trinh_tu_thuc_hien || !Array.isArray(th.trinh_tu_thuc_hien) || th.trinh_tu_thuc_hien.length === 0) {
+            logWarning(ma, `truong_hop[${j}].trinh_tu_thuc_hien`, 'Missing trinh_tu_thuc_hien - should be filled for day_du');
           }
         }
       }

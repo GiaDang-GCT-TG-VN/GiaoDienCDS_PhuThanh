@@ -27,3 +27,4 @@ node_modules/
 # Backup files
 *.bak
 *.backup
+01_DuLieu/*.xlsx

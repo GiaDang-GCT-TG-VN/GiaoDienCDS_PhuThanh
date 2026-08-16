@@ -57,7 +57,19 @@
 
 ---
 
-## 5. Checklist xác nhận
+## 5. Thông tin phần cứng kiosk
+
+| # | Câu hỏi | Trả lời |
+|---|---------|---------|
+| 5.1 | Máy nào dùng làm kiosk: mua mới hay tận dụng máy sẵn có? | |
+| 5.2 | Màn hình bao nhiêu inch, độ phân giải bao nhiêu? | |
+| 5.3 | Đặt ngang hay dựng dọc? | |
+
+**Lưu ý:** Giao diện yêu cầu tối thiểu 1920×1080, hướng ngang. Xem chi tiết tại `03_Kiosk/yeu-cau-phan-cung.md`.
+
+---
+
+## 6. Checklist xác nhận
 
 - [ ] Logo đã gửi
 - [ ] Thông tin văn bản đã xác nhận

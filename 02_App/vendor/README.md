@@ -7,6 +7,7 @@ Local copies of third-party libraries for offline operation.
 | File | Library | Version | Date | Source |
 |------|---------|---------|------|--------|
 | `alpine.min.js` | Alpine.js | 3.14.1 | 2026-08-11 | https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js |
+| `qrcode.min.js` | qrcode-generator | 1.4.4 | 2026-08-16 | https://unpkg.com/qrcode-generator@1.4.4/qrcode.js |
 
 ## Fonts
 

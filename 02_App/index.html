@@ -7,16 +7,56 @@
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="js/data.js"></script>
+  <script src="js/search.js"></script>
+  <script src="vendor/qrcode.min.js"></script>
   <script defer src="vendor/alpine.min.js"></script>
 </head>
 <body x-data="app()" x-init="init()">
 
+  <!-- MÀN CHỜ: Hiện sau 60 giây không thao tác -->
+  <div x-show="currentScreen === 'idle'" x-cloak class="idle-screen" @click="wakeFromIdle()">
+    <!-- Nền chờ ảnh địa phương -->
+    <div class="idle-bg-placeholder">
+      Ảnh phong cảnh địa phương — rừng tràm, đồng sen<br>
+      chờ xã cung cấp, không dùng ảnh máy tạo
+    </div>
+    <!-- Lớp phủ tối -->
+    <div class="idle-overlay"></div>
+    <!-- Nội dung giữa màn -->
+    <div class="idle-content">
+      <div class="idle-logo">
+        <div class="idle-logo-placeholder">Huy hiệu<br>xã</div>
+      </div>
+      <div class="idle-agency" x-text="'TRUNG TÂM PHỤC VỤ HÀNH CHÍNH CÔNG · ' + thongTinXa.ten_day_du + ', tỉnh ' + thongTinXa.tinh"></div>
+      <div class="idle-cta">Chạm vào màn hình để tra cứu thủ tục</div>
+    </div>
+    <!-- Dải sen -->
+    <svg class="idle-lotus-divider" width="100%" height="12" preserveAspectRatio="none">
+      <defs>
+        <pattern id="sen-idle" width="56" height="12" patternUnits="userSpaceOnUse">
+          <path d="M28 11c-7 0-12-3.5-12-8 6 0 11 3.5 12 8z" fill="none" stroke="#D97706" stroke-width="1.4"/>
+          <path d="M28 11c7 0 12-3.5 12-8-6 0-11 3.5-12 8z" fill="none" stroke="#D97706" stroke-width="1.4"/>
+          <path d="M28 11c-3-3.5-3-6.5 0-9 3 2.5 3 5.5 0 9z" fill="none" stroke="#D97706" stroke-width="1.4"/>
+          <path d="M0 11h16M40 11h16" stroke="#D97706" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="12" fill="url(#sen-idle)"/>
+    </svg>
+    <!-- Giờ làm việc -->
+    <div class="idle-footer" x-text="'Giờ làm việc  ' + formatGioLamViec()"></div>
+  </div>
+
   <!-- MÀN 1: Trang chính -->
   <div x-show="currentScreen === 'home'" x-cloak>
 
-    <!-- Dải cảnh báo bản dùng thử -->
+    <!-- Dải cảnh báo bản nháp nội bộ -->
     <div class="demo-banner">
-      BẢN DÙNG THỬ — dữ liệu đang hoàn thiện, chưa dùng để tra cứu chính thức
+      BẢN NHÁP NỘI BỘ — chỉ dùng để lấy ý kiến cán bộ xã. KHÔNG chia sẻ cho người dân. Chưa có hồ sơ an toàn thông tin.
+    </div>
+
+    <!-- Cảnh báo màn hình nhỏ -->
+    <div class="viewport-warning">
+      Màn hình hiện tại nhỏ hơn kích thước thiết kế. Một số nội dung có thể bị che.
     </div>
 
     <!-- Header -->
@@ -70,8 +110,102 @@
               <circle cx="11" cy="11" r="7"/>
               <path d="M16.5 16.5 21 21"/>
             </svg>
-            <span class="search-placeholder">Bạn cần làm giấy tờ gì?</span>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Bạn cần làm giấy tờ gì?"
+              x-model="searchQuery"
+              @input="onSearchInput()"
+              @focus="onSearchFocus()"
+            >
+            <button
+              class="search-clear"
+              x-show="searchQuery.length > 0"
+              @click="clearSearch()"
+            >&times;</button>
           </div>
+        </div>
+
+        <!-- Search results -->
+        <template x-if="searchQuery.length > 0">
+          <div class="search-results">
+            <template x-if="searchResults.length > 0">
+              <div class="search-results-list">
+                <template x-for="tt in searchResults" :key="tt.ma || tt.ten">
+                  <a
+                    class="search-result-item"
+                    :href="getDvcLink(tt.ma)"
+                    target="_blank"
+                    @click="resetIdleTimer()"
+                  >
+                    <span class="search-result-ma" x-text="tt.ma || '—'"></span>
+                    <span class="search-result-name" x-text="tt.ten"></span>
+                  </a>
+                </template>
+              </div>
+            </template>
+            <template x-if="searchResults.length === 0">
+              <div class="search-no-results">
+                <p class="search-no-results-text">Không tìm thấy thủ tục phù hợp</p>
+                <p class="search-suggest-text">Chọn ngành để xem danh sách:</p>
+                <div class="search-suggest-grid">
+                  <template x-for="nganh in danhSachNganh" :key="nganh.ma">
+                    <button
+                      class="search-suggest-btn"
+                      @click="clearSearch(); handleNganhClick(nganh)"
+                      x-text="nganh.ten"
+                    ></button>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- Khu Trợ lý ảo -->
+        <div class="trolyao-zone">
+          <!-- Robot icon -->
+          <div class="trolyao-robot">
+            <svg width="120" height="120" viewBox="0 0 64 64" fill="none" stroke="var(--vang-dam)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Antenna -->
+              <circle cx="32" cy="6" r="3"/>
+              <path d="M32 9v5"/>
+              <!-- Head -->
+              <rect x="16" y="14" width="32" height="22" rx="4"/>
+              <!-- Eyes -->
+              <circle cx="24" cy="25" r="3"/>
+              <circle cx="40" cy="25" r="3"/>
+              <!-- Mouth -->
+              <path d="M26 31h12"/>
+              <!-- Ears -->
+              <rect x="10" y="20" width="6" height="10" rx="2"/>
+              <rect x="48" y="20" width="6" height="10" rx="2"/>
+              <!-- Neck -->
+              <path d="M28 36h8v4h-8z"/>
+              <!-- Body -->
+              <rect x="18" y="40" width="28" height="18" rx="3"/>
+              <!-- Chest panel -->
+              <rect x="26" y="44" width="12" height="8" rx="2"/>
+              <circle cx="32" cy="48" r="2"/>
+              <!-- Arms -->
+              <path d="M18 44h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6"/>
+              <path d="M46 44h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-6"/>
+            </svg>
+          </div>
+          <!-- Title -->
+          <h3 class="trolyao-zone-title">Trợ lý ảo xã Phú Thành</h3>
+          <!-- Status badge -->
+          <span class="trolyao-zone-badge">Đang xây dựng — dự kiến Giai đoạn 2</span>
+          <!-- Features -->
+          <div class="trolyao-zone-features">
+            <h4 class="trolyao-zone-features-title">Trợ lý ảo sẽ giúp bạn</h4>
+            <ul class="trolyao-zone-list">
+              <li>Hỏi bằng lời nói thường ngày, không cần biết tên thủ tục</li>
+              <li>Cho biết cần mang giấy tờ gì, lệ phí bao nhiêu, bao lâu xong</li>
+            </ul>
+          </div>
+          <!-- Detail button -->
+          <button class="trolyao-zone-btn" @click="showTroLyAoIntro()">Xem chi tiết</button>
         </div>
 
         <!-- Người dân thường hỏi - only show if has data -->
@@ -87,7 +221,7 @@
             </h2>
             <div class="thuong-gap-grid">
               <template x-for="tt in thuongGap" :key="tt.ma">
-                <div class="thuong-gap-card" @click="showThuTuc(tt)">
+                <div class="thuong-gap-card" @click="showHuongDan(tt)">
                   <div class="thuong-gap-icon">
                     <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--vang-dam)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M5 3h9l5 5v13H5z"/>
@@ -150,7 +284,28 @@
           <span x-text="thongTinXa.dien_thoai"></span>
         </div>
       </div>
-      <!-- Decorative lotus -->
+      <!-- Decorative: crane skyline with melaleuca forest -->
+      <svg class="footer-skyline" width="820" height="104" viewBox="0 0 820 104" fill="none" stroke="var(--vang-son)" stroke-width="2.4">
+        <!-- Ground line -->
+        <path d="M0 96h820"/>
+        <!-- Melaleuca trees (wavy silhouette) -->
+        <path d="M0 82q26-24 52 0 26-24 52 0 26-24 52 0 26-24 52 0 26-24 52 0 26-24 52 0"/>
+        <!-- Crane 1 (larger, front) -->
+        <g transform="translate(430 34)">
+          <path d="M0 44c10-9 30-9 40 0-5 10-30 13-40 0z"/>
+          <path d="M36 40c7-13 3-29-5-37"/>
+          <path d="M29 4 18 0"/>
+          <path d="M12 48l-3 22M24 48l3 22"/>
+        </g>
+        <!-- Crane 2 (smaller, back) -->
+        <g transform="translate(560 46)">
+          <path d="M0 36c8-7 24-7 32 0-4 8-24 10-32 0z"/>
+          <path d="M29 33c6-11 2-24-4-30"/>
+          <path d="M24 4 15 1"/>
+          <path d="M10 40l-2 18M20 40l2 18"/>
+        </g>
+      </svg>
+      <!-- Decorative lotus corner -->
       <svg class="footer-lotus" width="240" height="240" viewBox="0 0 200 200" fill="none" stroke="var(--vang-son)" stroke-width="3">
         <path d="M100 170c-30-10-46-34-46-64 24 4 42 26 46 64z"/>
         <path d="M100 170c30-10 46-34 46-64-24 4-42 26-46 64z"/>
@@ -172,14 +327,12 @@
 
     <div class="thu-tuc-list">
       <template x-for="(tt, index) in getThuTucByNganh(selectedNganh?.ma)" :key="tt.ma">
-        <div class="thu-tuc-card">
+        <div class="thu-tuc-card" @click="showThuTucDetail(tt)" style="cursor: pointer;">
           <p class="thu-tuc-code">
             <span x-text="index + 1"></span>. Mã: <strong x-text="tt.ma || 'Chưa có'"></strong>
           </p>
           <p class="thu-tuc-name" x-text="tt.ten"></p>
-          <a x-show="tt.ma" :href="getDvcLink(tt.ma)" target="_blank" rel="noopener" class="thu-tuc-link">
-            Xem trên Cổng DVC Quốc gia
-          </a>
+          <span class="thu-tuc-hint">Bấm để xem chi tiết →</span>
         </div>
       </template>
     </div>
@@ -194,6 +347,386 @@
     </div>
   </div>
 
+  <!-- MÀN 3: Hướng dẫn từng bước -->
+  <div x-show="currentScreen === 'huongdan'" x-cloak class="huongdan-screen">
+    <!-- Dải cảnh báo -->
+    <div class="huongdan-banner">
+      BẢN DÙNG THỬ — thông tin theo dữ liệu xã cung cấp, cán bộ Một cửa là nơi quyết định cuối cùng
+    </div>
+
+    <!-- Header -->
+    <div class="huongdan-header">
+      <button class="huongdan-btn-back" @click="backFromHuongDan()">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+        <span x-text="selectedNganh ? 'Quay lại danh sách' : 'Về trang chính'"></span>
+      </button>
+      <h1 class="huongdan-title" x-text="huongDanThuTuc?.ten_than_thien || huongDanThuTuc?.ten"></h1>
+      <div class="huongdan-actions">
+        <button class="huongdan-btn-action" @click="printHuongDan()">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3h10v6"/><path d="M5 9h14v7H5z"/><path d="M7 16h10v5H7z"/></svg>
+          In hướng dẫn
+        </button>
+        <button class="huongdan-btn-action huongdan-btn-help" @click="callStaff()">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 6h6M19 3v6"/></svg>
+          Gọi cán bộ ra giúp
+        </button>
+      </div>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="huongdan-body">
+      <!-- Bốn ô thông tin -->
+      <div class="huongdan-grid">
+        <!-- Ô 1: Mang theo giấy gì -->
+        <div class="huongdan-box">
+          <div class="huongdan-box-header">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--vang-son)" stroke-width="2.4"><path d="M5 3h9l5 5v13H5z"/><path d="M14 3v5h5"/></svg>
+            <span>MANG THEO GIẤY GÌ</span>
+          </div>
+          <div class="huongdan-box-content">
+            <template x-if="getCurrentTruongHop()?.thanh_phan_ho_so">
+              <ul class="huongdan-doc-list">
+                <template x-for="(doc, idx) in getCurrentTruongHop().thanh_phan_ho_so" :key="idx">
+                  <li>
+                    <span x-text="doc.ten"></span>
+                    <span class="huongdan-doc-qty" x-show="doc.ban_chinh || doc.ban_sao">
+                      (<span x-show="doc.ban_chinh" x-text="doc.ban_chinh + ' bản chính'"></span><span x-show="doc.ban_chinh && doc.ban_sao">, </span><span x-show="doc.ban_sao" x-text="doc.ban_sao + ' bản sao'"></span>)
+                    </span>
+                  </li>
+                </template>
+              </ul>
+            </template>
+            <template x-if="!getCurrentTruongHop()?.thanh_phan_ho_so">
+              <p class="huongdan-no-data">Chưa có thông tin, vui lòng hỏi cán bộ tại quầy</p>
+            </template>
+          </div>
+        </div>
+
+        <!-- Ô 2: Nộp ở đâu -->
+        <div class="huongdan-box">
+          <div class="huongdan-box-header">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--vang-son)" stroke-width="2.4"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>NỘP Ở ĐÂU</span>
+          </div>
+          <div class="huongdan-box-content">
+            <template x-if="huongDanThuTuc?.noi_nop || thongTinXa.so_quay">
+              <p class="huongdan-text">
+                <span x-text="huongDanThuTuc?.noi_nop || 'Bộ phận Một cửa, ' + thongTinXa.ten_day_du"></span>
+                <template x-if="thongTinXa.so_quay">
+                  <strong x-text="' — quầy số ' + thongTinXa.so_quay"></strong>
+                </template>
+              </p>
+            </template>
+            <template x-if="!huongDanThuTuc?.noi_nop && !thongTinXa.so_quay">
+              <p class="huongdan-no-data">Chưa có thông tin, vui lòng hỏi cán bộ tại quầy</p>
+            </template>
+          </div>
+        </div>
+
+        <!-- Ô 3: Bao lâu có kết quả -->
+        <div class="huongdan-box">
+          <div class="huongdan-box-header">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--vang-son)" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span>BAO LÂU CÓ KẾT QUẢ</span>
+          </div>
+          <div class="huongdan-box-content">
+            <template x-if="getCurrentTruongHop()?.thoi_han?.mo_ta">
+              <p class="huongdan-text" x-text="getCurrentTruongHop().thoi_han.mo_ta"></p>
+            </template>
+            <template x-if="!getCurrentTruongHop()?.thoi_han?.mo_ta">
+              <p class="huongdan-no-data">Chưa có thông tin, vui lòng hỏi cán bộ tại quầy</p>
+            </template>
+          </div>
+        </div>
+
+        <!-- Ô 4: Lệ phí -->
+        <div class="huongdan-box">
+          <div class="huongdan-box-header">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--vang-son)" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 9h5a2.5 2.5 0 0 1 0 5H9M9 12h7M11 8v9"/></svg>
+            <span>LỆ PHÍ</span>
+          </div>
+          <div class="huongdan-box-content">
+            <template x-if="getCurrentTruongHop()?.le_phi?.mo_ta">
+              <p class="huongdan-text" x-text="getCurrentTruongHop().le_phi.mo_ta"></p>
+            </template>
+            <template x-if="!getCurrentTruongHop()?.le_phi?.mo_ta">
+              <p class="huongdan-no-data">Chưa có thông tin, vui lòng hỏi cán bộ tại quầy</p>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dãy các trường hợp khác (nếu có nhiều hơn 1) -->
+      <template x-if="huongDanThuTuc?.truong_hop && huongDanThuTuc.truong_hop.length > 1">
+        <div class="huongdan-cases">
+          <p class="huongdan-cases-label">Chọn trường hợp của bạn:</p>
+          <div class="huongdan-cases-list">
+            <template x-for="(th, idx) in huongDanThuTuc.truong_hop" :key="idx">
+              <button
+                class="huongdan-case-btn"
+                :class="{ active: selectedTruongHopIndex === idx }"
+                @click="selectTruongHop(idx)"
+                x-text="th.ten || 'Trường hợp ' + (idx + 1)"
+              ></button>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Footer -->
+    <div class="huongdan-footer">
+      Thông tin theo danh mục thủ tục do UBND xã Phú Thành công bố · Cần chắc chắn, vui lòng hỏi cán bộ tại Bộ phận Một cửa
+    </div>
+  </div>
+
+  <!-- MÀN 4: Giới thiệu Trợ lý ảo -->
+  <div x-show="currentScreen === 'trolyao'" x-cloak class="trolyao-screen">
+    <div class="screen-header">
+      <button class="back-btn" @click="showHome()">← Quay lại</button>
+      <h1 class="screen-title">Trợ lý ảo hỗ trợ người dân</h1>
+    </div>
+
+    <div class="trolyao-content">
+      <!-- Trạng thái nổi bật -->
+      <div class="trolyao-status">
+        Đang xây dựng — dự kiến Giai đoạn 2
+      </div>
+
+      <!-- Trợ lý ảo sẽ giúp bạn -->
+      <div class="trolyao-section">
+        <h2 class="trolyao-section-title">Trợ lý ảo sẽ giúp bạn</h2>
+        <ul class="trolyao-list">
+          <li>
+            <strong>Hỏi bằng lời nói thường ngày</strong>, không cần biết tên thủ tục<br>
+            <span class="trolyao-example">Ví dụ: "Tôi muốn làm giấy khai sinh cho con"</span>
+          </li>
+          <li>Trả lời cần mang giấy tờ gì, lệ phí bao nhiêu, bao lâu xong</li>
+          <li>Chỉ đúng quầy cần đến</li>
+        </ul>
+      </div>
+
+      <!-- Nguyên tắc hoạt động -->
+      <div class="trolyao-section">
+        <h2 class="trolyao-section-title">Nguyên tắc hoạt động</h2>
+        <ul class="trolyao-list trolyao-list-principles">
+          <li>Chỉ trả lời từ dữ liệu thủ tục đã được cán bộ xã duyệt</li>
+          <li>Không tự suy đoán. Không có thông tin thì hướng dẫn gặp cán bộ</li>
+          <li>Không lưu thông tin cá nhân của người hỏi</li>
+          <li>Máy chủ đặt tại Việt Nam</li>
+        </ul>
+      </div>
+
+      <!-- Cần hoàn thành trước khi vận hành -->
+      <div class="trolyao-section">
+        <h2 class="trolyao-section-title">Cần hoàn thành trước khi vận hành</h2>
+        <ul class="trolyao-list trolyao-list-checklist">
+          <li>Bổ sung đầy đủ nội dung 287 thủ tục</li>
+          <li>Ý kiến hướng dẫn của Sở Khoa học và Công nghệ</li>
+          <li>Hồ sơ cấp độ an toàn thông tin</li>
+          <li>Cán bộ xã phụ trách rà soát nội dung</li>
+        </ul>
+      </div>
+
+      <!-- Hướng dẫn hiện tại -->
+      <div class="trolyao-fallback">
+        <p>Hiện tại, vui lòng dùng <strong>ô tìm kiếm</strong> ở trang chính<br>hoặc liên hệ cán bộ tại <strong>Bộ phận Một cửa</strong>.</p>
+      </div>
+    </div>
+
+    <div class="fixed-bottom">
+      <button class="btn-home" @click="showHome()">Về trang chính</button>
+    </div>
+  </div>
+
+  <!-- POPUP: Chi tiết thủ tục -->
+  <div x-show="selectedThuTuc !== null" x-cloak class="thutuc-popup-backdrop" @click.self="closePopup()">
+    <div class="thutuc-popup" @click.stop>
+      <div class="thutuc-popup-header">
+        <div class="thutuc-popup-title-wrap">
+          <h1 class="thutuc-popup-title" x-text="selectedThuTuc?.ten_than_thien || selectedThuTuc?.ten"></h1>
+          <p class="thutuc-popup-subtitle" x-show="selectedThuTuc?.ten_than_thien" x-text="selectedThuTuc?.ten"></p>
+        </div>
+        <button class="thutuc-popup-close" @click="closePopup()" aria-label="Đóng">&times;</button>
+      </div>
+
+      <div class="thutuc-popup-body">
+        <!-- Bảng thông tin nhanh -->
+        <div class="thutuc-quick-info">
+          <table class="thutuc-info-table">
+            <tbody>
+              <tr>
+                <th>Mã TTHC</th>
+                <td x-text="selectedThuTuc?.ma || 'Chưa có'"></td>
+              </tr>
+              <tr>
+                <th>Lĩnh vực</th>
+                <td x-text="getNganhName(selectedThuTuc?.nganh)"></td>
+              </tr>
+              <tr x-show="getFirstTruongHop()?.thoi_han">
+                <th>Thời hạn</th>
+                <td x-text="getFirstTruongHop()?.thoi_han?.mo_ta"></td>
+              </tr>
+              <tr x-show="getFirstTruongHop()?.le_phi">
+                <th>Lệ phí</th>
+                <td x-text="getFirstTruongHop()?.le_phi?.mo_ta"></td>
+              </tr>
+              <tr x-show="countBieuMau() > 0">
+                <th>Biểu mẫu</th>
+                <td x-text="countBieuMau() + ' biểu mẫu'"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="thutuc-actions">
+            <button class="btn-print" @click="printDetail()">In hướng dẫn</button>
+            <button
+              class="btn-huongdan"
+              x-show="selectedThuTuc?.muc_do_chi_tiet === 'day_du'"
+              @click="openHuongDanFromPopup()"
+            >Xem hướng dẫn từng bước</button>
+          </div>
+        </div>
+
+        <!-- Nội dung cho thủ tục day_du -->
+        <template x-if="selectedThuTuc?.muc_do_chi_tiet === 'day_du'">
+          <div class="thutuc-content-full">
+            <!-- Trình tự thực hiện -->
+            <template x-if="getFirstTruongHop()?.trinh_tu_thuc_hien">
+              <div class="thutuc-section">
+                <h2 class="thutuc-section-title">Trình tự thực hiện</h2>
+                <ol class="thutuc-steps">
+                  <template x-for="(step, idx) in getFirstTruongHop().trinh_tu_thuc_hien" :key="idx">
+                    <li class="thutuc-step" x-html="formatStep(step)"></li>
+                  </template>
+                </ol>
+              </div>
+            </template>
+
+            <!-- Thành phần hồ sơ -->
+            <template x-if="getFirstTruongHop()?.thanh_phan_ho_so">
+              <div class="thutuc-section">
+                <h2 class="thutuc-section-title">Thành phần hồ sơ</h2>
+                <ul class="thutuc-docs">
+                  <template x-for="(doc, idx) in getFirstTruongHop().thanh_phan_ho_so" :key="idx">
+                    <li class="thutuc-doc">
+                      <span x-text="doc.ten"></span>
+                      <span class="thutuc-doc-qty" x-show="doc.ban_chinh || doc.ban_sao">
+                        (<span x-show="doc.ban_chinh" x-text="doc.ban_chinh + ' bản chính'"></span><span x-show="doc.ban_chinh && doc.ban_sao">, </span><span x-show="doc.ban_sao" x-text="doc.ban_sao + ' bản sao'"></span>)
+                      </span>
+                      <span class="thutuc-doc-note" x-show="doc.ghi_chu" x-text="'— ' + doc.ghi_chu"></span>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+
+            <!-- Cách thức thực hiện -->
+            <template x-if="getFirstTruongHop()?.cach_thuc_thuc_hien">
+              <div class="thutuc-section">
+                <h2 class="thutuc-section-title">Cách thức thực hiện</h2>
+                <ul class="thutuc-methods">
+                  <template x-for="(method, idx) in getFirstTruongHop().cach_thuc_thuc_hien" :key="idx">
+                    <li x-text="method"></li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+
+            <!-- Nơi nộp -->
+            <template x-if="selectedThuTuc?.noi_nop">
+              <div class="thutuc-section thutuc-section-inline">
+                <h2 class="thutuc-section-title">Nơi nộp</h2>
+                <p class="thutuc-value" x-text="selectedThuTuc.noi_nop"></p>
+              </div>
+            </template>
+
+            <!-- Biểu mẫu với QR riêng từng mẫu -->
+            <template x-if="getBieuMauList().length > 0">
+              <div class="thutuc-section thutuc-bieu-mau-section">
+                <h2 class="thutuc-section-title">Biểu mẫu</h2>
+                <div class="thutuc-bieu-mau-grid">
+                  <template x-for="(mau, idx) in getBieuMauList()" :key="idx">
+                    <div class="thutuc-bieu-mau-card">
+                      <div class="bieu-mau-info">
+                        <span class="bieu-mau-name" x-text="mau.ten"></span>
+                        <span class="bieu-mau-type" x-show="mau.dinh_dang" x-text="mau.dinh_dang"></span>
+                      </div>
+                      <div class="bieu-mau-qr" x-html="generateQRSvg(mau.url, 120)"></div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </template>
+
+            <!-- Căn cứ pháp lý -->
+            <template x-if="selectedThuTuc?.can_cu_phap_ly">
+              <div class="thutuc-section thutuc-legal">
+                <h2 class="thutuc-section-title">Căn cứ pháp lý</h2>
+                <ul class="thutuc-legal-list">
+                  <template x-for="(vb, idx) in selectedThuTuc.can_cu_phap_ly" :key="idx">
+                    <li x-text="vb.ten_van_ban + (vb.so_hieu ? ' (' + vb.so_hieu + ')' : '')"></li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- Nội dung cho thủ tục danh_muc -->
+        <template x-if="selectedThuTuc?.muc_do_chi_tiet !== 'day_du'">
+          <div class="thutuc-content-pending">
+            <p class="thutuc-pending-intro">
+              Thủ tục này đang được bổ sung hướng dẫn chi tiết.
+            </p>
+            <p class="thutuc-pending-label">Bây giờ bạn có thể:</p>
+            <ol class="thutuc-pending-options">
+              <li x-html="getContactOption1()"></li>
+              <li x-html="getContactOption2()"></li>
+              <li>Quét mã bên dưới nếu bạn có điện thoại thông minh</li>
+            </ol>
+
+            <!-- QR cho danh_muc: đặt sau các lựa chọn -->
+            <div class="thutuc-qr-fallback">
+              <div class="thutuc-qr-box">
+                <p class="thutuc-qr-label">Xem trên Cổng DVC Quốc gia</p>
+                <div class="thutuc-qr" x-ref="qrCode"></div>
+                <a class="thutuc-dvc-link" :href="getDvcLink(selectedThuTuc?.ma)" target="_blank">
+                  Mở trang thủ tục →
+                </a>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <!-- QR chính cho day_du -->
+        <template x-if="selectedThuTuc?.muc_do_chi_tiet === 'day_du'">
+          <div class="thutuc-qr-main">
+            <div class="thutuc-qr-box">
+              <p class="thutuc-qr-label">Xem trên Cổng DVC Quốc gia</p>
+              <div class="thutuc-qr" x-ref="qrCode"></div>
+              <a class="thutuc-dvc-link" :href="getDvcLink(selectedThuTuc?.ma)" target="_blank">
+                Mở trang thủ tục →
+              </a>
+            </div>
+          </div>
+        </template>
+
+        <!-- Ngày cập nhật + cảnh báo -->
+        <div class="thutuc-footer-info">
+          <span>Cập nhật: <span x-text="selectedThuTuc?.ngay_cap_nhat"></span></span>
+          <span class="thutuc-stale-warning" x-show="isStale(selectedThuTuc?.ngay_cap_nhat)">
+            Thông tin có thể đã cũ
+          </span>
+        </div>
+
+        <!-- Dòng miễn trừ -->
+        <div class="thutuc-disclaimer">
+          Thông tin mang tính hướng dẫn. Thông tin chính thức tại Cổng dịch vụ công quốc gia và cán bộ tiếp nhận.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     function app() {
       return {
@@ -202,6 +735,14 @@
         fontSizeLevel: 0,
         highContrast: false,
         selectedNganh: null,
+        selectedThuTuc: null,
+        huongDanThuTuc: null,
+        selectedTruongHopIndex: 0,
+        searchQuery: '',
+        searchResults: [],
+        idleTimer: null,
+        IDLE_TIMEOUT: 60000, // 60 seconds
+        STALE_DAYS: 90, // Days before showing stale warning
 
         // Data
         thuTuc: [],
@@ -222,6 +763,7 @@
         init() {
           this.restoreSettings();
           this.loadData();
+          this.setupIdleReset();
         },
 
         loadData() {
@@ -288,7 +830,176 @@
         showHome() {
           this.currentScreen = 'home';
           this.selectedNganh = null;
+          this.selectedThuTuc = null;
+          this.huongDanThuTuc = null;
+          this.selectedTruongHopIndex = 0;
+          document.body.classList.remove('popup-open');
           window.scrollTo(0, 0);
+        },
+
+        showHuongDan(tt) {
+          this.huongDanThuTuc = tt;
+          this.selectedTruongHopIndex = 0;
+          this.currentScreen = 'huongdan';
+          window.scrollTo(0, 0);
+          this.resetIdleTimer();
+        },
+
+        getCurrentTruongHop() {
+          if (!this.huongDanThuTuc?.truong_hop || this.huongDanThuTuc.truong_hop.length === 0) {
+            return null;
+          }
+          return this.huongDanThuTuc.truong_hop[this.selectedTruongHopIndex] || this.huongDanThuTuc.truong_hop[0];
+        },
+
+        selectTruongHop(idx) {
+          this.selectedTruongHopIndex = idx;
+          this.resetIdleTimer();
+        },
+
+        printHuongDan() {
+          window.print();
+        },
+
+        callStaff() {
+          const quay = this.thongTinXa.so_quay;
+          const msg = quay
+            ? 'Vui lòng đến quầy số ' + quay + ' để được cán bộ hỗ trợ.'
+            : 'Vui lòng đến Bộ phận Một cửa để được cán bộ hỗ trợ.';
+          alert(msg);
+        },
+
+        openHuongDanFromPopup() {
+          const tt = this.selectedThuTuc;
+          this.closePopup();
+          this.showHuongDan(tt);
+        },
+
+        backFromHuongDan() {
+          if (this.selectedNganh) {
+            this.currentScreen = 'nganh';
+            this.huongDanThuTuc = null;
+            this.selectedTruongHopIndex = 0;
+          } else {
+            this.showHome();
+          }
+        },
+
+        showTroLyAoIntro() {
+          this.currentScreen = 'trolyao';
+          window.scrollTo(0, 0);
+          this.resetIdleTimer();
+        },
+
+        showThuTucDetail(tt) {
+          this.selectedThuTuc = tt;
+          document.body.classList.add('popup-open');
+          this.resetIdleTimer();
+          this.$nextTick(() => this.generateQR());
+        },
+
+        closePopup() {
+          this.selectedThuTuc = null;
+          document.body.classList.remove('popup-open');
+        },
+
+        getNganhName(maNganh) {
+          if (!maNganh) return '';
+          const nganh = this.danhSachNganh.find(n => n.ma === maNganh);
+          return nganh ? nganh.ten : maNganh;
+        },
+
+        countBieuMau() {
+          const th = this.getFirstTruongHop();
+          if (!th?.thanh_phan_ho_so) return 0;
+          return th.thanh_phan_ho_so.filter(d => d.bieu_mau_url).length;
+        },
+
+        getBieuMauList() {
+          const th = this.getFirstTruongHop();
+          if (!th?.thanh_phan_ho_so) return [];
+          return th.thanh_phan_ho_so.filter(d => d.bieu_mau_url).map(d => ({
+            ten: d.ten,
+            url: d.bieu_mau_url,
+            dinh_dang: d.dinh_dang
+          }));
+        },
+
+        printDetail() {
+          window.print();
+        },
+
+        getContactOption1() {
+          const quay = this.thongTinXa.so_quay;
+          if (quay) {
+            return 'Đến <strong>quầy ' + quay + '</strong> để cán bộ hướng dẫn trực tiếp';
+          }
+          return 'Đến <strong>Bộ phận Một cửa</strong> để cán bộ hướng dẫn trực tiếp';
+        },
+
+        getContactOption2() {
+          const dt = this.thongTinXa.dien_thoai;
+          if (dt) {
+            return 'Gọi số <strong>' + dt + '</strong>';
+          }
+          return 'Liên hệ cán bộ tại <strong>Bộ phận Một cửa</strong>';
+        },
+
+        getFirstTruongHop() {
+          if (!this.selectedThuTuc?.truong_hop || this.selectedThuTuc.truong_hop.length === 0) {
+            return null;
+          }
+          return this.selectedThuTuc.truong_hop[0];
+        },
+
+        isStale(dateStr) {
+          if (!dateStr) return false;
+          const date = new Date(dateStr);
+          const now = new Date();
+          const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+          return diffDays > this.STALE_DAYS;
+        },
+
+        formatStep(step) {
+          // Convert newlines to <br> and preserve formatting
+          return step.replace(/\n/g, '<br>').replace(/- /g, '<br>• ');
+        },
+
+        generateQRSvg(url, size) {
+          if (!url) return '';
+          size = size || 200;
+          try {
+            const qr = qrcode(0, 'M');
+            qr.addData(url);
+            qr.make();
+
+            const cellSize = size / qr.getModuleCount();
+            let svg = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">';
+            svg += '<rect width="' + size + '" height="' + size + '" fill="white"/>';
+
+            for (let row = 0; row < qr.getModuleCount(); row++) {
+              for (let col = 0; col < qr.getModuleCount(); col++) {
+                if (qr.isDark(row, col)) {
+                  svg += '<rect x="' + (col * cellSize) + '" y="' + (row * cellSize) + '" width="' + cellSize + '" height="' + cellSize + '" fill="black"/>';
+                }
+              }
+            }
+            svg += '</svg>';
+            return svg;
+          } catch (e) {
+            console.error('QR generation error:', e);
+            return '';
+          }
+        },
+
+        generateQR() {
+          const qrContainer = this.$refs.qrCode;
+          if (!qrContainer || !this.selectedThuTuc?.ma) return;
+
+          const url = this.getDvcLink(this.selectedThuTuc.ma);
+          if (url === '#') return;
+
+          qrContainer.innerHTML = this.generateQRSvg(url, 200);
         },
 
         toggleFontSize() {
@@ -326,6 +1037,63 @@
             this.highContrast = true;
             document.documentElement.setAttribute('data-contrast', 'high');
           }
+        },
+
+        // Search methods
+        onSearchInput() {
+          this.resetIdleTimer();
+          if (this.searchQuery.trim().length > 0) {
+            this.searchResults = window.VNSearch.searchThuTuc(this.searchQuery, this.thuTuc);
+          } else {
+            this.searchResults = [];
+          }
+        },
+
+        onSearchFocus() {
+          this.resetIdleTimer();
+        },
+
+        clearSearch() {
+          this.searchQuery = '';
+          this.searchResults = [];
+          this.resetIdleTimer();
+        },
+
+        // Idle reset methods
+        setupIdleReset() {
+          const events = ['touchstart', 'mousedown', 'keydown', 'scroll'];
+          const handler = () => this.resetIdleTimer();
+          events.forEach(e => document.addEventListener(e, handler, { passive: true }));
+          this.resetIdleTimer();
+        },
+
+        resetIdleTimer() {
+          if (this.idleTimer) {
+            clearTimeout(this.idleTimer);
+          }
+          this.idleTimer = setTimeout(() => this.onIdle(), this.IDLE_TIMEOUT);
+        },
+
+        onIdle() {
+          // Show idle screen instead of resetting
+          this.currentScreen = 'idle';
+          this.selectedNganh = null;
+          this.selectedThuTuc = null;
+          this.huongDanThuTuc = null;
+          this.selectedTruongHopIndex = 0;
+          document.body.classList.remove('popup-open');
+          // Keep search query and font settings
+        },
+
+        wakeFromIdle() {
+          // Return to home screen, clear search
+          this.currentScreen = 'home';
+          this.searchQuery = '';
+          this.searchResults = [];
+          this.huongDanThuTuc = null;
+          this.selectedTruongHopIndex = 0;
+          window.scrollTo(0, 0);
+          this.resetIdleTimer();
         }
       };
     }
