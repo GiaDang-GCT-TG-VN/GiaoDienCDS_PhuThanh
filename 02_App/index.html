@@ -625,10 +625,6 @@
                   </template>
                 </td>
               </tr>
-              <tr x-show="getFirstTruongHop()?.le_phi">
-                <th>Lệ phí</th>
-                <td x-text="getFirstTruongHop()?.le_phi?.mo_ta"></td>
-              </tr>
               <tr x-show="countBieuMau() > 0">
                 <th>Biểu mẫu</th>
                 <td x-text="countBieuMau() + ' biểu mẫu'"></td>

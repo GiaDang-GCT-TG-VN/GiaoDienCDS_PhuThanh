@@ -987,7 +987,7 @@ body {
 .huongdan-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto auto;
   gap: 16px;
   flex: 1;
   min-height: 400px;
@@ -1000,7 +1000,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  overflow: hidden;
 }
 
 .huongdan-box-header {
@@ -1015,8 +1014,6 @@ body {
 
 .huongdan-box-content {
   flex: 1;
-  min-height: 0;
-  overflow-y: auto;
 }
 
 .huongdan-doc-list {
