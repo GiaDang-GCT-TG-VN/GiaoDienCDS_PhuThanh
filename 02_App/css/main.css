@@ -1055,6 +1055,43 @@ body {
   margin: 0;
 }
 
+/* Thời hạn chi tiết trong Hướng dẫn từng bước */
+.huongdan-thoihan-chitiet {
+  margin: 12px 0 0 0;
+  padding-left: 20px;
+  font-size: var(--font-20);
+  color: var(--chu-phu);
+}
+
+.huongdan-thoihan-chitiet li {
+  margin-bottom: 6px;
+}
+
+/* Hình thức nộp trong Hướng dẫn từng bước */
+.huongdan-hinhthucnop-table {
+  width: 100%;
+  margin-top: 16px;
+  border-collapse: collapse;
+  font-size: var(--font-20);
+}
+
+.huongdan-hinhthucnop-table th,
+.huongdan-hinhthucnop-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--vien);
+}
+
+.huongdan-hinhthucnop-table th {
+  background: var(--kem);
+  font-weight: 600;
+  color: var(--chu);
+}
+
+.huongdan-hinhthucnop-table td {
+  color: var(--chu-phu);
+}
+
 .huongdan-cases {
   flex: none;
   padding-top: 16px;
@@ -1248,25 +1285,16 @@ body {
 
 /* Trình tự thực hiện */
 .thutuc-steps {
-  list-style: none;
-  counter-reset: step;
   padding-left: 0;
 }
 
 .thutuc-step {
-  counter-increment: step;
   padding: 16px 20px;
   background: var(--kem);
   border-left: 4px solid var(--vang-son);
   margin-bottom: 12px;
   font-size: var(--font-20);
   line-height: 1.5;
-}
-
-.thutuc-step::before {
-  content: 'Bước ' counter(step) ': ';
-  font-weight: 700;
-  color: var(--muc);
 }
 
 /* Thành phần hồ sơ */
@@ -1562,6 +1590,56 @@ body.popup-open {
 
 .thutuc-info-table tr:nth-child(odd) {
   background: var(--kem);
+}
+
+/* Thời hạn chi tiết trong popup */
+.popup-thoihan-chitiet {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+  font-size: var(--font-18);
+  font-weight: 400;
+  color: var(--chu-phu);
+}
+
+.popup-thoihan-chitiet li {
+  margin-bottom: 4px;
+}
+
+/* Hình thức nộp trong popup */
+.thutuc-hinhthucnop {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--vien);
+}
+
+.thutuc-hinhthucnop-title {
+  font-size: var(--font-18);
+  font-weight: 600;
+  color: var(--chu);
+  margin: 0 0 12px 0;
+}
+
+.thutuc-hinhthucnop-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-18);
+}
+
+.thutuc-hinhthucnop-table th,
+.thutuc-hinhthucnop-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--vien);
+}
+
+.thutuc-hinhthucnop-table th {
+  background: var(--kem);
+  font-weight: 600;
+  color: var(--chu);
+}
+
+.thutuc-hinhthucnop-table td {
+  color: var(--chu-phu);
 }
 
 .thutuc-actions {

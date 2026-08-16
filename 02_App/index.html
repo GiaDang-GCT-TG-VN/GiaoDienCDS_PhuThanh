@@ -420,6 +420,27 @@
             <template x-if="!huongDanThuTuc?.noi_nop && !thongTinXa.so_quay">
               <p class="huongdan-no-data">Chưa có thông tin, vui lòng hỏi cán bộ tại quầy</p>
             </template>
+            <!-- Hình thức nộp -->
+            <template x-if="getCurrentTruongHop()?.hinh_thuc_nop?.length > 0">
+              <table class="huongdan-hinhthucnop-table">
+                <thead>
+                  <tr>
+                    <th>Hình thức</th>
+                    <th>Thời hạn</th>
+                    <th>Lệ phí</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="(ht, idx) in getCurrentTruongHop().hinh_thuc_nop" :key="idx">
+                    <tr>
+                      <td x-text="ht.ten"></td>
+                      <td x-text="ht.thoi_han || '—'"></td>
+                      <td x-text="ht.le_phi || '—'"></td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </template>
           </div>
         </div>
 
@@ -431,7 +452,16 @@
           </div>
           <div class="huongdan-box-content">
             <template x-if="getCurrentTruongHop()?.thoi_han?.mo_ta">
-              <p class="huongdan-text" x-text="getCurrentTruongHop().thoi_han.mo_ta"></p>
+              <div>
+                <p class="huongdan-text" x-text="getCurrentTruongHop().thoi_han.mo_ta"></p>
+                <template x-if="getCurrentTruongHop()?.thoi_han?.chi_tiet?.length > 0">
+                  <ul class="huongdan-thoihan-chitiet">
+                    <template x-for="(phase, idx) in getCurrentTruongHop().thoi_han.chi_tiet" :key="idx">
+                      <li x-text="phase"></li>
+                    </template>
+                  </ul>
+                </template>
+              </div>
             </template>
             <template x-if="!getCurrentTruongHop()?.thoi_han?.mo_ta">
               <p class="huongdan-no-data">Chưa có thông tin, vui lòng hỏi cán bộ tại quầy</p>
@@ -565,7 +595,16 @@
               </tr>
               <tr x-show="getFirstTruongHop()?.thoi_han">
                 <th>Thời hạn</th>
-                <td x-text="getFirstTruongHop()?.thoi_han?.mo_ta"></td>
+                <td>
+                  <span x-text="getFirstTruongHop()?.thoi_han?.mo_ta"></span>
+                  <template x-if="getFirstTruongHop()?.thoi_han?.chi_tiet?.length > 0">
+                    <ul class="popup-thoihan-chitiet">
+                      <template x-for="(phase, idx) in getFirstTruongHop().thoi_han.chi_tiet" :key="idx">
+                        <li x-text="phase"></li>
+                      </template>
+                    </ul>
+                  </template>
+                </td>
               </tr>
               <tr x-show="getFirstTruongHop()?.le_phi">
                 <th>Lệ phí</th>
@@ -577,6 +616,32 @@
               </tr>
             </tbody>
           </table>
+
+          <!-- Hình thức nộp -->
+          <template x-if="getFirstTruongHop()?.hinh_thuc_nop?.length > 0">
+            <div class="thutuc-hinhthucnop">
+              <h3 class="thutuc-hinhthucnop-title">Hình thức nộp</h3>
+              <table class="thutuc-hinhthucnop-table">
+                <thead>
+                  <tr>
+                    <th>Hình thức</th>
+                    <th>Thời hạn</th>
+                    <th>Lệ phí</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="(ht, idx) in getFirstTruongHop().hinh_thuc_nop" :key="idx">
+                    <tr>
+                      <td x-text="ht.ten"></td>
+                      <td x-text="ht.thoi_han || '—'"></td>
+                      <td x-text="ht.le_phi || '—'"></td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </template>
+
           <div class="thutuc-actions">
             <button class="btn-print" @click="printDetail()">In hướng dẫn</button>
             <button
@@ -594,11 +659,11 @@
             <template x-if="getFirstTruongHop()?.trinh_tu_thuc_hien">
               <div class="thutuc-section">
                 <h2 class="thutuc-section-title">Trình tự thực hiện</h2>
-                <ol class="thutuc-steps">
+                <div class="thutuc-steps">
                   <template x-for="(step, idx) in getFirstTruongHop().trinh_tu_thuc_hien" :key="idx">
-                    <li class="thutuc-step" x-html="formatStep(step)"></li>
+                    <div class="thutuc-step" x-html="formatStep(step)"></div>
                   </template>
-                </ol>
+                </div>
               </div>
             </template>
 
