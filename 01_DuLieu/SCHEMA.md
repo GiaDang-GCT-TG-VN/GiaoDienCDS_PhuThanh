@@ -1,7 +1,7 @@
 # SCHEMA — Cấu trúc dữ liệu tthc.json
 
-> **Phiên bản:** 1.9
-> **Ngày:** 11/08/2026
+> **Phiên bản:** 2.0
+> **Ngày:** 16/08/2026
 > **Trạng thái:** Chờ duyệt
 
 ---
@@ -379,6 +379,7 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 | `truong_hop[].thoi_han` | object | ✅ | Thời hạn giải quyết |
 | `truong_hop[].trinh_tu_thuc_hien` | array \| null | ❌ | Các bước thực hiện (xem 4.4.1) |
 | `truong_hop[].cach_thuc_thuc_hien` | array \| null | ❌ | Cách thức nộp hồ sơ (xem 4.4.2) |
+| `truong_hop[].hinh_thuc_nop` | array \| null | ❌ | Hình thức nộp chi tiết (xem 4.4.3) |
 
 #### 4.4.1. Trình tự thực hiện
 
@@ -418,6 +419,37 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 ]
 ```
 
+#### 4.4.3. Hình thức nộp chi tiết
+
+> ⚠️ **Khi nào dùng:** Nguồn DVC thường có bảng với 3 dòng (Trực tiếp / Trực tuyến / Bưu chính), mỗi dòng có thời hạn và lệ phí riêng. Dùng `hinh_thuc_nop` để chứa đầy đủ thông tin này.
+
+| Trường | Kiểu | Bắt buộc | Quy tắc |
+|---|---|---|---|
+| `hinh_thuc_nop` | array \| null | ❌ | Danh sách hình thức nộp. `null` nếu nguồn không nêu hoặc `danh_muc` |
+| `hinh_thuc_nop[].ten` | string | ✅ | Tên hình thức: "Trực tiếp", "Trực tuyến", "Dịch vụ bưu chính" |
+| `hinh_thuc_nop[].thoi_han` | string \| null | ❌ | Thời hạn riêng cho hình thức này, chép nguyên văn |
+| `hinh_thuc_nop[].le_phi` | string \| null | ❌ | Lệ phí riêng cho hình thức này, chép nguyên văn |
+| `hinh_thuc_nop[].mo_ta` | string \| null | ❌ | Mô tả bổ sung, chép nguyên văn |
+
+**Ví dụ:**
+
+```json
+"hinh_thuc_nop": [
+  {
+    "ten": "Trực tiếp",
+    "thoi_han": "Theo mô tả",
+    "le_phi": "400.000 Đồng (Mức thu lệ phí: 400.000đ/trường hợp. Miễn lệ phí...)",
+    "mo_ta": "Nộp hồ sơ tại Trung tâm hành chính công..."
+  },
+  {
+    "ten": "Trực tuyến",
+    "thoi_han": "Theo mô tả",
+    "le_phi": "400.000 Đồng",
+    "mo_ta": null
+  }
+]
+```
+
 ### 4.5. Thành phần hồ sơ
 
 | Trường | Kiểu | Bắt buộc | Quy tắc |
@@ -432,10 +464,12 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 > ⚠️ **Nguyên tắc:** `mo_ta` là giá trị hiển thị chính, chép nguyên văn từ nguồn. Giao diện **KHÔNG tự ghép chuỗi**.
 >
 > **Cho phép:** `"Theo quy định"` khi nguồn không nêu số cụ thể.
+>
+> ⚠️ **Chuỗi `mo_ta` có thể dài**, chứa cả mức phí và các trường hợp miễn giảm. Giao diện **PHẢI hiển thị đầy đủ, KHÔNG cắt ngắn**.
 
 | Trường | Kiểu | Bắt buộc | Quy tắc |
 |---|---|---|---|
-| `le_phi.mo_ta` | string | ✅ | Chép nguyên văn từ nguồn. Ví dụ: "Miễn lệ phí", "5.000 đồng/bản", "Theo quy định" |
+| `le_phi.mo_ta` | string | ✅ | Chép nguyên văn từ nguồn. **Có thể dài** — chứa cả mức phí cơ bản và các trường hợp miễn giảm. Ví dụ: "400.000đ/trường hợp. Miễn lệ phí đối với trường hợp cha dượng hoặc mẹ kế nhận con riêng..." |
 | `le_phi.mien_phi` | boolean \| null | ❌ | `true` nếu miễn phí, `false` nếu có phí, `null` nếu không xác định |
 | `le_phi.so_tien` | number \| null | ❌ | Số tiền cố định (nếu có) |
 | `le_phi.don_vi` | string \| null | ❌ | "đồng", "đồng/bản", v.v. |
@@ -478,12 +512,32 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 ### 4.7. Thời hạn giải quyết
 
 > ⚠️ **Nguyên tắc:** `mo_ta` là giá trị hiển thị chính, chép nguyên văn từ nguồn.
+> Khi nguồn ghi "Theo mô tả" kèm danh sách nhiều giai đoạn, dùng `chi_tiet` để chứa từng giai đoạn.
 
 | Trường | Kiểu | Bắt buộc | Quy tắc |
 |---|---|---|---|
-| `thoi_han.mo_ta` | string | ✅ | Chép nguyên văn. Ví dụ: "Trong ngày làm việc", "05 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ" |
+| `thoi_han.mo_ta` | string | ✅ | Chép nguyên văn. Ví dụ: "Trong ngày làm việc", "Theo mô tả" |
+| `thoi_han.chi_tiet` | array of string \| null | ❌ | Danh sách các giai đoạn thời hạn, mỗi phần tử chép nguyên văn. `null` nếu không có |
 | `thoi_han.so_ngay` | number \| null | ❌ | Số ngày (nếu trích xuất được) |
 | `thoi_han.don_vi` | string \| null | ❌ | "ngày làm việc" hoặc "ngày" |
+
+**Ví dụ thời hạn nhiều giai đoạn:**
+
+```json
+"thoi_han": {
+  "mo_ta": "Theo mô tả",
+  "chi_tiet": [
+    "Thời gian xác minh, đánh giá hoàn cảnh gia đình: 05 ngày làm việc",
+    "Thời gian kiểm tra hồ sơ và lấy ý kiến: 10 ngày, kể từ ngày nhận đủ hồ sơ hợp lệ",
+    "Thời gian những người liên quan thay đổi ý kiến: 10 ngày làm việc",
+    "Thời gian tổ chức đăng ký và giao nhận: 05 ngày, kể từ ngày hết hạn thay đổi ý kiến"
+  ],
+  "so_ngay": null,
+  "don_vi": null
+}
+```
+
+> ⚠️ **Giao diện:** Hiển thị `mo_ta` trước, sau đó `chi_tiet` dạng danh sách nếu có.
 
 ### 4.8. Căn cứ pháp lý (thủ tục)
 
@@ -523,6 +577,19 @@ const url = cauHinhLienKet.mau_link_dvc.replace('{ma}', thuTuc.ma);
 |---|---|---|---|
 | `noi_nop` | string \| null | ✅ | Nơi nộp hồ sơ. `null` nếu `danh_muc` |
 | `co_quan_thuc_hien` | string \| null | ❌ | Cơ quan thực hiện |
+| `doi_tuong_thuc_hien` | string \| null | ❌ | Đối tượng thực hiện (ví dụ: "Công dân Việt Nam") |
+| `ket_qua_thuc_hien` | string \| null | ❌ | Kết quả thực hiện (ví dụ: "Giấy chứng nhận nuôi con nuôi trong nước") |
+| `yeu_cau_dieu_kien` | array of string \| null | ❌ | Yêu cầu, điều kiện thực hiện. Mỗi phần tử là một điều kiện, chép nguyên văn |
+
+**Ví dụ yêu cầu điều kiện:**
+
+```json
+"yeu_cau_dieu_kien": [
+  "Có năng lực hành vi dân sự đầy đủ",
+  "Hơn con nuôi từ 20 tuổi trở lên – không áp dụng đối với trường hợp cha dượng nhận con riêng của vợ...",
+  "Có điều kiện về sức khỏe, kinh tế, chỗ ở bảo đảm việc chăm sóc, nuôi dưỡng, giáo dục con nuôi"
+]
+```
 
 > ⚠️ **Trường `link_dvc` đã bỏ.** Thay bằng file cấu hình `cau-hinh-lien-ket.json` với mẫu URL dùng chung. Xem mục 1.3.
 
@@ -677,6 +744,19 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 
 ## 8. THAY ĐỔI SO VỚI PHIÊN BẢN TRƯỚC
 
+### v2.0 so với v1.9
+
+| Điểm | v1.9 | v2.0 |
+|---|---|---|
+| `thoi_han.chi_tiet` | — | **MỚI**: Mảng chuỗi các giai đoạn thời hạn khi nguồn ghi "Theo mô tả" |
+| `truong_hop[].hinh_thuc_nop` | — | **MỚI**: Bảng hình thức nộp với thời hạn và lệ phí riêng cho từng hình thức |
+| `yeu_cau_dieu_kien` | — | **MỚI**: Mảng chuỗi các điều kiện thực hiện thủ tục |
+| `ket_qua_thuc_hien` | — | **MỚI**: Kết quả sau khi giải quyết xong |
+| `doi_tuong_thuc_hien` | — | **MỚI**: Đối tượng được thực hiện thủ tục |
+| `le_phi.mo_ta` | Chuỗi | Ghi rõ: có thể dài, chứa cả mức phí và trường hợp miễn giảm. Giao diện KHÔNG cắt ngắn |
+
+> ⚠️ **Lý do cập nhật:** File .doc từ DVC có cấu trúc phong phú hơn trang web, cần mở rộng schema để chứa đầy đủ.
+
 ### v1.9 so với v1.7
 
 | Điểm | v1.7 | v1.9 |
@@ -717,6 +797,7 @@ Script `validate.js` kiểm tra theo `muc_do_chi_tiet`:
 | v1.6 | 11/08/2026 | Xóa `link_dvc`, thêm `cau-hinh-lien-ket.json` với mẫu URL dùng chung |
 | v1.7 | 11/08/2026 | Thêm `ten_than_thien` cho ngành - tên gần gũi với người dân nông thôn |
 | v1.9 | 11/08/2026 | Thêm `trinh_tu_thuc_hien`, `cach_thuc_thuc_hien` vào trường hợp; cảnh báo validate nếu thiếu |
+| v2.0 | 16/08/2026 | Thêm `thoi_han.chi_tiet`, `hinh_thuc_nop`, `yeu_cau_dieu_kien`, `ket_qua_thuc_hien`, `doi_tuong_thuc_hien`; ghi rõ `le_phi.mo_ta` có thể dài |
 
 ---
 

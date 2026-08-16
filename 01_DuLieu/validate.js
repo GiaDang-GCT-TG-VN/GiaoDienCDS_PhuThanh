@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * validate.js - Validate tthc.json against SCHEMA.md v1.9
+ * validate.js - Validate tthc.json against SCHEMA.md v2.0
  * Run with: node validate.js
  * Exit code: 0 if no errors, 1 if errors found
  */
@@ -73,7 +73,7 @@ function hasDecisionNumber(nguon) {
 
 // Main validation
 function validate() {
-  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v1.9${RESET}\n`);
+  console.log(`${BOLD}Validating tthc.json against SCHEMA.md v2.0${RESET}\n`);
 
   // Load data files
   const tthc = loadJson('tthc.json');
@@ -220,6 +220,34 @@ function validate() {
           if (!th.trinh_tu_thuc_hien || !Array.isArray(th.trinh_tu_thuc_hien) || th.trinh_tu_thuc_hien.length === 0) {
             logWarning(ma, `truong_hop[${j}].trinh_tu_thuc_hien`, 'Missing trinh_tu_thuc_hien - should be filled for day_du');
           }
+
+          // v2.0: Check thoi_han.chi_tiet (optional, array of strings)
+          if (th.thoi_han && th.thoi_han.chi_tiet !== undefined) {
+            if (!Array.isArray(th.thoi_han.chi_tiet)) {
+              logError(ma, `truong_hop[${j}].thoi_han.chi_tiet`, `Must be array, got: ${typeof th.thoi_han.chi_tiet}`);
+            } else {
+              for (const item of th.thoi_han.chi_tiet) {
+                if (typeof item !== 'string') {
+                  logError(ma, `truong_hop[${j}].thoi_han.chi_tiet`, 'Array must contain strings only');
+                  break;
+                }
+              }
+            }
+          }
+
+          // v2.0: Check hinh_thuc_nop (optional, array of objects)
+          if (th.hinh_thuc_nop !== undefined) {
+            if (!Array.isArray(th.hinh_thuc_nop)) {
+              logError(ma, `truong_hop[${j}].hinh_thuc_nop`, `Must be array, got: ${typeof th.hinh_thuc_nop}`);
+            } else {
+              for (let k = 0; k < th.hinh_thuc_nop.length; k++) {
+                const ht = th.hinh_thuc_nop[k];
+                if (!ht.ten || typeof ht.ten !== 'string') {
+                  logError(ma, `truong_hop[${j}].hinh_thuc_nop[${k}].ten`, 'Required field, must be string');
+                }
+              }
+            }
+          }
         }
       }
 
@@ -231,6 +259,30 @@ function validate() {
       // can_cu_phap_ly
       if (!tt.can_cu_phap_ly || !Array.isArray(tt.can_cu_phap_ly) || tt.can_cu_phap_ly.length === 0) {
         logError(ma, 'can_cu_phap_ly', 'Required for day_du - must be array with at least 1 element');
+      }
+
+      // v2.0: yeu_cau_dieu_kien (optional, array of strings)
+      if (tt.yeu_cau_dieu_kien !== undefined) {
+        if (!Array.isArray(tt.yeu_cau_dieu_kien)) {
+          logError(ma, 'yeu_cau_dieu_kien', `Must be array, got: ${typeof tt.yeu_cau_dieu_kien}`);
+        } else {
+          for (const item of tt.yeu_cau_dieu_kien) {
+            if (typeof item !== 'string') {
+              logError(ma, 'yeu_cau_dieu_kien', 'Array must contain strings only');
+              break;
+            }
+          }
+        }
+      }
+
+      // v2.0: ket_qua_thuc_hien (optional, string)
+      if (tt.ket_qua_thuc_hien !== undefined && typeof tt.ket_qua_thuc_hien !== 'string') {
+        logError(ma, 'ket_qua_thuc_hien', `Must be string, got: ${typeof tt.ket_qua_thuc_hien}`);
+      }
+
+      // v2.0: doi_tuong_thuc_hien (optional, string)
+      if (tt.doi_tuong_thuc_hien !== undefined && typeof tt.doi_tuong_thuc_hien !== 'string') {
+        logError(ma, 'doi_tuong_thuc_hien', `Must be string, got: ${typeof tt.doi_tuong_thuc_hien}`);
       }
     }
 
