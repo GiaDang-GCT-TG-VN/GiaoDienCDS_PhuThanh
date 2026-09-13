@@ -4267,9 +4267,9 @@
       "ten_than_thien": null
     },
     {
-      "muc_do_chi_tiet": "danh_muc",
+      "muc_do_chi_tiet": "day_du",
       "ma": "2.001255",
-      "ten": "Đăng ký lại việc nuôi con nuôi trong nước",
+      "ten": "Đăng ký lại việc nuôi con nuôi trong nước",
       "nganh": "tu-phap",
       "linh_vuc": "nuoi-con-nuoi",
       "mo_ta": null,
@@ -4277,23 +4277,146 @@
       "ly_do_thay_doi": null,
       "ma_thay_the": null,
       "thuong_gap": false,
+      "ten_than_thien": null,
       "tu_khoa": [],
-      "truong_hop": null,
-      "noi_nop": null,
-      "co_quan_thuc_hien": null,
-      "can_cu_phap_ly": null,
-      "can_cu_le_phi": null,
-      "bieu_mau": null,
-      "ghi_chu_can_bo": null,
-      "nguon": null,
-      "nguon_url": null,
-      "ngay_trich_xuat": "2026-08-11",
-      "ngay_cap_nhat": "2026-08-11",
-      "nguoi_cap_nhat": null,
-      "ten_than_thien": null
+      "loai_thu_tuc": "TTHC không được luật giao cho địa phương quy định hoặc quy định chi tiết",
+      "doi_tuong_thuc_hien": "Công dân Việt Nam",
+      "co_quan_thuc_hien": "Ủy ban Nhân dân xã, phường, thị trấn",
+      "co_quan_phoi_hop": null,
+      "dia_chi_tiep_nhan": null,
+      "ket_qua_thuc_hien": "Giấy chứng nhận nuôi con nuôi trong nước",
+      "yeu_cau_dieu_kien": [
+        "Sổ đăng ký nuôi con nuôi và bản chính giấy tờ đăng ký nuôi con nuôi bị mất hoặc hư hỏng không sử dụng được",
+        "Cha, mẹ nuôi và con nuôi đều còn sống vào thời điểm yêu cầu đăng ký lại"
+      ],
+      "truong_hop": [
+        {
+          "ten_truong_hop": "Trường hợp chung",
+          "trinh_tu_thuc_hien": [
+            "Bước 1: Người có yêu cầu đăng ký lại việc nuôi con nuôi nộp Tờ khai đăng ký lại việc nuôi con nuôi cho Ủy ban nhân dân cấp xã nơi cha mẹ nuôi và con nuôi thường trú hoặc nơi đã đăng ký việc nuôi con nuôi trước đây. Tờ khai phải có cam đoan của người yêu cầu đăng ký lại về tính trung thực của việc đăng ký nuôi con nuôi trước đó và có chữ ký của ít nhất hai người làm chứng.",
+            "Bước 2: Ủy ban nhân dân cấp xã giải thích rõ cho người có yêu cầu đăng ký lại việc nuôi con nuôi về trách nhiệm, hệ quả pháp lý của việc cam đoan không đúng sự thật. Trường hợp có cơ sở xác định nội dung cam đoan không đúng sự thật, Ủy ban nhân dân cấp xã từ chối đăng ký lại việc nuôi con nuôi hoặc đề nghị cơ quan có thẩm quyền hủy bỏ kết quả đăng ký lại việc nuôi con nuôi.",
+            "Bước 3: Chủ tịch Ủy ban nhân dân cấp xã ký Giấy chứng nhận nuôi con nuôi trong nước. Mục ghi chú của bản chính Giấy chứng nhận nuôi con nuôi và Sổ đăng ký nuôi con nuôi ghi rõ là đăng ký lại."
+          ],
+          "cach_thuc_thuc_hien": [
+            "Trực tiếp tại UBND cấp xã",
+            "Qua dịch vụ bưu chính",
+            "Trực tuyến trên môi trường điện tử"
+          ],
+          "hinh_thuc_nop": [
+            {
+              "ten": "Trực tiếp",
+              "thoi_han": "5 ngày làm việc",
+              "le_phi": "Miễn phí",
+              "mo_ta": "Nộp cho UBND cấp xã"
+            },
+            {
+              "ten": "Trực tuyến",
+              "thoi_han": "5 ngày làm việc",
+              "le_phi": "Miễn phí",
+              "mo_ta": "Nộp qua môi trường điện tử"
+            },
+            {
+              "ten": "Dịch vụ bưu chính",
+              "thoi_han": "5 ngày làm việc",
+              "le_phi": "Miễn phí",
+              "mo_ta": "Nộp qua đường bưu điện"
+            }
+          ],
+          "thanh_phan_ho_so": [
+            {
+              "nhom": null,
+              "ten": "Tờ khai đăng ký lại việc nuôi con nuôi",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": "Phải có cam đoan và chữ ký của ít nhất hai người làm chứng"
+            }
+          ],
+          "le_phi": {
+            "mo_ta": "Miễn phí",
+            "gia_tham_khao": null,
+            "nguon_tham_khao": null,
+            "can_xac_minh": false
+          },
+          "thoi_han": {
+            "mo_ta": "05 ngày làm việc",
+            "chi_tiet": []
+          }
+        }
+      ],
+      "noi_nop": "Ủy ban nhân dân cấp xã nơi cha mẹ nuôi và con nuôi thường trú hoặc nơi đã đăng ký việc nuôi con nuôi trước đây",
+      "can_cu_phap_ly": [
+        {
+          "so_ky_hieu": "52/2010/QH12",
+          "trich_yeu": "Luật Nuôi con nuôi",
+          "ngay_ban_hanh": "2010-06-17",
+          "co_quan_ban_hanh": "Quốc Hội"
+        },
+        {
+          "so_ky_hieu": "19/2011/NĐ-CP",
+          "trich_yeu": "Nghị định quy định chi tiết thi hành Luật Nuôi con nuôi",
+          "ngay_ban_hanh": "2011-03-21",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "114/2016/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi, bổ sung Nghị định 19/2011/NĐ-CP",
+          "ngay_ban_hanh": "2016-07-08",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "267/2016/TT-BTC",
+          "trich_yeu": "Thông tư quy định lệ phí đăng ký nuôi con nuôi",
+          "ngay_ban_hanh": "2016-11-14",
+          "co_quan_ban_hanh": "Bộ Tài chính"
+        },
+        {
+          "so_ky_hieu": "10/2020/TT-BTP",
+          "trich_yeu": "Thông tư về sổ, mẫu giấy tờ, hồ sơ nuôi con nuôi",
+          "ngay_ban_hanh": "2020-12-28",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "104/2022/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi liên quan đến sổ hộ khẩu",
+          "ngay_ban_hanh": "2022-12-21",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "07/2023/TT-BTP",
+          "trich_yeu": "Thông tư sửa đổi Thông tư 10/2020/TT-BTP",
+          "ngay_ban_hanh": "2024-05-20",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "06/2025/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi về nuôi con nuôi",
+          "ngay_ban_hanh": "2025-01-08",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "120/2025/NĐ-CP",
+          "trich_yeu": "Nghị định phân định thẩm quyền chính quyền địa phương",
+          "ngay_ban_hanh": "2025-06-11",
+          "co_quan_ban_hanh": "Chính phủ"
+        }
+      ],
+      "can_cu_le_phi": "Thông tư 267/2016/TT-BTC",
+      "bieu_mau": [
+        {
+          "ten": "Tờ khai đăng ký lại việc nuôi con nuôi",
+          "ma": "7.Tkhaingklivicnuiconnui.doc",
+          "url": null
+        }
+      ],
+      "ghi_chu_can_bo": "Trường hợp người có yêu cầu lựa chọn nộp hồ sơ không phải tại UBND cấp xã nơi có thẩm quyền giải quyết, UBND cấp xã nơi tiếp nhận yêu cầu có trách nhiệm hỗ trợ nộp hồ sơ trực tuyến đến đúng UBND cấp xã có thẩm quyền.",
+      "nguon": "Quyết định số 1848/QĐ-BTP của Bộ Tư pháp",
+      "nguon_url": "https://dichvucong.gov.vn",
+      "ngay_trich_xuat": "2026-09-13",
+      "ngay_cap_nhat": "2026-09-13",
+      "nguoi_cap_nhat": null
     },
     {
-      "muc_do_chi_tiet": "danh_muc",
+      "muc_do_chi_tiet": "day_du",
       "ma": "1.003005",
       "ten": "Giải quyết việc người nước ngoài cư trú ở khu vực biên giới nước láng giềng nhận trẻ em Việt Nam làm con nuôi",
       "nganh": "tu-phap",
@@ -4303,25 +4426,231 @@
       "ly_do_thay_doi": null,
       "ma_thay_the": null,
       "thuong_gap": false,
+      "ten_than_thien": null,
       "tu_khoa": [],
-      "truong_hop": null,
-      "noi_nop": null,
-      "co_quan_thuc_hien": null,
-      "can_cu_phap_ly": null,
-      "can_cu_le_phi": null,
-      "bieu_mau": null,
-      "ghi_chu_can_bo": null,
-      "nguon": null,
-      "nguon_url": null,
-      "ngay_trich_xuat": "2026-08-11",
-      "ngay_cap_nhat": "2026-08-11",
-      "nguoi_cap_nhat": null,
-      "ten_than_thien": null
+      "loai_thu_tuc": "TTHC được luật giao quy định chi tiết",
+      "doi_tuong_thuc_hien": "Người nước ngoài",
+      "co_quan_thuc_hien": "Ủy ban Nhân dân xã, phường, thị trấn",
+      "co_quan_phoi_hop": "Sở Tư pháp",
+      "dia_chi_tiep_nhan": null,
+      "ket_qua_thuc_hien": "Giấy chứng nhận nuôi con nuôi trong nước",
+      "yeu_cau_dieu_kien": [
+        "Có năng lực hành vi dân sự đầy đủ",
+        "Hơn con nuôi từ 20 tuổi trở lên",
+        "Có điều kiện về sức khỏe, kinh tế, chỗ ở bảo đảm việc chăm sóc, nuôi dưỡng, giáo dục con nuôi",
+        "Có tư cách đạo đức tốt",
+        "Đủ điều kiện theo quy định của pháp luật nước láng giềng",
+        "Không đang bị hạn chế một số quyền của cha, mẹ đối với con chưa thành niên",
+        "Không đang chấp hành quyết định xử lý hành chính tại cơ sở giáo dục, cơ sở chữa bệnh",
+        "Không đang chấp hành hình phạt tù",
+        "Chưa được xóa án tích về một trong các tội cố ý xâm phạm tính mạng, sức khoẻ, nhân phẩm, danh dự của người khác; ngược đãi hoặc hành hạ ông bà, cha mẹ, vợ chồng, con, cháu, người có công nuôi dưỡng mình; dụ dỗ, ép buộc hoặc chứa chấp người chưa thành niên vi phạm pháp luật; mua bán, đánh tráo, chiếm đoạt trẻ em"
+      ],
+      "truong_hop": [
+        {
+          "ten_truong_hop": "Trường hợp chung",
+          "trinh_tu_thuc_hien": [
+            "Bước 1: Người nước ngoài cư trú ở khu vực biên giới của nước láng giềng nhận con nuôi nộp hồ sơ của mình và của người được nhận làm con nuôi cho Ủy ban nhân dân cấp xã nơi trẻ em được nhận làm con nuôi thường trú. Lưu ý: Trường hợp người nhận con nuôi lựa chọn nộp hồ sơ không phải tại Ủy ban nhân dân cấp xã nơi có thẩm quyền giải quyết việc nuôi con nuôi, Ủy ban nhân dân cấp xã nơi tiếp nhận yêu cầu có trách nhiệm hỗ trợ người nhận con nuôi nộp hồ sơ đăng ký nuôi con nuôi trực tuyến đến đúng Ủy ban nhân dân cấp xã có thẩm quyền theo quy định.",
+            "Bước 2: Ủy ban nhân dân cấp xã khai thác, sử dụng thông tin trên các cơ sở dữ liệu để thay thế thành phần hồ sơ của người được nhận làm con nuôi: Thông tin trên Cơ sở dữ liệu hộ tịch điện tử để thay thế Giấy chứng tử của cha đẻ, mẹ đẻ (đối với trường hợp người được nhận làm con nuôi là trẻ em mồ côi); Thông tin trên dữ liệu Sổ sức khỏe điện tử tích hợp trên ứng dụng VNeID để thay thế Giấy khám sức khỏe.",
+            "Bước 3: Công chức cấp xã kiểm tra hồ sơ, lấy ý kiến của những người liên quan và có văn bản gửi Sở Tư pháp kèm theo 01 bộ hồ sơ của người nhận con nuôi và của trẻ em để xin ý kiến. Khi kiểm tra hồ sơ, công chức cấp xã phải nghiên cứu, tìm hiểu tâm tư, nguyện vọng và hoàn cảnh của những người liên quan.",
+            "Bước 4: Sở Tư pháp xem xét hồ sơ xin nhận con nuôi và trả lời bằng văn bản cho Ủy ban nhân dân cấp xã.",
+            "Bước 5: Ủy ban nhân dân cấp xã đăng ký việc nuôi con nuôi, tiến hành giao nhận con nuôi. Trường hợp Sở Tư pháp không đồng ý thì Ủy ban nhân dân cấp xã trả lời bằng văn bản cho người nhận con nuôi và nêu rõ lý do."
+          ],
+          "cach_thuc_thuc_hien": [
+            "Trực tiếp tại UBND cấp xã nơi trẻ em thường trú"
+          ],
+          "hinh_thuc_nop": [
+            {
+              "ten": "Trực tiếp",
+              "thoi_han": "45 ngày làm việc",
+              "le_phi": "4.500.000 đồng",
+              "mo_ta": "Nộp cho Ủy ban nhân dân cấp xã nơi trẻ em thường trú"
+            }
+          ],
+          "thanh_phan_ho_so": [
+            {
+              "nhom": "Hồ sơ của người nhận con nuôi",
+              "ten": "Đơn xin nhận con nuôi",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": null
+            },
+            {
+              "nhom": "Hồ sơ của người nhận con nuôi",
+              "ten": "Hộ chiếu hoặc giấy tờ có giá trị thay thế",
+              "ban_chinh": 0,
+              "ban_sao": 2,
+              "ghi_chu": null
+            },
+            {
+              "nhom": "Hồ sơ của người nhận con nuôi",
+              "ten": "Phiếu lý lịch tư pháp",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": "Có giá trị nếu được cấp chưa quá 12 tháng"
+            },
+            {
+              "nhom": "Hồ sơ của người nhận con nuôi",
+              "ten": "Văn bản xác nhận về việc người nhận con nuôi có đủ điều kiện nuôi con nuôi theo quy định của pháp luật nước đó",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": null
+            },
+            {
+              "nhom": "Hồ sơ của người nhận con nuôi",
+              "ten": "Văn bản xác nhận tình trạng hôn nhân",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": null
+            },
+            {
+              "nhom": "Hồ sơ của người nhận con nuôi",
+              "ten": "Giấy khám sức khỏe",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": "Có giá trị nếu được cấp chưa quá 06 tháng"
+            },
+            {
+              "nhom": "Hồ sơ của người nhận con nuôi",
+              "ten": "02 ảnh chụp toàn thân",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": "Chụp mới nhất, cỡ 9cm x 12cm hoặc 10cm x 15cm"
+            },
+            {
+              "nhom": "Hồ sơ của người được nhận làm con nuôi",
+              "ten": "Giấy khai sinh",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": null
+            },
+            {
+              "nhom": "Hồ sơ của người được nhận làm con nuôi",
+              "ten": "Giấy khám sức khỏe",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": "Do bệnh viện đa khoa hoặc phòng khám đa khoa hoặc Trung tâm y tế khu vực cấp"
+            },
+            {
+              "nhom": "Hồ sơ của người được nhận làm con nuôi",
+              "ten": "02 ảnh toàn thân, nhìn thẳng",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": "Chụp không quá 06 tháng"
+            },
+            {
+              "nhom": "Hồ sơ của người được nhận làm con nuôi",
+              "ten": "Biên bản xác nhận (trẻ bị bỏ rơi) hoặc Giấy chứng tử của cha đẻ, mẹ đẻ (trẻ mồ côi) hoặc Quyết định của Tòa án",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": "Tùy trường hợp"
+            },
+            {
+              "nhom": "Hồ sơ của người được nhận làm con nuôi",
+              "ten": "Quyết định tiếp nhận đối với trẻ em ở cơ sở nuôi dưỡng",
+              "ban_chinh": 2,
+              "ban_sao": 0,
+              "ghi_chu": "Nếu có"
+            }
+          ],
+          "le_phi": {
+            "mo_ta": "4.500.000 đồng (Lệ phí đăng ký nuôi con nuôi)",
+            "gia_tham_khao": null,
+            "nguon_tham_khao": null,
+            "can_xac_minh": false
+          },
+          "thoi_han": {
+            "mo_ta": "45 ngày làm việc",
+            "chi_tiet": [
+              "UBND cấp xã kiểm tra hồ sơ, lấy ý kiến những người liên quan: 10 ngày làm việc",
+              "Những người liên quan thay đổi ý kiến đồng ý về việc cho trẻ em làm con nuôi: 10 ngày làm việc",
+              "Sở Tư pháp có ý kiến: 08 ngày làm việc",
+              "Đăng ký việc nuôi con nuôi và giao nhận con nuôi: 05 ngày làm việc"
+            ]
+          }
+        }
+      ],
+      "noi_nop": "Ủy ban nhân dân cấp xã nơi trẻ em thường trú",
+      "can_cu_phap_ly": [
+        {
+          "so_ky_hieu": "52/2010/QH12",
+          "trich_yeu": "Luật Nuôi con nuôi",
+          "ngay_ban_hanh": "2010-06-17",
+          "co_quan_ban_hanh": "Quốc Hội"
+        },
+        {
+          "so_ky_hieu": "19/2011/NĐ-CP",
+          "trich_yeu": "Nghị định quy định chi tiết thi hành một số điều của Luật Nuôi con nuôi",
+          "ngay_ban_hanh": "2011-03-21",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "114/2016/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi, bổ sung một số điều của Nghị định 19/2011/NĐ-CP",
+          "ngay_ban_hanh": "2016-07-08",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "267/2016/TT-BTC",
+          "trich_yeu": "Thông tư quy định mức thu, chế độ thu, nộp lệ phí đăng ký nuôi con nuôi",
+          "ngay_ban_hanh": "2016-11-14",
+          "co_quan_ban_hanh": "Bộ Tài chính"
+        },
+        {
+          "so_ky_hieu": "10/2020/TT-BTP",
+          "trich_yeu": "Thông tư về việc ghi chép, sử dụng, quản lý và lưu trữ sổ, mẫu giấy tờ, hồ sơ nuôi con nuôi",
+          "ngay_ban_hanh": "2020-12-28",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "104/2022/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi, bổ sung một số điều liên quan đến sổ hộ khẩu",
+          "ngay_ban_hanh": "2022-12-21",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "07/2023/TT-BTP",
+          "trich_yeu": "Thông tư sửa đổi, bổ sung Thông tư 10/2020/TT-BTP",
+          "ngay_ban_hanh": "2024-05-20",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "06/2025/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi, bổ sung một số điều về nuôi con nuôi",
+          "ngay_ban_hanh": "2025-01-08",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "120/2025/NĐ-CP",
+          "trich_yeu": "Nghị định quy định về phân định thẩm quyền của chính quyền địa phương",
+          "ngay_ban_hanh": "2025-06-11",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "18/2026/NĐ-CP",
+          "trich_yeu": "Sửa đổi, bổ sung để cắt giảm, đơn giản hóa TTHC thuộc phạm vi quản lý của Bộ Tư pháp",
+          "ngay_ban_hanh": "2026-01-14",
+          "co_quan_ban_hanh": "Chính phủ"
+        }
+      ],
+      "can_cu_le_phi": "Thông tư 267/2016/TT-BTC ngày 14/11/2016 của Bộ Tài chính",
+      "bieu_mau": [
+        {
+          "ten": "Đơn xin nhận con nuôi",
+          "ma": "1.nxinnhnconnui.doc",
+          "url": null
+        }
+      ],
+      "ghi_chu_can_bo": "Số lượng hồ sơ: 02 bộ. Trẻ em được nhận làm con nuôi phải là trẻ em dưới 16 tuổi; hoặc từ đủ 16 tuổi đến dưới 18 tuổi nếu thuộc trường hợp được cha dượng, mẹ kế, cô, cậu, dì, chú, bác ruột nhận làm con nuôi.",
+      "nguon": "Quyết định số 361/QĐ-BTP của Bộ Tư pháp",
+      "nguon_url": "https://dichvucong.gov.vn",
+      "ngay_trich_xuat": "2026-09-13",
+      "ngay_cap_nhat": "2026-09-13",
+      "nguoi_cap_nhat": null
     },
     {
-      "muc_do_chi_tiet": "danh_muc",
+      "muc_do_chi_tiet": "day_du",
       "ma": "2.002349",
-      "ten": "Cấp Giấy xác nhận công dân Việt Nam thường trú ở khu vực biên giới đủ điều kiện nhận trẻ em của nước láng giềng cư trú ở khu vực biên giới làm con nuôi",
+      "ten": "Cấp giấy xác nhận công dân Việt Nam thường trú ở khu vực biên giới đủ điều kiện nhận trẻ em của nước láng giềng cư trú ở khu vực biên giới làm con nuôi",
       "nganh": "tu-phap",
       "linh_vuc": "nuoi-con-nuoi",
       "mo_ta": null,
@@ -4329,23 +4658,174 @@
       "ly_do_thay_doi": null,
       "ma_thay_the": null,
       "thuong_gap": false,
+      "ten_than_thien": null,
       "tu_khoa": [],
-      "truong_hop": null,
-      "noi_nop": null,
-      "co_quan_thuc_hien": null,
-      "can_cu_phap_ly": null,
+      "loai_thu_tuc": "TTHC không được luật giao cho địa phương quy định hoặc quy định chi tiết",
+      "doi_tuong_thuc_hien": "Công dân Việt Nam",
+      "co_quan_thuc_hien": "Ủy ban nhân dân cấp xã",
+      "co_quan_phoi_hop": null,
+      "dia_chi_tiep_nhan": null,
+      "ket_qua_thuc_hien": "Văn bản xác nhận công dân Việt Nam thường trú ở khu vực biên giới đủ điều kiện nhận trẻ em của nước láng giềng cư trú tại khu vực biên giới làm con nuôi",
+      "yeu_cau_dieu_kien": [
+        "Có năng lực hành vi dân sự đầy đủ",
+        "Hơn con nuôi từ 20 tuổi trở lên (không áp dụng đối với trường hợp cha dượng nhận con riêng của vợ, mẹ kế nhận con riêng của chồng làm con nuôi hoặc cô, cậu, dì, chú bác ruột nhận cháu làm con nuôi)",
+        "Có điều kiện về sức khỏe, kinh tế, chỗ ở bảo đảm việc chăm sóc, nuôi dưỡng, giáo dục con nuôi",
+        "Có tư cách đạo đức tốt",
+        "Các điều kiện theo quy định pháp luật của nước láng giềng",
+        "Không đang bị hạn chế một số quyền của cha, mẹ đối với con chưa thành niên",
+        "Không đang chấp hành quyết định xử lý hành chính tại cơ sở giáo dục, cơ sở chữa bệnh",
+        "Không đang chấp hành hình phạt tù",
+        "Chưa được xóa án tích về một trong các tội cố ý xâm phạm tính mạng, sức khoẻ, nhân phẩm, danh dự của người khác"
+      ],
+      "truong_hop": [
+        {
+          "ten_truong_hop": "Trường hợp chung",
+          "trinh_tu_thuc_hien": [
+            "Bước 1: Công dân Việt Nam thường trú ở khu vực biên giới nộp hồ sơ cho Ủy ban nhân dân cấp xã nơi thường trú.",
+            "Bước 2: UBND cấp xã khai thác, sử dụng thông tin trên các cơ sở dữ liệu để thay thế thành phần hồ sơ của người nhận con nuôi: Thông tin trên Cơ sở dữ liệu quốc gia về dân cư để thay thế Hộ chiếu, Thẻ Căn cước; Thông tin trên Cơ sở dữ liệu hộ tịch điện tử để thay thế Giấy chứng nhận kết hôn hoặc Giấy xác nhận tình trạng hôn nhân; Thông tin trên dữ liệu Sổ sức khỏe điện tử VNeID để thay thế Giấy khám sức khỏe.",
+            "Bước 3: Trong thời hạn 10 ngày làm việc kể từ ngày nhận được hồ sơ hợp lệ, Ủy ban nhân dân cấp xã kiểm tra hồ sơ và xác nhận nếu người nhận con nuôi có đủ điều kiện nuôi con nuôi theo quy định của pháp luật Việt Nam.",
+            "Bước 4: Sau khi đăng ký nuôi con nuôi tại cơ quan có thẩm quyền của nước láng giềng, người nhận con nuôi phải làm thủ tục ghi chú việc nuôi con nuôi tại Ủy ban nhân dân cấp xã nơi người đó cư trú theo quy định của pháp luật về hộ tịch."
+          ],
+          "cach_thuc_thuc_hien": [
+            "Trực tiếp tại UBND cấp xã",
+            "Qua dịch vụ bưu chính",
+            "Trực tuyến trên môi trường điện tử"
+          ],
+          "hinh_thuc_nop": [
+            {
+              "ten": "Trực tiếp",
+              "thoi_han": "10 ngày làm việc",
+              "le_phi": "Miễn phí",
+              "mo_ta": null
+            },
+            {
+              "ten": "Trực tuyến",
+              "thoi_han": "10 ngày làm việc",
+              "le_phi": "Miễn phí",
+              "mo_ta": "Thủ tục này đủ điều kiện thực hiện dịch vụ công trực tuyến toàn trình"
+            },
+            {
+              "ten": "Dịch vụ bưu chính",
+              "thoi_han": "10 ngày làm việc",
+              "le_phi": "Miễn phí",
+              "mo_ta": null
+            }
+          ],
+          "thanh_phan_ho_so": [
+            {
+              "nhom": null,
+              "ten": "Đơn xin nhận con nuôi",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": null
+            },
+            {
+              "nhom": null,
+              "ten": "Phiếu lý lịch tư pháp",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": null
+            },
+            {
+              "nhom": null,
+              "ten": "Giấy khám sức khỏe",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": "Do bệnh viện đa khoa hoặc phòng khám đa khoa hoặc Trung tâm y tế khu vực cấp, có giá trị nếu được cấp chưa quá 06 tháng"
+            },
+            {
+              "nhom": null,
+              "ten": "Văn bản xác nhận hoàn cảnh gia đình, tình trạng chỗ ở, điều kiện kinh tế",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": "Do UBND cấp xã nơi người nhận con nuôi thường trú cấp, có giá trị nếu được cấp chưa quá 06 tháng"
+            }
+          ],
+          "le_phi": {
+            "mo_ta": "Miễn phí",
+            "gia_tham_khao": null,
+            "nguon_tham_khao": null,
+            "can_xac_minh": false
+          },
+          "thoi_han": {
+            "mo_ta": "10 ngày làm việc",
+            "chi_tiet": []
+          }
+        }
+      ],
+      "noi_nop": "Ủy ban nhân dân cấp xã nơi thường trú",
+      "can_cu_phap_ly": [
+        {
+          "so_ky_hieu": "52/2010/QH12",
+          "trich_yeu": "Luật Nuôi con nuôi",
+          "ngay_ban_hanh": "2010-06-17",
+          "co_quan_ban_hanh": "Quốc Hội"
+        },
+        {
+          "so_ky_hieu": "19/2011/NĐ-CP",
+          "trich_yeu": "Nghị định quy định chi tiết thi hành Luật Nuôi con nuôi",
+          "ngay_ban_hanh": "2011-03-21",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "10/2020/TT-BTP",
+          "trich_yeu": "Thông tư về sổ, mẫu giấy tờ, hồ sơ nuôi con nuôi",
+          "ngay_ban_hanh": "2020-12-28",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "104/2022/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi liên quan đến sổ hộ khẩu",
+          "ngay_ban_hanh": "2022-12-21",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "07/2023/TT-BTP",
+          "trich_yeu": "Thông tư sửa đổi Thông tư 10/2020/TT-BTP",
+          "ngay_ban_hanh": "2024-05-20",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "06/2025/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi về nuôi con nuôi",
+          "ngay_ban_hanh": "2025-01-08",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "120/2025/NĐ-CP",
+          "trich_yeu": "Nghị định phân định thẩm quyền chính quyền địa phương",
+          "ngay_ban_hanh": "2025-06-11",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "18/2026/NĐ-CP",
+          "trich_yeu": "Sửa đổi, bổ sung TTHC thuộc phạm vi quản lý của Bộ Tư pháp",
+          "ngay_ban_hanh": "2026-01-14",
+          "co_quan_ban_hanh": "Chính phủ"
+        }
+      ],
       "can_cu_le_phi": null,
-      "bieu_mau": null,
+      "bieu_mau": [
+        {
+          "ten": "Đơn xin nhận con nuôi",
+          "ma": "1.nxinnhnconnui.doc",
+          "url": null
+        },
+        {
+          "ten": "Văn bản xác nhận hoàn cảnh gia đình, điều kiện kinh tế",
+          "ma": "2.Vnbnxcnhnhoncnhgianhchiukinkinht.doc",
+          "url": null
+        }
+      ],
       "ghi_chu_can_bo": null,
-      "nguon": null,
-      "nguon_url": null,
-      "ngay_trich_xuat": "2026-08-11",
-      "ngay_cap_nhat": "2026-08-11",
-      "nguoi_cap_nhat": null,
-      "ten_than_thien": null
+      "nguon": "Quyết định số 361/QĐ-BTP của Bộ Tư pháp",
+      "nguon_url": "https://dichvucong.gov.vn",
+      "ngay_trich_xuat": "2026-09-13",
+      "ngay_cap_nhat": "2026-09-13",
+      "nguoi_cap_nhat": null
     },
     {
-      "muc_do_chi_tiet": "danh_muc",
+      "muc_do_chi_tiet": "day_du",
       "ma": "2.002363",
       "ten": "Ghi vào Sổ đăng ký nuôi con nuôi việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài",
       "nganh": "tu-phap",
@@ -4355,20 +4835,221 @@
       "ly_do_thay_doi": null,
       "ma_thay_the": null,
       "thuong_gap": false,
+      "ten_than_thien": null,
       "tu_khoa": [],
-      "truong_hop": null,
-      "noi_nop": null,
-      "co_quan_thuc_hien": null,
-      "can_cu_phap_ly": null,
-      "can_cu_le_phi": null,
-      "bieu_mau": null,
-      "ghi_chu_can_bo": null,
-      "nguon": null,
-      "nguon_url": null,
-      "ngay_trich_xuat": "2026-08-11",
-      "ngay_cap_nhat": "2026-08-11",
-      "nguoi_cap_nhat": null,
-      "ten_than_thien": null
+      "loai_thu_tuc": "TTHC không được luật giao cho địa phương quy định hoặc quy định chi tiết",
+      "doi_tuong_thuc_hien": "Công dân Việt Nam",
+      "co_quan_thuc_hien": "Ủy ban nhân dân cấp xã",
+      "co_quan_phoi_hop": null,
+      "dia_chi_tiep_nhan": null,
+      "ket_qua_thuc_hien": "Trích lục Ghi vào Sổ việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài",
+      "yeu_cau_dieu_kien": [
+        "Việc nuôi con nuôi đã được giải quyết theo quy định của điều ước quốc tế mà Việt Nam và nước nơi giải quyết việc nuôi con nuôi cùng là thành viên",
+        "Việc nuôi con nuôi đã được giải quyết theo quy định pháp luật của nước ngoài, trừ trường hợp vi phạm những nguyên tắc cơ bản của pháp luật nước Cộng hòa xã hội chủ nghĩa Việt Nam"
+      ],
+      "truong_hop": [
+        {
+          "ten_truong_hop": "Trường hợp chung",
+          "trinh_tu_thuc_hien": [
+            "Bước 1: Người có yêu cầu ghi vào Sổ đăng ký nuôi con nuôi việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài nộp hồ sơ tại UBND cấp xã có thẩm quyền (trực tiếp tại Trung tâm hành chính công, qua bưu chính, hoặc trực tuyến qua Cổng dịch vụ công quốc gia).",
+            "Bước 2: Cán bộ tiếp nhận hồ sơ kiểm tra tính chính xác, đầy đủ, thống nhất, hợp lệ của hồ sơ. Nếu hồ sơ đầy đủ, hợp lệ thì tiếp nhận; nếu nhận sau 15 giờ thì có Phiếu hẹn trả kết quả trong ngày làm việc tiếp theo. Nếu hồ sơ chưa đầy đủ, thông báo cho người yêu cầu bổ sung, hoàn thiện.",
+            "Bước 3: Công chức làm công tác nuôi con nuôi thẩm tra hồ sơ. Nếu đủ điều kiện, thực hiện ghi nội dung vào Sổ đăng ký nuôi con nuôi, cập nhật thông tin trên Phần mềm đăng ký, quản lý hộ tịch điện tử dùng chung.",
+            "Bước 4: Công chức in Trích lục Ghi vào Sổ việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài, trình Lãnh đạo UBND ký, chuyển tới Trung tâm hành chính công để trả kết quả.",
+            "Bước 5: Người có yêu cầu nhận kết quả theo các phương thức: qua thư điện tử, qua thiết bị số, qua bưu chính, hoặc trực tiếp tại cơ quan đăng ký hộ tịch."
+          ],
+          "cach_thuc_thuc_hien": [
+            "Trực tiếp tại Bộ phận một cửa/Trung tâm hành chính công của UBND cấp xã",
+            "Qua hệ thống bưu chính",
+            "Trực tuyến qua Cổng dịch vụ công"
+          ],
+          "hinh_thuc_nop": [
+            {
+              "ten": "Trực tiếp",
+              "thoi_han": "Ngay trong ngày tiếp nhận hồ sơ. Trường hợp nhận sau 15 giờ thì trả kết quả trong ngày làm việc tiếp theo. Trường hợp phải xác minh thì không quá 03 ngày làm việc",
+              "le_phi": "Theo mức thu do Hội đồng nhân dân cấp tỉnh quy định. Miễn cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật",
+              "mo_ta": null
+            },
+            {
+              "ten": "Trực tuyến",
+              "thoi_han": "Ngay trong ngày tiếp nhận hồ sơ. Trường hợp nhận sau 15 giờ thì trả kết quả trong ngày làm việc tiếp theo. Trường hợp phải xác minh thì không quá 03 ngày làm việc",
+              "le_phi": "Theo mức thu do Hội đồng nhân dân cấp tỉnh quy định. Miễn cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật",
+              "mo_ta": null
+            },
+            {
+              "ten": "Dịch vụ bưu chính",
+              "thoi_han": "Ngay trong ngày tiếp nhận hồ sơ. Trường hợp nhận sau 15 giờ thì trả kết quả trong ngày làm việc tiếp theo. Trường hợp phải xác minh thì không quá 03 ngày làm việc",
+              "le_phi": "Theo mức thu do Hội đồng nhân dân cấp tỉnh quy định. Miễn cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật",
+              "mo_ta": null
+            }
+          ],
+          "thanh_phan_ho_so": [
+            {
+              "nhom": "Giấy tờ phải nộp",
+              "ten": "Tờ khai ghi vào Sổ hộ tịch việc nuôi con nuôi",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": "Hoặc Biểu mẫu điện tử tương tác nếu nộp trực tuyến"
+            },
+            {
+              "nhom": "Giấy tờ phải nộp",
+              "ten": "Bản sao có chứng thực giấy tờ chứng minh việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": null
+            },
+            {
+              "nhom": "Giấy tờ phải nộp",
+              "ten": "Văn bản ủy quyền (được chứng thực)",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": "Trong trường hợp ủy quyền. Không cần chứng thực nếu người được ủy quyền là ông, bà, cha, mẹ, con, vợ, chồng, anh, chị, em ruột"
+            },
+            {
+              "nhom": "Giấy tờ phải nộp",
+              "ten": "Văn bản chứng nhận việc nuôi con nuôi đã được thực hiện phù hợp với điều ước quốc tế",
+              "ban_chinh": 1,
+              "ban_sao": 0,
+              "ghi_chu": "Trong trường hợp việc nuôi con nuôi được giải quyết theo điều ước quốc tế mà Việt Nam và nước nơi giải quyết việc nuôi con nuôi cùng là thành viên"
+            },
+            {
+              "nhom": "Giấy tờ phải xuất trình",
+              "ten": "Hộ chiếu/Thẻ căn cước công dân/Thẻ căn cước/Căn cước điện tử/Giấy chứng nhận căn cước hoặc giấy tờ tùy thân khác",
+              "ban_chinh": 0,
+              "ban_sao": 0,
+              "ghi_chu": "Có thể chỉ cần cung cấp số định danh cá nhân hoặc số giấy tờ để tra cứu trên CSDL"
+            }
+          ],
+          "le_phi": {
+            "mo_ta": "Theo mức thu lệ phí do Hội đồng nhân dân cấp tỉnh quy định. Miễn lệ phí cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật. Phí cấp bản sao Trích lục theo Thông tư số 281/2016/TT-BTC",
+            "gia_tham_khao": null,
+            "nguon_tham_khao": null,
+            "can_xac_minh": true
+          },
+          "thoi_han": {
+            "mo_ta": "Ngay trong ngày tiếp nhận hồ sơ. Trường hợp nhận sau 15 giờ thì trả kết quả trong ngày làm việc tiếp theo. Trường hợp phải xác minh thì không quá 03 ngày làm việc",
+            "chi_tiet": []
+          }
+        }
+      ],
+      "noi_nop": "Bộ phận một cửa/Trung tâm hành chính công của UBND cấp xã",
+      "can_cu_phap_ly": [
+        {
+          "so_ky_hieu": "60/2014/QH13",
+          "trich_yeu": "Luật Hộ tịch",
+          "ngay_ban_hanh": "2014-11-20",
+          "co_quan_ban_hanh": "Quốc Hội"
+        },
+        {
+          "so_ky_hieu": "123/2015/NĐ-CP",
+          "trich_yeu": "Nghị định quy định chi tiết một số điều và biện pháp thi hành Luật Hộ tịch",
+          "ngay_ban_hanh": "2015-11-15",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "19/2011/NĐ-CP",
+          "trich_yeu": "Nghị định quy định chi tiết thi hành Luật Nuôi con nuôi",
+          "ngay_ban_hanh": "2011-03-21",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "24/2019/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi, bổ sung Nghị định 19/2011/NĐ-CP",
+          "ngay_ban_hanh": "2019-03-05",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "04/2020/TT-BTP",
+          "trich_yeu": "Thông tư quy định chi tiết thi hành Luật Hộ tịch",
+          "ngay_ban_hanh": "2020-05-28",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "10/2020/TT-BTP",
+          "trich_yeu": "Thông tư về sổ, mẫu giấy tờ, hồ sơ nuôi con nuôi",
+          "ngay_ban_hanh": "2020-12-28",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "85/2019/TT-BTC",
+          "trich_yeu": "Thông tư hướng dẫn phí, lệ phí hộ tịch",
+          "ngay_ban_hanh": "2019-11-29",
+          "co_quan_ban_hanh": "Bộ Tài chính"
+        },
+        {
+          "so_ky_hieu": "87/2020/NĐ-CP",
+          "trich_yeu": "Nghị định về Cơ sở dữ liệu hộ tịch điện tử",
+          "ngay_ban_hanh": "2020-07-28",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "104/2022/NĐ-CP",
+          "trich_yeu": "Nghị định sửa đổi liên quan đến sổ hộ khẩu",
+          "ngay_ban_hanh": "2022-12-21",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "106/2021/TT-BTC",
+          "trich_yeu": "Thông tư về phí, lệ phí hộ tịch",
+          "ngay_ban_hanh": "2021-11-26",
+          "co_quan_ban_hanh": "Bộ Tài chính"
+        },
+        {
+          "so_ky_hieu": "01/2022/TT-BTP",
+          "trich_yeu": "Thông tư hướng dẫn về đăng ký hộ tịch",
+          "ngay_ban_hanh": "2022-01-04",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "07/2023/TT-BTP",
+          "trich_yeu": "Thông tư sửa đổi Thông tư 10/2020/TT-BTP",
+          "ngay_ban_hanh": "2024-05-20",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "04/2024/TT-BTP",
+          "trich_yeu": "Sửa đổi Thông tư 02/2020/TT-BTP và Thông tư 04/2020/TT-BTP",
+          "ngay_ban_hanh": "2024-06-06",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "120/2025/NĐ-CP",
+          "trich_yeu": "Nghị định phân định thẩm quyền chính quyền địa phương",
+          "ngay_ban_hanh": "2025-06-11",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "08/2025/TT-BTP",
+          "trich_yeu": "Quy định về phân định thẩm quyền và phân cấp trong lĩnh vực quản lý của Bộ Tư pháp",
+          "ngay_ban_hanh": "2025-06-12",
+          "co_quan_ban_hanh": "Bộ Tư pháp"
+        },
+        {
+          "so_ky_hieu": "18/2026/NĐ-CP",
+          "trich_yeu": "Sửa đổi, bổ sung TTHC thuộc phạm vi quản lý của Bộ Tư pháp",
+          "ngay_ban_hanh": "2026-01-14",
+          "co_quan_ban_hanh": "Chính phủ"
+        },
+        {
+          "so_ky_hieu": "281/2016/TT-BTC",
+          "trich_yeu": "Thông tư quy định phí khai thác, sử dụng thông tin trong cơ sở dữ liệu hộ tịch",
+          "ngay_ban_hanh": "2016-11-14",
+          "co_quan_ban_hanh": "Bộ Tài chính"
+        }
+      ],
+      "can_cu_le_phi": "Thông tư 281/2016/TT-BTC; Nghị quyết HĐND cấp tỉnh",
+      "bieu_mau": [
+        {
+          "ten": "Tờ khai ghi vào Sổ hộ tịch việc nuôi con nuôi",
+          "ma": "9..TKghivosccvichtchkhc.doc",
+          "url": null
+        }
+      ],
+      "ghi_chu_can_bo": "Giấy tờ do cơ quan có thẩm quyền nước ngoài cấp phải được hợp pháp hóa lãnh sự và dịch sang tiếng Việt, trừ trường hợp được miễn. Nếu nộp trực tuyến và nhận kết quả tại cơ quan, người yêu cầu phải xuất trình giấy tờ tùy thân và nộp các giấy tờ gốc theo quy định.",
+      "nguon": "Quyết định số 361/QĐ-BTP của Bộ Tư pháp",
+      "nguon_url": "https://dichvucong.gov.vn",
+      "ngay_trich_xuat": "2026-09-13",
+      "ngay_cap_nhat": "2026-09-13",
+      "nguoi_cap_nhat": null
     },
     {
       "muc_do_chi_tiet": "danh_muc",
