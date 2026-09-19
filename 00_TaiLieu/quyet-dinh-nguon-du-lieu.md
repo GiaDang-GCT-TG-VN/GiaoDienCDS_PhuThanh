@@ -67,6 +67,47 @@ Hai mẫu chưa đủ để khẳng định cho toàn bộ 287 thủ tục, như
 
 ---
 
+## Sự cố 2026-09-19: bốn mục lệ phí bị diễn giải lại
+
+Chạy bước tự kiểm của `01_DuLieu/nguon/QuyTrinh_XuLy_FileDoc.md` trên 5 thủ tục nuôi con nuôi đã nhập trước đó. Đối chiếu `le_phi.mo_ta` với file .doc gốc: **4 trên 5 mục sai**. Chỉ 2.001263 chép đúng nguyên văn.
+
+| Mã | Nguồn (.doc) | Đã lưu sai | Kiểu lỗi |
+|---|---|---|---|
+| 2.001255 | `Phí : 0 Đồng` | `Miễn phí` | diễn giải |
+| 2.002349 | `Phí : 0 Đồng` | `Miễn phí` | diễn giải |
+| 1.003005 | `4.500.000 Đồng (…)` | `4.500.000 đồng (…)` | đổi chữ hoa |
+| 2.002363 | đoạn 3 gạch đầu dòng | viết gộp, cắt bớt | rút gọn |
+
+### Chi tiết trường hợp 2.002363
+
+Bản sai:
+
+> Theo mức thu lệ phí do Hội đồng nhân dân cấp tỉnh quy định. Miễn lệ phí cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật. Phí cấp bản sao Trích lục theo Thông tư số 281/2016/TT-BTC
+
+So với nguồn, bản này mất:
+
+- **`(nếu có yêu cầu)`** — đây là mất mát nặng nhất. Không có cụm này, phí cấp bản sao Trích lục trông như bắt buộc, trong khi nguồn nói rõ chỉ thu khi người dân có yêu cầu.
+- Tên đầy đủ của Trích lục, bị rút còn một chữ "Trích lục"
+- `ngày 14/11/2016 của Bộ Tài chính` trong dẫn chiếu Thông tư
+- Ba gạch đầu dòng bị gộp thành một đoạn văn xuôi
+- `người thuộc hộ nghèo` rút còn `hộ nghèo`; dấu `;` giữa các diện miễn đổi thành `,`
+
+Ba diện được miễn — gia đình có công, hộ nghèo, người khuyết tật — **vẫn còn** trong bản sai. Ghi rõ điều này để người đọc sau không chẩn đoán nhầm bản chất sự cố.
+
+### Nguyên nhân
+
+Bóc dữ liệu mà không chạy bước tự kiểm. Các đoạn lệ phí được viết lại cho gọn và cho xuôi tai ngay lúc bóc, thay vì chép nguyên khối từ nguồn. Không có bước đối chiếu nào chặn lại.
+
+### Bài học
+
+1. **Bước tự kiểm không được bỏ**, kể cả khi vừa bóc xong và thấy chắc là đúng. Bốn lỗi này đều "trông đúng" ở thời điểm bóc.
+2. Mọi chỉnh sửa nguyên văn — kể cả chỉ đổi khoảng trắng hay dấu chấm phẩy — đều là cửa ngõ cho lỗi diễn giải. Đã đưa thành điều cấm trong `CLAUDE.md`.
+3. Muốn chữ hiển thị đẹp thì xử lý ở tầng render, không sửa dữ liệu gốc.
+
+Đã sửa cả 4 mục về đúng nguyên văn trong cùng ngày.
+
+---
+
 ## Hệ quả với quy trình
 
 - Bổ sung thủ tục `day_du` mới vẫn phải tải file .doc thủ công từ Cổng.

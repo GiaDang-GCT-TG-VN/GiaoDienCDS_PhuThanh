@@ -32,6 +32,10 @@ Khi gặp bất kỳ tình huống nào dưới đây, DỪNG LẠI, báo cho t�
 - Tự điền lệ phí, thời hạn, thành phần hồ sơ không có trong nguồn
 - Bóc nội dung thủ tục từ HTML Cổng DVC. Chỉ dùng file .doc.
   Xem `00_TaiLieu/quyet-dinh-nguon-du-lieu.md`
+- Chuẩn hóa, làm gọn, hay sửa khoảng trắng trong các trường chép
+  nguyên văn từ nguồn: `le_phi.mo_ta`, `thoi_han.mo_ta`,
+  `trinh_tu_thuc_hien`, `thanh_phan_ho_so`.
+  Muốn đẹp thì xử lý ở tầng hiển thị, dữ liệu gốc không đổi.
 - Thêm CDN, API ngoài, hoặc dịch vụ trực tuyến
 - Đổi schema đã chốt
 - Bỏ qua trường bắt buộc ngay_cap_nhat hoặc nguon
