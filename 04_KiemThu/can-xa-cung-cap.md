@@ -57,24 +57,40 @@
 
 ---
 
-## 5. Thông tin phần cứng kiosk
+## 5. Duyệt tên thân thiện (ten_than_thien)
+
+Các tên dưới đây do tư vấn đề xuất, CHƯA được xã duyệt.
+Cần cán bộ Một cửa xác nhận dân có thực sự hỏi như vậy không,
+hoặc sửa lại cho đúng cách dân nói.
+
+| Mã TTHC | Tên chính thức | Tên thân thiện đề xuất | Xã duyệt |
+|---------|----------------|----------------------|----------|
+| 2.001263 | Đăng ký việc nuôi con nuôi trong nước | Nhận con nuôi | ☐ |
+| 2.001255 | Đăng ký lại việc nuôi con nuôi trong nước | Đăng ký lại việc nhận con nuôi | ☐ |
+
+Bảng này cập nhật thêm khi có thủ tục mới.
+
+---
+
+## 6. Thông tin phần cứng kiosk
 
 | # | Câu hỏi | Trả lời |
 |---|---------|---------|
-| 5.1 | Máy nào dùng làm kiosk: mua mới hay tận dụng máy sẵn có? | |
-| 5.2 | Màn hình bao nhiêu inch, độ phân giải bao nhiêu? | |
-| 5.3 | Đặt ngang hay dựng dọc? | |
+| 6.1 | Máy nào dùng làm kiosk: mua mới hay tận dụng máy sẵn có? | |
+| 6.2 | Màn hình bao nhiêu inch, độ phân giải bao nhiêu? | |
+| 6.3 | Đặt ngang hay dựng dọc? | |
 
 **Lưu ý:** Giao diện yêu cầu tối thiểu 1920×1080, hướng ngang. Xem chi tiết tại `03_Kiosk/yeu-cau-phan-cung.md`.
 
 ---
 
-## 6. Checklist xác nhận
+## 7. Checklist xác nhận
 
 - [ ] Logo đã gửi
 - [ ] Thông tin văn bản đã xác nhận
 - [ ] Danh sách "thường hỏi" đã chọn
-- [ ] Tên thân thiện đã duyệt
+- [ ] Tên thân thiện cho ngành đã duyệt
+- [ ] Tên thân thiện cho thủ tục đã duyệt
 - [ ] Giờ làm việc đã xác nhận
 
 ---
