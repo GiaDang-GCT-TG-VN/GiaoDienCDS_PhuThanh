@@ -30,6 +30,8 @@ Khi gặp bất kỳ tình huống nào dưới đây, DỪNG LẠI, báo cho t�
   Phải báo cáo phương án và chờ tôi xác nhận CHO TỪNG LẦN.
 - Tạo dữ liệu thủ tục hành chính giả, mẫu, hoặc placeholder
 - Tự điền lệ phí, thời hạn, thành phần hồ sơ không có trong nguồn
+- Bóc nội dung thủ tục từ HTML Cổng DVC. Chỉ dùng file .doc.
+  Xem `00_TaiLieu/quyet-dinh-nguon-du-lieu.md`
 - Thêm CDN, API ngoài, hoặc dịch vụ trực tuyến
 - Đổi schema đã chốt
 - Bỏ qua trường bắt buộc ngay_cap_nhat hoặc nguon
