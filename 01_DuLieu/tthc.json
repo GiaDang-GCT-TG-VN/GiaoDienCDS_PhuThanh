@@ -4306,19 +4306,19 @@
             {
               "ten": "Trực tiếp",
               "thoi_han": "5 ngày làm việc",
-              "le_phi": "Miễn phí",
+              "le_phi": "Phí : 0 Đồng",
               "mo_ta": "Nộp cho UBND cấp xã"
             },
             {
               "ten": "Trực tuyến",
               "thoi_han": "5 ngày làm việc",
-              "le_phi": "Miễn phí",
+              "le_phi": "Phí : 0 Đồng",
               "mo_ta": "Nộp qua môi trường điện tử"
             },
             {
               "ten": "Dịch vụ bưu chính",
               "thoi_han": "5 ngày làm việc",
-              "le_phi": "Miễn phí",
+              "le_phi": "Phí : 0 Đồng",
               "mo_ta": "Nộp qua đường bưu điện"
             }
           ],
@@ -4332,7 +4332,7 @@
             }
           ],
           "le_phi": {
-            "mo_ta": "Miễn phí",
+            "mo_ta": "Phí : 0 Đồng",
             "gia_tham_khao": null,
             "nguon_tham_khao": null,
             "can_xac_minh": false
@@ -4462,7 +4462,7 @@
             {
               "ten": "Trực tiếp",
               "thoi_han": "45 ngày làm việc",
-              "le_phi": "4.500.000 đồng",
+              "le_phi": "4.500.000 Đồng (Lệ phí đăng ký nuôi con nuôi)",
               "mo_ta": "Nộp cho Ủy ban nhân dân cấp xã nơi trẻ em thường trú"
             }
           ],
@@ -4553,7 +4553,7 @@
             }
           ],
           "le_phi": {
-            "mo_ta": "4.500.000 đồng (Lệ phí đăng ký nuôi con nuôi)",
+            "mo_ta": "4.500.000 Đồng (Lệ phí đăng ký nuôi con nuôi)",
             "gia_tham_khao": null,
             "nguon_tham_khao": null,
             "can_xac_minh": false
@@ -4695,19 +4695,19 @@
             {
               "ten": "Trực tiếp",
               "thoi_han": "10 ngày làm việc",
-              "le_phi": "Miễn phí",
+              "le_phi": "Phí : 0 Đồng",
               "mo_ta": null
             },
             {
               "ten": "Trực tuyến",
               "thoi_han": "10 ngày làm việc",
-              "le_phi": "Miễn phí",
+              "le_phi": "Phí : 0 Đồng",
               "mo_ta": "Thủ tục này đủ điều kiện thực hiện dịch vụ công trực tuyến toàn trình"
             },
             {
               "ten": "Dịch vụ bưu chính",
               "thoi_han": "10 ngày làm việc",
-              "le_phi": "Miễn phí",
+              "le_phi": "Phí : 0 Đồng",
               "mo_ta": null
             }
           ],
@@ -4742,7 +4742,7 @@
             }
           ],
           "le_phi": {
-            "mo_ta": "Miễn phí",
+            "mo_ta": "Phí : 0 Đồng",
             "gia_tham_khao": null,
             "nguon_tham_khao": null,
             "can_xac_minh": false
@@ -4866,19 +4866,19 @@
             {
               "ten": "Trực tiếp",
               "thoi_han": "Ngay trong ngày tiếp nhận hồ sơ. Trường hợp nhận sau 15 giờ thì trả kết quả trong ngày làm việc tiếp theo. Trường hợp phải xác minh thì không quá 03 ngày làm việc",
-              "le_phi": "Theo mức thu do Hội đồng nhân dân cấp tỉnh quy định. Miễn cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật",
+              "le_phi": "- Theo mức thu lệ phí do Hội đồng nhân dân cấp tỉnh quy định.  - Miễn lệ phí cho người thuộc gia đình có công với cách mạng; người thuộc hộ nghèo; người khuyết tật.  - Phí cấp bản sao Trích lục Ghi vào Sổ việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài (nếu có yêu cầu) thực hiện theo quy định tại Thông tư số 281/2016/TT-BTC ngày 14/11/2016 của Bộ Tài chính.",
               "mo_ta": null
             },
             {
               "ten": "Trực tuyến",
               "thoi_han": "Ngay trong ngày tiếp nhận hồ sơ. Trường hợp nhận sau 15 giờ thì trả kết quả trong ngày làm việc tiếp theo. Trường hợp phải xác minh thì không quá 03 ngày làm việc",
-              "le_phi": "Theo mức thu do Hội đồng nhân dân cấp tỉnh quy định. Miễn cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật",
+              "le_phi": "- Theo mức thu lệ phí do Hội đồng nhân dân cấp tỉnh quy định.  - Miễn lệ phí cho người thuộc gia đình có công với cách mạng; người thuộc hộ nghèo; người khuyết tật.  - Phí cấp bản sao Trích lục Ghi vào Sổ việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài (nếu có yêu cầu) thực hiện theo quy định tại Thông tư số 281/2016/TT-BTC ngày 14/11/2016 của Bộ Tài chính.",
               "mo_ta": null
             },
             {
               "ten": "Dịch vụ bưu chính",
               "thoi_han": "Ngay trong ngày tiếp nhận hồ sơ. Trường hợp nhận sau 15 giờ thì trả kết quả trong ngày làm việc tiếp theo. Trường hợp phải xác minh thì không quá 03 ngày làm việc",
-              "le_phi": "Theo mức thu do Hội đồng nhân dân cấp tỉnh quy định. Miễn cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật",
+              "le_phi": "- Theo mức thu lệ phí do Hội đồng nhân dân cấp tỉnh quy định.  - Miễn lệ phí cho người thuộc gia đình có công với cách mạng; người thuộc hộ nghèo; người khuyết tật.  - Phí cấp bản sao Trích lục Ghi vào Sổ việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài (nếu có yêu cầu) thực hiện theo quy định tại Thông tư số 281/2016/TT-BTC ngày 14/11/2016 của Bộ Tài chính.",
               "mo_ta": null
             }
           ],
@@ -4920,7 +4920,7 @@
             }
           ],
           "le_phi": {
-            "mo_ta": "Theo mức thu lệ phí do Hội đồng nhân dân cấp tỉnh quy định. Miễn lệ phí cho người thuộc gia đình có công với cách mạng, hộ nghèo, người khuyết tật. Phí cấp bản sao Trích lục theo Thông tư số 281/2016/TT-BTC",
+            "mo_ta": "- Theo mức thu lệ phí do Hội đồng nhân dân cấp tỉnh quy định.  - Miễn lệ phí cho người thuộc gia đình có công với cách mạng; người thuộc hộ nghèo; người khuyết tật.  - Phí cấp bản sao Trích lục Ghi vào Sổ việc nuôi con nuôi đã được giải quyết tại cơ quan có thẩm quyền của nước ngoài (nếu có yêu cầu) thực hiện theo quy định tại Thông tư số 281/2016/TT-BTC ngày 14/11/2016 của Bộ Tài chính.",
             "gia_tham_khao": null,
             "nguon_tham_khao": null,
             "can_xac_minh": true
